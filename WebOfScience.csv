@@ -1,0 +1,27 @@
+Lead author,Year,Problem type,GOF?,Type used,Simulated data only,ABC,Notes
+Mihaljevic,2015,Occupancy,NA,NA,1,0,
+Bell,2015,Disease,0,NA,0,0,
+Stevens,2015,Distribution modeling,1,PPP,0,0,
+van der Plas,2015,Community composition,NA,NA,0,1,
+Hostetler,2015,Count data,0,NA,0,0,"""big"" model"
+Wilson,2015,"Fecundity predictionPPG, CV",1,"PPG, CV",0,0,
+Swanson,2015,Niche overlap,0,NA,0,0,
+Johnson,2015,Disease,0,NA,0,0,prior sensitivity
+Kivela,2014,Nest site selection,0,NA,0,0,investigated spatial autocor
+Sutherland,2014,Metapopulation,0,NA,0,0,
+Tanner,2014,Repeated measues,0,NA,0,0,
+Villa,2014,Cap-recap,0,NA,0,0,comment
+Roth,2014,Phenology,0,NA,0,0,
+Nice,2014,Occurrence,0,NA,0,0,
+Oppel,2014,PVA,1,PPG,0,0,observed and predicted plot for a segment of their data
+Randall,2014,Disease,NA,,,,"nonstandard analysis - risk computation, not really fitting data"
+Giroux,2014,Animal growth,1,,,,"did some of this in the frequentist realm using mgcv, dsep to assess DAG/path structure"
+Hersh,2014,Cap-recap,0,NA,0,0,
+Scranton,2014,Stochastic pop model,NA,NA,1,1,
+Caughlin,2014,IBM parameterization,0,NA,0,0,An allusion to trying different functional forms for one model input and retaining the one that fit the best
+Ellison,2014,editorial,NA,NA,0,0,intro to invited paper section
+Thorson ,2014,pop modeling,NA,NA,1,0,simulation study only
+Iida,2014,tree life history,0,NA,0,0,
+Ibanez,2014,tree establishment,0,NA,0,0,
+Barnagaud,2014,multi-species bird distributions,1,PPP,0,0,
+Mori,2014,species richness ,0,NA,0,0,Bayesian network
