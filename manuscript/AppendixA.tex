@@ -1,0 +1,102 @@
+\documentclass[12pt,fleqn]{article}
+%\documentclass[12pt,a4paper]{article}
+\usepackage{natbib}
+\usepackage{lineno}
+%\usepackage{lscape}
+%\usepackage{rotating}
+%\usepackage{rotcapt, rotate}
+\usepackage{amsmath,epsfig,epsf,psfrag}
+\usepackage{setspace}
+\usepackage{ulem}
+\usepackage{xcolor}
+\usepackage[labelfont=bf,labelsep=period]{caption} %for making figure and table numbers bold
+\usepackage[colorlinks,bookmarksopen,bookmarksnumbered,citecolor=red,urlcolor=red]{hyperref}
+\hypersetup{pdfpagemode=UseNone}
+
+%\usepackage{a4wide,amsmath,epsfig,epsf,psfrag}
+
+
+\def\be{{\ensuremath\mathbf{e}}}
+\def\bx{{\ensuremath\mathbf{x}}}
+\def\bX{{\ensuremath\mathbf{X}}}
+\def\bthet{{\ensuremath\boldsymbol{\theta}}}
+\newcommand{\VS}{V\&S}
+\newcommand{\tr}{\mbox{tr}}
+%\renewcommand{\refname}{\hspace{2.3in} \normalfont \normalsize LITERATURE CITED}
+%this tells it to put 'Literature Cited' instead of 'References'
+\bibpunct{(}{)}{,}{a}{}{;}
+\oddsidemargin 0.0in
+\evensidemargin 0.0in
+\textwidth 6.5in
+\headheight 0.0in
+\topmargin 0.0in
+\textheight=9.0in
+%\renewcommand{\tablename}{\textbf{Table}}
+%\renewcommand{\figurename}{\textbf{Figure}}
+\renewcommand{\em}{\it}
+\renewcommand\thefigure{A\arabic{figure}}
+\renewcommand\thetable{A\arabic{table}}
+\renewcommand\theequation{A.\arabic{equation}}
+
+
+\begin{document}
+
+\begin{center} \bf {\large A GUIDE TO BAYESIAN MODEL CHECKING FOR ECOLOGISTS}
+
+\vspace{0.7cm}
+Paul B. Conn$^{1*}$, Mevin B. Hooten$^{2,3,4}$, and Devin S. Johnson$^1$
+\end{center}
+\vspace{0.5cm}
+
+\rm
+\small
+
+\it $^1$Marine Mammal Laboratory, Alaska Fisheries Science Center,
+NOAA National Marine Fisheries Service,
+Seattle, Washington 98115 U.S.A.\\
+
+\it $^2$U.S. Geological Survey, Colorado Cooperative Fish and Wildlife Research Unit, Colorado State University, Fort Collins, CO 80523 U.S.A.\\
+
+\it $^3$Department of Fish, Wildlife, and Conservation Biology, Colorado State University, Fort Collins, CO 80523 U.S.A.\\
+
+\it $^4$Department of Statistics, Colorado State University, Fort Collins, CO 80523 U.S.A.\\
+
+\raggedbottom
+\vspace{.5in}
+
+\rm
+Appendix A: Simulation and estimation procedures for negative binomial count data example
+\bigskip
+
+\vspace{.3in}
+
+\doublespacing
+
+\rm \begin{flushleft}
+
+\section{Negative binomial model}
+
+
+\subsection{Gibbs sampling}
+
+\renewcommand{\refname}{Literature Cited}
+% \bibliographystyle{JEcol}
+
+\bibliography{master_bib}
+
+\end{flushleft}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
