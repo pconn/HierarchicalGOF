@@ -1,6 +1,13 @@
 ##### Run spatial negative binomial regression model using JAGS
+### development code - to be repackaged for full simulation analysis in "run_count_simulations.R"
+
+### I can't get spatial code in the negative binomial linear predictor without
+# some weirdness happening (different chains coverging to different - and wrong - values, etc.)
+# switching to overdispersed Poisson....
+
 
 setwd('c:/users/paul.conn/git/hierarchicalGOF/hierarchicalGOF/inst')
+#Sys.setenv(JAGS_HOME='C:/program files/JAGS/JAGS-4.0.0/x64/bin') 
 library(MASS)
 library(fields)
 library(mvtnorm)
@@ -11,8 +18,10 @@ library(ape)
 library(ggplot2)
 library(RColorBrewer)
 set.factory("bugs::Conjugate",FALSE,type="sampler")
+source('../R/mcmc_functions.R')
+source('../R/pivot_functions.R')
 
-#' plot a map of estimated abundance or related quantity.  
+#' plot a map of estimated abundance or related quantity on a grid.  
 #' @param N quantity to plot
 #' @param Coords data.frame holding x and y coordinates of each prediction cell
 #' @param highlight [optional] A vector of cells to highlight.  Default = NULL
@@ -79,7 +88,7 @@ Pred_cov_plot=as.vector(Matern_kde$z)/denom #have same standardization as for co
 
 
 #pdf("Sim_data_covs.pdf")
-cov_map = plot.prediction.map(N=as.vector(Matern_kde[[3]]),Coords=data.frame(Coords_plot),myPalette=colorRampPalette(brewer.pal(9, "Greens")),highlight=NULL,leg.title="Covariate")
+cov_map = plot.prediction.map(N=as.vector(Matern_kde[[3]]),Coords=data.frame(Coords_plot),myPalette=colorRampPalette(brewer.pal(9, "Greens")),highlight=NULL,leg.title="Value")
 #dev.off()
 
 
@@ -89,20 +98,34 @@ X_plot=matrix(1,nrow=10000,ncol=2)
 X_plot[,2]=Pred_cov_plot
 Beta_true=c(2,0.75)
 Eta_k_true=matrix(rmvnorm(1,rep(0,n_k),Cov_kk),ncol=1)
-Eta_true=X_RE%*%Eta_k_true
+Eta_true=X_RE%*%Eta_k_true*0
 Eta_plot = X_RE_plot%*%Eta_k_true
 Mu_plot = exp(X_plot %*% Beta_true+X_RE_plot%*%Eta_k_true)
 Fixed_effect = X_plot%*%Beta_true
-Sim_lambda=rgamma(n_Y,1,1/exp(X%*%Beta_true+Eta_true))
+Sim_lambda=rgamma(n_Y,100,100/exp(X%*%Beta_true+Eta_true))
 Y=rpois(n_Y,Sim_lambda)
 hist(Y)
-re_map = plot.prediction.map(N=as.vector(Eta_plot),Coords=data.frame(Coords_plot),myPalette=colorRampPalette(brewer.pal(9, "Blues")),highlight=NULL,leg.title="RE Value")
-Mu_map = plot.prediction.map(N=as.vector(Mu_plot),Coords=data.frame(Coords_plot),highlight=NULL,leg.title="Expectation")
+title_theme=theme(plot.title = element_text(hjust = 0,size=12))
+re_map = plot.prediction.map(N=as.vector(Eta_plot),Coords=data.frame(Coords_plot),myPalette=colorRampPalette(brewer.pal(9, "Blues")),highlight=NULL,leg.title="Value")
+Mu_map = plot.prediction.map(N=as.vector(Mu_plot),Coords=data.frame(Coords_plot),highlight=NULL,leg.title="Value")
 Pts_df = data.frame("Easting"=as.vector(Coords[,1]),"Northing"=as.vector(Coords[,2]),"Abundance"=rep(0,n_Y))
-Mu_map=Mu_map + geom_point(data=Pts_df,aes(x=Easting,y=Northing))
+Mu_map=Mu_map + geom_point(data=Pts_df,aes(x=Easting,y=Northing),size=0.5)
 Knots_df = data.frame("Easting"=as.vector(Knots[,1]),"Northing"=as.vector(Knots[,2]),"Abundance"=rep(0,n_k))
-Mu_map=Mu_map + geom_point(data=Knots_df,aes(x=Easting,y=Northing),size=5,shape=1)
+Mu_map=Mu_map + geom_point(data=Knots_df,aes(x=Easting,y=Northing),size=1,shape=1)
 Mu_map
+
+Count_df = Pts_df
+colnames(Pts_df)[3]="Count"
+Count_df[,3]=Y
+myPalette <- colorRampPalette(brewer.pal(9, "YlOrBr"))
+Grid.theme=theme(axis.ticks = element_blank(), axis.text = element_blank())
+Count_map = ggplot(Count_df)+geom_point(aes(x=Easting,y=Northing,colour=Count),size=1.5)+Grid.theme+scale_color_gradientn(colours=myPalette(100),name="Value")
+
+library(gridExtra)
+pdf(file="sim_count_maps.pdf")
+grid.arrange(arrangeGrob(cov_map+ggtitle("A. Covariate")+title_theme,re_map+ggtitle("B. Spatial random effects")+title_theme,Mu_map+ggtitle("C. Expected abundance")+title_theme,Count_map+ggtitle("D. Simulated count")+title_theme,nrow=2))
+dev.off()
+
 
 #MCMC options
 n_iter = 2000
@@ -148,6 +171,8 @@ jags_fit = jags(data=jags_data,
                 n.burnin=n_burnin,
                 n.thin=n_thin,
                 working.directory=getwd())
+
+
 plot(jags_fit$BUGSoutput$sims.matrix[,"Beta[1]"])
 plot(jags_fit$BUGSoutput$sims.matrix[,"Beta[2]"])
 plot(jags_fit$BUGSoutput$sims.matrix[,"r"])
@@ -190,6 +215,22 @@ p_0 = p_0/n_mcmc
 p_ft = p_ft/n_mcmc
 p_deviance = sum(jags_fit$BUGSoutput$sims.matrix[,"deviance"]<jags_fit$BUGSoutput$sims.matrix[,"dev_pred"])/n_mcmc
 p_moran=sum(MoranI<0)/n_mcmc
+
+mean.fcn.neg.bin <- function(Theta){ #takes Mu [1:n_Y], r
+  n_par=length(Theta)
+  return(Theta[1:(n_par-1)])
+}
+var.fcn.neg.bin <- function(Theta){ #takes Mu [1:n_Y], r
+  n_par=length(Theta)
+  Mu=Theta[1:(n_par-1)]
+  r=Theta[n_par]
+  return(Mu*(r+Mu)/r)
+}
+my.pnbinom<-function(Y,Theta)pnbinom(Y,size=Theta[length(Theta)],mu=Theta[1:(length(Theta)-1)])
+my.dnbinom<-function(Y,Theta)dnbinom(Y,size=Theta[length(Theta)],mu=Theta[1:(length(Theta)-1)])
+Y_mat=matrix(Y,n_Y,n_iter)
+p_pivot1=chisq.cdf.test(Y=Y_mat,Theta=t(cbind(jags_fit$BUGSoutput$sims.matrix[,Cols_Lambda],jags_fit$BUGSoutput$sims.matrix[,"r"])),mean.fcn=mean.fcn.neg.bin,var.fcn=var.fcn.neg.bin,cdf.fcn=my.pnbinom,pmf.fcn=my.dnbinom,K=5,L=5,DISCRETE=TRUE)
+
 
 neg.bin.no.spat.latent <- function(){
   for (i in 1:n_Y) {
@@ -245,13 +286,16 @@ Cols_Mu=grep("Mu",colnames(jags_fit$BUGSoutput$sims.matrix))
 Cols_Beta=grep("Beta",colnames(jags_fit$BUGSoutput$sims.matrix))
 Dists_inv=1/Dyy
 diag(Dists_inv)=0
-p_omni=p_tail=p_0=0
+p_omni=p_tail=p_0=p_ft=0
 for(i in 1:n_mcmc){
   MoranI[i]=Moran.I(Y-jags_fit$BUGSoutput$sims.matrix[i,Cols_Mu],Dists_inv)$observed
   #MoranI[i]=Moran.I(jags_fit$BUGSoutput$sims.matrix[i,Cols_Y_sim]-Y,Dists_inv)$observed
   chisq=sum((jags_fit$BUGSoutput$sims.matrix[i,Cols_Y_sim]-jags_fit$BUGSoutput$sims.matrix[i,Cols_Mu])^2/jags_fit$BUGSoutput$sims.matrix[i,Cols_Mu])
   chisq_y=sum((Y-jags_fit$BUGSoutput$sims.matrix[i,Cols_Mu])^2/jags_fit$BUGSoutput$sims.matrix[i,Cols_Mu])  
-  #chisq=sum((jags_fit$BUGSoutput$sims.matrix[i,Cols_Y_sim]-jags_fit$BUGSoutput$sims.matrix[i,Cols_Lambda])^2/jags_fit$BUGSoutput$sims.matrix[i,Cols_Lambda])
+  ft=sum((sqrt(jags_fit$BUGSoutput$sims.matrix[i,Cols_Y_sim])-sqrt(jags_fit$BUGSoutput$sims.matrix[i,Cols_Mu]))^2)
+  ft_y=sum((sqrt(Y)-sqrt(jags_fit$BUGSoutput$sims.matrix[i,Cols_Mu]))^2)
+  p_ft = p_ft + (ft_y<ft)
+    #chisq=sum((jags_fit$BUGSoutput$sims.matrix[i,Cols_Y_sim]-jags_fit$BUGSoutput$sims.matrix[i,Cols_Lambda])^2/jags_fit$BUGSoutput$sims.matrix[i,Cols_Lambda])
   #chisq_y=sum((jags_fit$BUGSoutput$sims.matrix[i,Cols_Lambda]-Y)^2/jags_fit$BUGSoutput$sims.matrix[i,Cols_Lambda])  
   p_omni = p_omni+(chisq_y<chisq)
   p_tail = p_tail + (y_quant95<quantile(jags_fit$BUGSoutput$sims.matrix[i,Cols_Y_sim],0.95))
@@ -261,6 +305,38 @@ p_omni=p_omni/n_mcmc
 p_tail = p_tail/n_mcmc
 p_0 = p_0/n_mcmc
 p_moran=sum(MoranI<0)/n_mcmc
+p_deviance = sum(jags_fit$BUGSoutput$sims.matrix[,"deviance"]<jags_fit$BUGSoutput$sims.matrix[,"dev_pred"])/n_mcmc
+p_ft = p_ft/n_mcmc
+
+#test poisson part of gamma-poisson mixture
+mean.fcn.pois <- function(Theta){ #takes Lambda
+  return(Theta)
+}
+var.fcn.pois <- function(Theta){ #takes Lambda
+  return(Theta)
+}
+my.ppois<-function(Y,Theta)ppois(Y,Theta)
+my.dpois<-function(Y,Theta)dpois(Y,Theta)
+p_pivot2a=chisq.cdf.test(Y=Y_mat,Theta=t(jags_fit$BUGSoutput$sims.matrix[,Cols_Lambda]),mean.fcn=mean.fcn.pois,var.fcn=var.fcn.pois,cdf.fcn=ppois,pmf.fcn=dpois,K=5,L=5,DISCRETE=TRUE)
+
+#test gamma part of gamma-poisson mixture using pivotal discrepancy
+mean.fcn.gamma <- function(Theta){ #takes Mu[1:n],psi
+  n_par=length(Theta)
+  return(Theta[n_par]/Theta[1:(n_par-1)])
+}
+var.fcn.gamma <- function(Theta){ #takes Mu[1:n],psi
+  n_par=length(Theta)
+  return(Theta[n_par]/(Theta[1:(n_par-1)])^2)
+}
+my.pgamma<-function(Y,Theta){
+  n_par=length(Theta)
+  return(pgamma(Y,Theta[n_par],rate=Theta[n_par]/Theta[1:(n_par-1)]))
+}
+my.dgamma<-function(Y,Theta){
+  n_par=length(Theta)
+  return(dgamma(Y,Theta[n_par],rate=Theta[n_par]/Theta[1:(n_par-1)]))
+}
+p_pivot2b=chisq.cdf.test(Y=t(jags_fit$BUGSoutput$sims.matrix[,Cols_Lambda]),Theta=t(cbind(jags_fit$BUGSoutput$sims.matrix[,Cols_Mu],jags_fit$BUGSoutput$sims.matrix[,"psi"])),mean.fcn=mean.fcn.gamma,var.fcn=var.fcn.gamma,cdf.fcn=my.pgamma,pmf.fcn=my.dgamma,K=5,L=5,DISCRETE=TRUE)
 
 
 n_samples=1000
@@ -295,39 +371,71 @@ neg.bin.model <- function(){
   # Functions of interest:
   # Posterior predictions
   for(i in 1:n_Y){
-    Y_sim[i] ~ dpois(Lambda[i])
-    Y_sim2[i] ~ dpois(Lambda_sim[i])
-    Lambda_sim[i] <- exp(XB[i]+Eta_y_sim[i])
+    Y_sim[i] ~ dpois(Lambda_sim[i])  #for posterior predicitve p-value
+    Lambda_sim[i] ~ dgamma(psi,psi/Mu[i])
+    Y_sim2[i] ~ dpois(Lambda_sim2[i])  #for partial posterior predictive p-value
+    Lambda_sim2[i] ~ dgamma(psi,psi/Mu_sim[i])
+    Mu_sim[i] <- exp(XB[i]+Eta_y_sim[i])
   }
   Eta_y_sim[1:n_Y] <- X_RE[1:n_Y,1:n_k,theta]%*%Eta_k_sim[1:n_k]
-  Eta_k_sim[1:n_k] ~ dmnorm(Zero_k[1:n_k],Sigma_inv[1:n_k,1:n_k])
+  for(k in 1:n_k){
+    Eta_k_sim[k] ~ dnorm(Mu_RE[k],Tau_k[k])
+    Mu_RE[k] <- 0
+    Tau_k[k] <- 1
+    #Mu_RE[k] <- t(Cor_partial[k,,theta]) %*% Q_k_partial[k,,,theta] %*% Eta_k[Partial_index[k,1:(n_k-1)]]
+    #poop[k] <- tau / (1 - t(Cor_partial[k,,theta])%*%(Cor_partial[k,,theta]))
+  }
 }
 
+
 Zero_k = rep(0,n_k)
+#discretize covariance matrices and related quantities so all matrix inverse
+#calculations can be done up front and provided as input to JAGS
 max_range=4
 n_incr=10
 incr=max_range/n_incr
 Cor_k=Q_k=array(0,dim=c(n_k,n_k,n_incr))
+Q_k_partial = array(0,dim=c(n_k,n_k-1,n_k-1,n_incr)) #for partial posterior prediction
+Cor_partial = array(0,dim=c(n_k,n_k-1,n_incr)) 
 X_RE=array(0,dim=c(n_Y,n_k,n_incr))
+Tmp=c(1:n_k)
+Partial_index = matrix(0,n_k,n_k-1)
 for(i in 1:n_incr){
   Cor_k[,1:n_k,i]=Exp.cov(Knots,theta=incr*i,distMat=Dkk)
   Q_k[,1:n_k,i]=solve(Cor_k[,1:n_k,i])
   X_RE[,1:n_k,i]=Exp.cov(Coords,Knots,theta=incr*i,distMat=Dyk)%*%Q_k[,1:n_k,i]
+  for(k in 1:n_k){
+    Q_k_partial[k,,,i]=solve(Cor_k[Tmp[-k],Tmp[-k],i])
+    Cor_partial[k,,i] = Cor_k[k,Tmp[-k],i]
+  }
 }
+for(k in 1:n_k)Partial_index[k,1:(n_k-1)]=Tmp[-k]
 P=rep(incr,n_incr)*c(1:n_incr)
 n_B=ncol(X)
-jags_data = list("n_Y","n_B","Y","X","Zero_k","Q_k","X_RE","n_k","P")
-jags_params = c("Beta","psi","Lambda","tau","theta","Eta_k")
-jags_save =c("Beta","psi","tau","theta")
+jags_data = list("n_Y","n_B","Y","X","Zero_k","Q_k","X_RE","n_k","P","Q_k_partial","Cor_partial","Partial_index")
+jags_params = c("Beta","psi","Lambda","tau","theta","Eta_k","Eta_k_sim","Lambda_sim","Lambda_sim2","Y_sim","Y_sim2")
+jags_save =c("Beta","Lambda","psi","tau","theta","Y_sim","Y_sim2","Mu","poop")
 jags.inits = function(){
-  list("Beta"=rnorm(n_B),"psi"=rgamma(1,1,1),"Lambda"=rnorm(n_Y,3.0,0.5),"tau"=runif(1,1,10),"theta"=round(runif(1,0.5,max_range+0.5)),"Eta_k"=rnorm(n_k))
+  list("Beta"=rnorm(n_B),"psi"=rgamma(1,1,1),"Lambda"=rnorm(n_Y,3.0,0.5),"tau"=runif(1,1,10),"theta"=round(runif(1,0.5,max_range+0.5)),"Eta_k"=rnorm(n_k),"Eta_k_sim"=rnorm(n_k),"Lambda_sim"=rnorm(n_Y,3.0,0.5),"Lambda_sim2"=rnorm(n_Y,3.0,0.5))
 }
+n_iter=20000
 jags_fit = jags(data=jags_data,
                 inits=jags.inits,
-                jags_params,n.iter=2000,
-                model.file=neg.bin.model)
+                jags_params,
+                n.iter=n_iter,
+                model.file=neg.bin.model,
+                DIC=FALSE,
+                parameters.to.save=jags_save,
+                n.chains=n_chains,
+                n.burnin=n_burnin,
+                n.thin=n_thin,
+                working.directory=getwd())
+
+
+
 
 fit_mcmc <- as.mcmc(jags_fit)
+plot(fit_mcmc[[1]][,1])  #plot [[ chain # ]] beta intercept
 #plot(fit_mcmc)
                 #parameters.to.save=jags_save,
                 #n.chains=3,
