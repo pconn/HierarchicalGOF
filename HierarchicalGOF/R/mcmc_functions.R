@@ -59,6 +59,50 @@ pois.overd.no.spat <- function(){
   dev_y2 <- -2*sum(log_lik2) 
 }
 
+gauss.no.center <- function(){
+  for (i in 1:n_Y) {
+    Y[i] ~ dnorm(b0,tau_comb)
+    Y_sim[i] ~ dnorm(b0,tau_comb) #posterior predictions
+    #Z[i] <- b0 + X[i,]%*%Beta[1:n_B]
+    log_lik[i]=(Y[i]-b0)^2
+    log_lik_sim[i]=(Y_sim[i]-b0)^2
+  }
+  dev_y <- -n_Y*log(tau_comb)+sum(log_lik)*tau_comb
+  dev_sim <- -n_Y*log(tau_comb)+sum(log_lik_sim)*tau_comb
+  tau_comb<- tau_p * tau_iid / (tau_p + tau_iid)
+  b0 ~ dnorm(0,0.01)
+  #tau_iid~dgamma(1.0,0.01)
+  tau_p~dgamma(1.0,0.01)
+}
+
+gauss.center <- function(){
+  for (i in 1:n_Y) {
+    Y[i] ~ dnorm(Z[i],tau_iid)
+    Y_sim[i] ~ dnorm(Z[i],tau_iid) #posterior predictions
+    Y_rep[i] ~ dnorm(b0,tau_comb) #posterior predictions
+    Z[i] ~ dnorm(b0,tau_p)
+    log_lik1[i]=(Y[i]-b0)^2
+    log_lik2[i]=(Y[i]-Z[i])^2
+    log_lik_sim1[i]=(Y_sim[i]-b0)^2
+    log_lik_sim2[i]=(Y_sim[i]-Z[i])^2
+    log_lik_rep[i]=(Y_rep[i]-b0)^2
+  }
+  dev_y1 <- n_Y*log(tau_comb)+sum(log_lik1)*tau_comb
+  dev_y2 <- n_Y*log(tau_iid)+sum(log_lik2)*tau_iid
+  dev_sim1 <- n_Y*log(tau_comb)+sum(log_lik_sim1)*tau_comb
+  dev_sim2 <- n_Y*log(tau_iid)+sum(log_lik_sim2)*tau_iid
+  dev_rep <- n_Y*log(tau_comb)+sum(log_lik_rep)*tau_comb
+  tau_comb <- tau_iid * tau_p / (tau_iid + tau_p)
+  # Priors
+  #for(i in 1:n_B){
+  #  Beta[i] ~ dnorm(0,tau_p)
+  #}
+  b0 ~ dnorm(0,0.01)
+  #tau_iid~dgamma(1.0,0.01)
+  tau_p~dgamma(1.0,0.01)
+}
+
+
 #cleaner version of poisson-normal mixture JAGS model for cross validation 
 pois.overd.no.spat.cv <- function(){
   for (i in 1:n_Y) {
