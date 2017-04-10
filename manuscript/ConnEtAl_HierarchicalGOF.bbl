@@ -1,0 +1,480 @@
+\begin{thebibliography}{71}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{{\tt #1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[{Agarwal et~al.(2002)Agarwal, Gelfand, and
+  Citron-Pousty}]{AgarwalEtAl2002}
+Agarwal, D.~K., A.~E. Gelfand, and S.~Citron-Pousty.
+\newblock 2002.
+\newblock Zero-inflated models with application to spatial count data.
+\newblock Environmental and Ecological Statistics {\bf 9}:341--355.
+
+\bibitem[{Arlot and Celisse(2010)}]{ArlotCelisse2010}
+Arlot, S., and A.~Celisse.
+\newblock 2010.
+\newblock A survey of cross-validation procedures for model selection.
+\newblock Statistcs Surveys {\bf 4}:40--79.
+
+\bibitem[{Banerjee et~al.(2008)Banerjee, Gelfand, Finley, and
+  Sang}]{BanerjeeEtAl2008}
+Banerjee, S., A.~E. Gelfand, A.~O. Finley, and H.~Sang.
+\newblock 2008.
+\newblock Stationary process approximation for the analysis of large spatial
+  datasets.
+\newblock Journal of the Royal Statistical Society B {\bf 70}:825--848.
+
+\bibitem[{Bayarri and Berger(2000)}]{BayarriBerger2000}
+Bayarri, M., and J.~O. Berger.
+\newblock 2000.
+\newblock P values for composite null models.
+\newblock Journal of the American Statistical Association {\bf 95}:1127--1142.
+
+\bibitem[{Bayarri and Castellanos(2007)}]{BayarriCastellanos2007}
+Bayarri, M., and M.~Castellanos.
+\newblock 2007.
+\newblock Bayesian checking of the second levels of hierarchical models.
+\newblock Statistical science {\bf 22}:322--343.
+
+\bibitem[{Bayarri and Berger(1999)}]{BayarriBerger1999}
+Bayarri, M.~J., and J.~O. Berger, 1999.
+\newblock Quantifying surprise in the data and model verification.
+\newblock Pages 53--82 {\em in\/} J.~M. Bernardo, J.~O. Berger, A.~P. Dawid,
+  and A.~F.~M. Smith, editors. Bayesian Statistics 6. Oxford University Press,
+  London.
+
+\bibitem[{Beaumont et~al.(2002)Beaumont, Zhang, and Balding}]{BeaumontEtAl2002}
+Beaumont, M.~A., W.~Zhang, and D.~J. Balding.
+\newblock 2002.
+\newblock Approximate Bayesian computation in population genetics.
+\newblock Genetics {\bf 162}:2025--2035.
+
+\bibitem[{Berger(2013)}]{Berger2013}
+Berger, J.~O.
+\newblock 2013.
+\newblock Statistical decision theory and Bayesian analysis.
+\newblock Springer Science \& Business Media.
+
+\bibitem[{Box(1980)}]{Box1980}
+Box, G.~E.
+\newblock 1980.
+\newblock Sampling and Bayes' inference in scientific modelling and robustness.
+\newblock Journal of the Royal Statistical Society. Series A (General) pages
+  383--430.
+
+\bibitem[{Burnham and Anderson(2002)}]{BurnhamAnderson2002}
+Burnham, K.~P., and D.~R. Anderson.
+\newblock 2002.
+\newblock Model selection and multimodel inference: a practical
+  information-theoretic approach, 2nd Edition.
+\newblock Springer-Verlag, New York.
+
+\bibitem[{Casella and Berger(1990)}]{CasellaBerger1990}
+Casella, G., and R.~L. Berger.
+\newblock 1990.
+\newblock Statistical Inference.
+\newblock Duxbury Press, Belmont, CA.
+
+\bibitem[{Choquet et~al.(2009)Choquet, Lebreton, Gimenez, Reboulet, and
+  Pradel}]{ChoquetEtAl2009}
+Choquet, R., J.-D. Lebreton, O.~Gimenez, A.-M. Reboulet, and R.~Pradel.
+\newblock 2009.
+\newblock U-CARE: Utilities for performing goodness of fit tests and
+  manipulating CApture--REcapture data.
+\newblock Ecography {\bf 32}:1071--1074.
+
+\bibitem[{Clark and Bj{\o}rnstad(2004)}]{ClarkBjornstad2004}
+Clark, J.~S., and O.~N. Bj{\o}rnstad.
+\newblock 2004.
+\newblock Population time series: process variability, observation errors,
+  missing values, lags, and hidden states.
+\newblock Ecology {\bf 85}:3140--3150.
+
+\bibitem[{Congdon(2014)}]{Congdon2014}
+Congdon, P.
+\newblock 2014.
+\newblock Applied {B}ayesian modelling.
+\newblock John Wiley \& Sons.
+
+\bibitem[{Conn et~al.(2014)Conn, Ver~Hoef, McClintock, Moreland, London,
+  Cameron, Dahle, and Boveng}]{ConnEtAl2014}
+Conn, P.~B., J.~M. Ver~Hoef, B.~T. McClintock, E.~E. Moreland, J.~M. London,
+  M.~F. Cameron, S.~P. Dahle, and P.~L. Boveng.
+\newblock 2014.
+\newblock Estimating multi-species abundance using automated detection systems:
+  ice-associated seals in the eastern {B}ering {S}ea.
+\newblock Methods in Ecology and Evolution {\bf 5}:1280--1293.
+
+\bibitem[{Cox and Snell(1989)}]{CoxSnell1989}
+Cox, D.~R., and E.~J. Snell.
+\newblock 1989.
+\newblock Analysis of binary data.
+\newblock CRC Press.
+
+\bibitem[{Cressie et~al.(2009)Cressie, Calder, Clark, Ver~Hoef, and
+  Wikle}]{CressieEtAl2009}
+Cressie, N., C.~Calder, J.~Clark, J.~Ver~Hoef, and C.~Wikle.
+\newblock 2009.
+\newblock Accounting for uncertainty in ecological analysis: the strengths and
+  limitations of hierarchical statistical modeling.
+\newblock Ecological Applications {\bf 19}:553--570.
+
+\bibitem[{Cressie and Wikle(2011)}]{CressieWikle2011}
+Cressie, N., and C.~K. Wikle.
+\newblock 2011.
+\newblock Statistics for spatio-temporal data.
+\newblock Wiley, Hoboken, New Jersey.
+
+\bibitem[{Czado et~al.(2009)Czado, Gneiting, and Held}]{CzadoEtAl2009}
+Czado, C., T.~Gneiting, and L.~Held.
+\newblock 2009.
+\newblock Predictive model assessment for count data.
+\newblock Biometrics {\bf 65}:1254--1261.
+
+\bibitem[{Dail and Madsen(2011)}]{DailMadsen2011}
+Dail, D., and L.~Madsen.
+\newblock 2011.
+\newblock Models for estimating abundance from repeated counts of an open
+  metapopulation.
+\newblock Biometrics {\bf 67}:577--587.
+
+\bibitem[{Dawid(1984)}]{Dawid1984}
+Dawid, A.~P.
+\newblock 1984.
+\newblock Present position and potential developments: Some personal views:
+  Statistical theory: The prequential approach.
+\newblock Journal of the Royal Statistical Society. Series A (General) pages
+  278--292.
+
+\bibitem[{Dey et~al.(1998)Dey, Gelfand, Swartz, and Vlachos}]{DeyEtAl1998}
+Dey, D.~K., A.~E. Gelfand, T.~B. Swartz, and P.~K. Vlachos.
+\newblock 1998.
+\newblock A simulation-intensive approach for checking hierarchical models.
+\newblock Test {\bf 7}:325--346.
+
+\bibitem[{Efford and Dawson(2012)}]{efford2012occupancy}
+Efford, M.~G., and D.~K. Dawson.
+\newblock 2012.
+\newblock Occupancy in continuous habitat.
+\newblock Ecosphere {\bf 3}:1--15.
+
+\bibitem[{Fr{\"u}iiwirth-Schnatter(1996)}]{Fruiiwirth1996}
+Fr{\"u}iiwirth-Schnatter, S.
+\newblock 1996.
+\newblock Recursive residuals and model diagnostics for normal and non-normal
+  state space models.
+\newblock Environmental and Ecological Statistics {\bf 3}:291--309.
+
+\bibitem[{Gelman et~al.(2004)Gelman, Carlin, Stern, and Rubin}]{GelmanEtAl2004}
+Gelman, A., J.~B. Carlin, H.~S. Stern, and D.~B. Rubin.
+\newblock 2004.
+\newblock Bayesian Data Analysis, 2nd Edition.
+\newblock Chapman and Hall, Boca Raton.
+
+\bibitem[{Gelman et~al.(2014)Gelman, Carlin, Stern, and Rubin}]{GelmanEtAl2014}
+Gelman, A., J.~B. Carlin, H.~S. Stern, and D.~B. Rubin.
+\newblock 2014.
+\newblock Bayesian data analysis, Third edition.
+\newblock Taylor \& Francis.
+
+\bibitem[{Gelman et~al.(1996)Gelman, Meng, and Stern}]{GelmanEtAl1996}
+Gelman, A., X.-L. Meng, and H.~Stern.
+\newblock 1996.
+\newblock Posterior predictive assessment of model fitness via realized
+  discrepancies.
+\newblock Statistica {S}inica {\bf 6}:733--760.
+
+\bibitem[{Getis and Ord(1992)}]{GetisOrd1992}
+Getis, A., and J.~K. Ord.
+\newblock 1992.
+\newblock The analysis of spatial association by use of distance statistics.
+\newblock Geographical Analysis {\bf 24}:189--206.
+
+\bibitem[{Gneiting et~al.(2007)Gneiting, Balabdaoui, and
+  Raftery}]{GneitingEtAl2007}
+Gneiting, T., F.~Balabdaoui, and A.~E. Raftery.
+\newblock 2007.
+\newblock Probabilistic forecasts, calibration and sharpness.
+\newblock Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology) {\bf 69}:243--268.
+
+\bibitem[{Gosselin(2011)}]{Gosselin2011}
+Gosselin, F.
+\newblock 2011.
+\newblock A new calibrated {B}ayesian internal goodness-of-fit method: sampled
+  posterior p-values as simple and general p-values that allow double use of
+  the data.
+\newblock PloS one {\bf 6}:e14770.
+
+\bibitem[{Green(1995)}]{Green1995}
+Green, P.~J.
+\newblock 1995.
+\newblock Reversible jump {M}arkov chain {M}onte {C}arlo computation and
+  {B}ayesian model determination.
+\newblock Biometrika {\bf 82}:711--732.
+
+\bibitem[{Guttman(1967)}]{Guttman1967}
+Guttman, I.
+\newblock 1967.
+\newblock The use of the concept of a future observation in goodness-of-fit
+  problems.
+\newblock Journal of the Royal Statistical Society. Series B (Methodological)
+  pages 83--100.
+
+\bibitem[{Hjort et~al.(2006)Hjort, Dahl, and Steinbakk}]{HjortEtAl2006}
+Hjort, N.~L., F.~A. Dahl, and G.~H. Steinbakk.
+\newblock 2006.
+\newblock Post-processing posterior predictive p values.
+\newblock Journal of the American Statistical Association {\bf 101}:1157--1174.
+
+\bibitem[{Hobbs and Hooten(2015)}]{HobbsHooten2015}
+Hobbs, N.~T., and M.~B. Hooten.
+\newblock 2015.
+\newblock Bayesian Models: A Statistical Primer for Ecologists.
+\newblock Princeton University Press.
+
+\bibitem[{Hoeting et~al.(1999)Hoeting, Madigan, Raftery, and
+  Volinsky}]{HoetingEtAl1999}
+Hoeting, J.~A., D.~Madigan, A.~E. Raftery, and C.~T. Volinsky.
+\newblock 1999.
+\newblock Bayesian model averaging: a tutorial.
+\newblock Statistical Science {\bf 14}:382--417.
+
+\bibitem[{Hooten and Hobbs(2015)}]{HootenHobbs2015}
+Hooten, M.~B., and N.~T. Hobbs.
+\newblock 2015.
+\newblock A guide to {B}ayesian model selection for ecologists.
+\newblock Ecological Monographs {\bf 85}:3--28.
+
+\bibitem[{Johnson(2004)}]{Johnson2004}
+Johnson, V.~E.
+\newblock 2004.
+\newblock A {B}ayesian $\chi^2$ test for goodness-of-fit.
+\newblock Annals of Statistics {\bf 32}:2361--2384.
+
+\bibitem[{Johnson(2007{\natexlab{{\em a\/}}})}]{Johnson2007}
+Johnson, V.~E.
+\newblock 2007{\natexlab{{\em a\/}}}.
+\newblock Bayesian model assessment using pivotal quantities.
+\newblock Bayesian Analysis {\bf 2}:719--734.
+
+\bibitem[{Johnson(2007{\natexlab{{\em b\/}}})}]{Johnson2007b}
+Johnson, V.~E.
+\newblock 2007{\natexlab{{\em b\/}}}.
+\newblock Comment: {B}ayesian checking of the second levels of hierarchical
+  models.
+\newblock Statistical Science {\bf 22}:353--358.
+
+\bibitem[{K{\'e}ry and Royle(2015)}]{kery2015applied}
+K{\'e}ry, M., and J.~A. Royle.
+\newblock 2015.
+\newblock Applied Hierarchical Modeling in Ecology: Analysis of distribution,
+  abundance and species richness in R and BUGS: Volume 1: Prelude and Static
+  Models.
+\newblock Academic Press.
+
+\bibitem[{K\'{e}ry and Royle(2016)}]{KeryRoyle2016}
+K\'{e}ry, M., and J.~A. Royle.
+\newblock 2016.
+\newblock Applied Hierarchical Modeling in Ecology.
+\newblock Elsevier, London.
+
+\bibitem[{K{\'e}ry and Schaub(2012)}]{KerySchaub2012}
+K{\'e}ry, M., and M.~Schaub.
+\newblock 2012.
+\newblock Bayesian population analysis using WinBUGS: a hierarchical
+  perspective.
+\newblock Academic Press.
+
+\bibitem[{King et~al.(2009)King, Morgan, Gimenez, and Brooks}]{KingEtAl2009}
+King, R., B.~Morgan, O.~Gimenez, and S.~Brooks.
+\newblock 2009.
+\newblock Bayesian analysis for population ecology.
+\newblock CRC Press, Boca Raton, Florida.
+
+\bibitem[{Legendre(1993)}]{Legendre1993}
+Legendre, P.
+\newblock 1993.
+\newblock Spatial autocorrelation: trouble or new paradigm?
+\newblock Ecology {\bf 74}:1659--1673.
+
+\bibitem[{Lichstein et~al.(2002)Lichstein, Simons, Shriner, and
+  Franzreb}]{LichsteinEtAl2002}
+Lichstein, J., T.~Simons, S.~Shriner, and K.~E. Franzreb.
+\newblock 2002.
+\newblock Spatial autocorrelation and autoregressive models in ecology.
+\newblock Ecological Monographs {\bf 72}:445--463.
+
+\bibitem[{Link and Barker(2010)}]{LinkBarker2010}
+Link, W., and R.~Barker.
+\newblock 2010.
+\newblock Bayesian Inference with Ecological Applications.
+\newblock Academic Press, London, U.K.
+
+\bibitem[{Link et~al.(2002)Link, Cam, Nichols, and Cooch}]{LinkEtAl2002}
+Link, W., E.~Cam, J.~Nichols, and E.~Cooch.
+\newblock 2002.
+\newblock Of BUGS and birds: Markov chain Monte Carlo for hierarchical modeling
+  in wildlife research.
+\newblock Journal of Wildlife Management {\bf 66}:277--291.
+
+\bibitem[{Link and Barker(2006)}]{LinkBarker2006}
+Link, W.~A., and R.~J. Barker.
+\newblock 2006.
+\newblock Model weights and the foundations of multimodel inference.
+\newblock Ecology {\bf 87}:2626--2635.
+
+\bibitem[{Lunn et~al.(2013)Lunn, Jackson, Best, Thomas, and
+  Spiegelhalter}]{LunnEtAl2013}
+Lunn, D., C.~Jackson, N.~Best, A.~Thomas, and D.~Spiegelhalter.
+\newblock 2013.
+\newblock The {BUGS} book: A practical introduction to {B}ayesian analysis.
+\newblock Chapman \& Hall/CRC, Boca Raton, Florida.
+
+\bibitem[{Marshall and Spiegelhalter(2003)}]{MarshallSpiegelhalter2003}
+Marshall, E.~C., and D.~J. Spiegelhalter.
+\newblock 2003.
+\newblock Approximate cross-validatory predictive checks in disease mapping
+  models.
+\newblock Statistics in Medicine {\bf 22}:1649--1660.
+
+\bibitem[{Marshall and Spiegelhalter(2007)}]{MarshallSpiegelhalter2007}
+Marshall, E.~C., and D.~J. Spiegelhalter.
+\newblock 2007.
+\newblock Identifying outliers in {B}ayesian hierarchical models: a
+  simulation-based approach.
+\newblock Bayesian Analysis {\bf 2}:409--444.
+
+\bibitem[{McCullagh and Nelder(1989)}]{McCullaghNelder1989}
+McCullagh, P., and J.~A. Nelder.
+\newblock 1989.
+\newblock Generalized Linear Models.
+\newblock Chapman and Hall, New York.
+
+\bibitem[{Moran(1950)}]{Moran1950}
+Moran, P. A.~P.
+\newblock 1950.
+\newblock Notes on continuous stochastic phenomena.
+\newblock Biometrika {\bf 37}:17--23.
+
+\bibitem[{Perry et~al.(2002)Perry, Liebhold, Rosenberg, Dungan, Miriti,
+  Jakomulska, and Citron-Pousty}]{PerryEtAl2002}
+Perry, J., A.~Liebhold, M.~Rosenberg, J.~Dungan, M.~Miriti, A.~Jakomulska, and
+  S.~Citron-Pousty.
+\newblock 2002.
+\newblock Illustrations and guidelines for selecting statistical methods for
+  quantifying spatial pattern in ecological data.
+\newblock Ecography {\bf 25}:578--600.
+
+\bibitem[{Plummer(2003)}]{Plummer2003}
+Plummer, M., 2003.
+\newblock JAGS: A program for analysis of Bayesian graphical models using Gibbs
+  sampling.
+\newblock Page 125 {\em in\/} Proceedings of the 3rd international workshop on
+  distributed statistical computing, volume 124. Technische Universit at Wien
+  Wien, Austria.
+
+\bibitem[{Potts and Elith(2006)}]{PottsElith2006}
+Potts, J.~M., and J.~Elith.
+\newblock 2006.
+\newblock Comparing species abundance models.
+\newblock Ecological Modelling {\bf 199}:153--163.
+
+\bibitem[{{R Development Core Team}(2015)}]{RTeam2015}
+{R Development Core Team}, 2015.
+\newblock R: A Language and Environment for Statistical Computing.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
+\newblock \urlprefix\url{http://www.R-project.org}.
+
+\bibitem[{Robins et~al.(2000)Robins, van~der Vaart, and
+  Ventura}]{RobinsEtAl2000}
+Robins, J.~M., A.~van~der Vaart, and V.~Ventura.
+\newblock 2000.
+\newblock Asymptotic distribution of P values in composite null models.
+\newblock Journal of the American Statistical Association {\bf 95}:1143--1156.
+
+\bibitem[{Royle(2004)}]{Royle2004a}
+Royle, J.
+\newblock 2004.
+\newblock N-mixture models for estimating population size from spatially
+  replicated counts.
+\newblock Biometrics {\bf 60}:108--115.
+
+\bibitem[{Rubin(1981)}]{Rubin1981}
+Rubin, D.~B.
+\newblock 1981.
+\newblock Estimation in parallel randomized experiments.
+\newblock Journal of Educational and Behavioral Statistics {\bf 6}:377--401.
+
+\bibitem[{Rubin et~al.(1984)}]{Rubin1984}
+Rubin, D.~B., et~al.
+\newblock 1984.
+\newblock Bayesianly justifiable and relevant frequency calculations for the
+  applied statistician.
+\newblock The Annals of Statistics {\bf 12}:1151--1172.
+
+\bibitem[{Sauer and Link(2011)}]{SauerLink2011}
+Sauer, J.~R., and W.~A. Link.
+\newblock 2011.
+\newblock Analysis of the {N}orth {A}merican breeding bird survey using
+  hierarchical models.
+\newblock Auk {\bf 128}:87--98.
+
+\bibitem[{Shipley(2009)}]{Shipley2009}
+Shipley, B.
+\newblock 2009.
+\newblock Confirmatory path analysis in a generalized multilevel context.
+\newblock Ecology {\bf 90}:363--368.
+
+\bibitem[{Smith(1985)}]{Smith1985}
+Smith, J.~Q.
+\newblock 1985.
+\newblock Diagnostic checks of non-standard time series models.
+\newblock Journal of Forecasting {\bf 4}:283--291.
+
+\bibitem[{Stern and Cressie(2000)}]{SternCressie2000}
+Stern, H.~S., and N.~Cressie.
+\newblock 2000.
+\newblock Posterior predictive model checks for disease mapping models.
+\newblock Statistics in Medicine {\bf 19}:2377--2397.
+
+\bibitem[{Ver~Hoef and Boveng(2007)}]{VerHoefBoveng2007}
+Ver~Hoef, J.~M., and P.~L. Boveng.
+\newblock 2007.
+\newblock Quasi-Poisson vs. negative binomial regression: how should we model
+  overdispersed count data?
+\newblock Ecology {\bf 88}:2766--2772.
+
+\bibitem[{Ver~Hoef and Boveng(2015)}]{VerHoefBoveng2015}
+Ver~Hoef, J.~M., and P.~L. Boveng.
+\newblock 2015.
+\newblock Iterating on a single model is a viable alternative to multimodel
+  inference.
+\newblock Journal of Wildlife Management {\bf 79}:719--729.
+
+\bibitem[{Williams and Hooten(2016)}]{williams2016combining}
+Williams, P.~J., and M.~B. Hooten.
+\newblock 2016.
+\newblock Combining statistical inference and decisions in ecology.
+\newblock Ecological Applications {\bf 26}:1930--1942.
+
+\bibitem[{Wood(2006)}]{Wood2006}
+Wood, S.~N.
+\newblock 2006.
+\newblock Generalized additive models.
+\newblock Chapman \& Hall/CRC, Boca Raton, Florida.
+
+\bibitem[{Yuan and Johnson(2012)}]{YuanJohnson2012}
+Yuan, Y., and V.~E. Johnson.
+\newblock 2012.
+\newblock Goodness-of-fit diagnostics for {B}ayesian hierarchical models.
+\newblock Biometrics {\bf 68}:156--164.
+
+\bibitem[{Zhang(2014)}]{Zhang2014}
+Zhang, J.~L.
+\newblock 2014.
+\newblock Comparative investigation of three Bayesian p values.
+\newblock Computational Statistics \& Data Analysis {\bf 79}:277--291.
+
+\end{thebibliography}
