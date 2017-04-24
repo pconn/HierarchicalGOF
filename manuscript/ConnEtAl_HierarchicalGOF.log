@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  9 APR 2017 18:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  24 APR 2017 15:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -406,200 +406,168 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 809.
  [23] [24]
-[25] [26] [27]
-
-LaTeX Warning: Reference `fig:violation' on page 28 undefined on input line 100
-3.
-
-[28] [29]
-
-Package natbib Warning: Citation `r323' on page 30 undefined on input line 1059
-.
-
-[30]
-
-LaTeX Warning: Reference `fig:noviolation' on page 31 undefined on input line 1
-082.
-
-
-LaTeX Warning: Reference `fig:noviolation' on page 31 undefined on input line 1
-084.
-
-
-LaTeX Warning: Reference `fig:violation' on page 31 undefined on input line 108
-6.
-
-
-LaTeX Warning: Reference `fig:violation' on page 31 undefined on input line 108
-9.
-
-
-LaTeX Warning: Reference `fig:violation' on page 31 undefined on input line 109
-1.
-
-[31] [32] [33] (./ConnEtAl_HierarchicalGOF.bbl [34] [35] [36] [37] [38]
-[39] [40] [41]) [42]
-Underfull \hbox (badness 10000) in paragraph at lines 1242--1242
+[25] [26] [27] [28] [29] [30] [31] [32] [33] [34]
+(./ConnEtAl_HierarchicalGOF.bbl [35] [36] [37] [38] [39] [40] [41] [42])
+[43]
+Underfull \hbox (badness 10000) in paragraph at lines 1288--1288
 []\OT1/cmr/m/it/12 Dependent
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1246--1246
+Underfull \hbox (badness 10000) in paragraph at lines 1292--1292
 []\OT1/cmr/m/it/12 Nonidentical
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1247--1247
+Underfull \hbox (badness 10000) in paragraph at lines 1293--1293
 []\OT1/cmr/m/it/12 Over-
  []
 
 
-Overfull \hbox (1.03975pt too wide) in paragraph at lines 1247--1247
+Overfull \hbox (1.03975pt too wide) in paragraph at lines 1293--1293
 \OT1/cmr/m/it/12 parameterization| 
  []
 
 
-Overfull \hbox (9.4887pt too wide) in paragraph at lines 1238--1250
+Overfull \hbox (9.4887pt too wide) in paragraph at lines 1284--1296
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 12.36949pt on input line 1250.
+LaTeX Warning: Float too large for page by 12.36949pt on input line 1296.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1264--1264
+Underfull \hbox (badness 10000) in paragraph at lines 1310--1310
 []\OT1/cmr/m/n/12 Likelihood ra-tio
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1265--1265
+Underfull \hbox (badness 10000) in paragraph at lines 1311--1311
 []\OT1/cmr/m/n/12 Freeman-Tukey
  []
 
 
-Underfull \hbox (badness 6348) in paragraph at lines 1267--1268
+Underfull \hbox (badness 6348) in paragraph at lines 1313--1314
 []\OT1/cmr/m/n/12 Zero in-fla-tion check for
  []
 
 
-Underfull \hbox (badness 1558) in paragraph at lines 1273--1274
+Underfull \hbox (badness 1558) in paragraph at lines 1319--1320
 \OT1/cmr/m/n/12 sky's the-o-rem) and $\OML/cmm/m/it/12 Z$ \OT1/cmr/m/n/12 is
  []
 
 
-Overfull \hbox (38.1651pt too wide) in paragraph at lines 1284--1296
+Overfull \hbox (38.1651pt too wide) in paragraph at lines 1330--1342
  [][] 
  []
 
-[43] [44] [45] [46]
-<Bayesian_modeling_decision_diagram.pdf, id=163, 722.7pt x 542.025pt>
+[44] [45] [46] [47]
+<Bayesian_modeling_decision_diagram.pdf, id=167, 722.7pt x 542.025pt>
 File: Bayesian_modeling_decision_diagram.pdf Graphic file (type pdf)
 
 <use Bayesian_modeling_decision_diagram.pdf>
 Package pdftex.def Info: Bayesian_modeling_decision_diagram.pdf used on input l
-ine 1413.
+ine 1459.
 (pdftex.def)             Requested size: 483.69684pt x 362.77441pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1413--1414
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1459--1460
  [] 
  []
 
-<WOSsearch.jpeg, id=164, 536.9661pt x 466.6233pt>
+<WOSsearch.jpeg, id=168, 536.9661pt x 466.6233pt>
 File: WOSsearch.jpeg Graphic file (type jpg)
  <use WOSsearch.jpeg>
-Package pdftex.def Info: WOSsearch.jpeg used on input line 1420.
+Package pdftex.def Info: WOSsearch.jpeg used on input line 1466.
 (pdftex.def)             Requested size: 483.69684pt x 420.3487pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1420--1421
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1466--1467
  [] 
  []
 
-<sim_count_maps.pdf, id=165, 505.89pt x 505.89pt>
+<sim_count_maps.pdf, id=169, 505.89pt x 505.89pt>
 File: sim_count_maps.pdf Graphic file (type pdf)
  <use sim_count_maps.pdf>
-Package pdftex.def Info: sim_count_maps.pdf used on input line 1427.
+Package pdftex.def Info: sim_count_maps.pdf used on input line 1473.
 (pdftex.def)             Requested size: 483.69684pt x 483.70361pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1427--1428
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1473--1474
  [] 
  []
 
-<posterior_prediction_diagram.pdf, id=166, 722.7pt x 542.025pt>
+<posterior_prediction_diagram.pdf, id=170, 722.7pt x 542.025pt>
 File: posterior_prediction_diagram.pdf Graphic file (type pdf)
 
 <use posterior_prediction_diagram.pdf>
 Package pdftex.def Info: posterior_prediction_diagram.pdf used on input line 14
-34.
+80.
 (pdftex.def)             Requested size: 483.69684pt x 362.77441pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1434--1435
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1480--1481
  [] 
  []
 
-<pivot_CDF_plot.pdf, id=167, 505.89pt x 505.89pt>
+<pivot_CDF_plot.pdf, id=171, 505.89pt x 505.89pt>
 File: pivot_CDF_plot.pdf Graphic file (type pdf)
  <use pivot_CDF_plot.pdf>
-Package pdftex.def Info: pivot_CDF_plot.pdf used on input line 1441.
+Package pdftex.def Info: pivot_CDF_plot.pdf used on input line 1487.
 (pdftex.def)             Requested size: 483.69684pt x 483.70361pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1441--1442
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1487--1488
  [] 
  []
 
-<SpatRegSimPvals.pdf, id=168, 505.89pt x 505.89pt>
+<SpatRegSimPvals.pdf, id=172, 505.89pt x 505.89pt>
 File: SpatRegSimPvals.pdf Graphic file (type pdf)
  <use SpatRegSimPvals.pdf>
-Package pdftex.def Info: SpatRegSimPvals.pdf used on input line 1448.
+Package pdftex.def Info: SpatRegSimPvals.pdf used on input line 1494.
 (pdftex.def)             Requested size: 483.69684pt x 483.70361pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1448--1449
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1494--1495
  [] 
  []
 
 
 Package natbib Warning: There were undefined citations.
 
-[47 <./Bayesian_modeling_decision_diagram.pdf>] [48] [49] [50] [51 <./WOSsearch
-.jpeg>] [52 <./sim_count_maps.pdf>] [53 <./posterior_prediction_diagram.pdf>]
-[54 <./pivot_CDF_plot.pdf>] [55 <./SpatRegSimPvals.pdf>]
+[48 <./Bayesian_modeling_decision_diagram.pdf>] [49] [50] [51] [52 <./WOSsearch
+.jpeg>] [53 <./sim_count_maps.pdf>] [54 <./posterior_prediction_diagram.pdf>]
+[55 <./pivot_CDF_plot.pdf>] [56 <./SpatRegSimPvals.pdf>]
 (./ConnEtAl_HierarchicalGOF.aux)
-
-LaTeX Warning: There were undefined references.
-
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5290 strings out of 493089
- 78170 string characters out of 6134842
- 161066 words of memory out of 5000000
- 8652 multiletter control sequences out of 15000+600000
- 18809 words of font info for 70 fonts, out of 8000000 for 9000
+ 5310 strings out of 493089
+ 78560 string characters out of 6134842
+ 161221 words of memory out of 5000000
+ 8672 multiletter control sequences out of 15000+600000
+ 23145 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,20n,38p,938b,522s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,20n,38p,938b,520s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/
-2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on ConnEtAl_HierarchicalGOF.pdf (55 pages, 616680 bytes).
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/
+texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/tex
+live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/
+2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2
+015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on ConnEtAl_HierarchicalGOF.pdf (56 pages, 629333 bytes).
 PDF statistics:
- 321 PDF objects out of 1000 (max. 8388607)
- 214 compressed objects within 3 object streams
+ 328 PDF objects out of 1000 (max. 8388607)
+ 219 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

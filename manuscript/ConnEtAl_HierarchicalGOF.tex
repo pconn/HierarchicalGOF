@@ -83,7 +83,7 @@ to the many available options for Bayesian model checking.  We
 illustrate methods and procedures with several ecological case
 studies, including i) explaining variation in simulated
 spatio-temporal count data, and (ii) modeling survival and residence
-times of fur seal mothers on a rookery, and (iii) using N-mixture
+times of fur seal mothers on a rookery, and (iii) using $N$-mixture
 models to estimate abundance and detection probability of sea otters
 from an aircraft.  We find that commonly used procedures based on
 posterior predictive p-values have high power to detect extreme model
@@ -97,7 +97,7 @@ Bayesian analyses presented in the literature.
 
 
 {\em Bayesian p-value, count data, goodness-of-fit diagnostic check,
-  hierarchical model, model checking, N-mixture model, pivot
+  hierarchical model, model checking, $N$-mixture model, pivot
   discrepancy, posterior predictive check, probability interval
   transform, sampled predictive p-value, spatio-temporal model}
 
@@ -226,7 +226,7 @@ that we use throughout the paper. Next, we work to compile a bestiary
 of Bayesian model checking procedures, providing positives and
 negatives associated with each approach.  We illustrate Bayesian model
 checking using several simulation studies (including spatial
-regression and N-mixture models), as well as a case study involving
+regression and $N$-mixture models), as well as a case study involving
 capture-recapture sampling of adult female fur seals
 (\textit{Callorhinus ursinus}) on a rookery in Alaska, U.S.A., and
 estimating abundance and distribution of sea otters in Glacier Bay,
@@ -751,7 +751,7 @@ when applied to simulated data sets more typical for ecological
 inference.  First, we examine spatial regression models applied to
 simulated count data.  In this case, we are interested in detecting
 residual spatial autocorrelation and overdispersion relative the
-Poisson distribution.  In our second example, we investigate N-mixture
+Poisson distribution.  In our second example, we investigate $N$-mixture
 models.
 
 \subsection{Spatial models for count data}
@@ -979,9 +979,9 @@ inadequacy (Fig. \ref{fig:SpatReg_pvals}).
 \section{Examples}
 
 
-\subsection*{Closure in N-mixture models}
+\subsection*{The need for closure: $N$-mixture models}
 
-N-mixture models are a class of hierarchical models that use count
+$N$-mixture models are a class of hierarchical models that use count
 data collected from repeated visits to multiple sites to estimate
 abundance in the presence of an unknown detection probability
 \citep{Royle2004a}. That is, counts $y_{i,j}$ are collected during
@@ -992,21 +992,26 @@ $y_{i,j} \sim \text{Binomial}(N_i,p)$. Additionally, $N_i$ is assumed
 to be an independent random variable with probability mass function
 $[n|\boldsymbol{\theta}]$ (e.g., Poisson, Negative Binomial,
 Conway-Maxwell Poisson).  The assumption of constant abundance
-$N_i~ \forall j$ is critical for accurate estimates of $N_i$ and
-$p$. In practice, this assumption implies that a population at site
-$i$ is closed with respect to births, deaths, immigration, and
+$N_{i,j}=N_i~ \forall j$ is critical for accurate estimates of $N_i$
+and $p$. In practice, this assumption implies that a population at
+site $i$ is closed with respect to births, deaths, immigration, and
 emigration, for all replicate temporal surveys at the site. Violation
-of this assumption does not necessarily preclude MCMC output from
-converging to a stationary distribution, but it can lead to posterior
-distribution estimates of $N_i$ that are biased high, and
-consequently, posterior distribution estimates of $p$ that are biased
-low \citep[][Fig. \ref{fig:violation}]{kery2015applied}. Additionally,
-the expected abundance, $\lambda$, will be biased high, and is not
+of this assumption can lead to non-identifiability of the $N$ and $p$
+parameters, or worse, posterior distributions of $N_i$ that are biased
+high and posterior distributions of $p$ that are biased low
+\citep[Supplementary material XXX]{kery2015applied}. Additionally, the
+expected abundance, $\lambda$, will be biased high, and is not
 necessarily biologically interpretable \citep[e.g., it does not
 necessarily provide an estimate of the total number of individuals
 ever associated with a site,
-c.f. \emph{superpopulation};][]{kery2015applied}. In practice, the
-appropriateness of the closure assumption has typically been
+c.f. \emph{superpopulation};][]{kery2015applied}.
+
+Assessing the closure assumption of $N$-mixture models can be
+challanging because scientifically plausible alternative models in
+which $N_i$ (or $\lambda_i$) is non-identifiable or does not even
+exist, lead to data that are practically indistinguishable from data
+generated under an $N$-mixture model \citep{barker2016n}. In practice,
+the appropriateness of the closure assumption has typically been
 determined by judgment of the investigators, who assess whether time
 between replicate surveys is short relative to the dynamics of the
 system, and whether individual movement is small, compared to the size
@@ -1014,24 +1019,21 @@ of sample plots (e.g., \citealt{efford2012occupancy}; but see
 \citealt{DailMadsen2011}, for a frequentist test of this assumption
 using a model selection approach). As an alternative, we consider the
 utility of Bayesian model checking to assess the closure assumption
-for N-mixture models. We first consider a brief simulated example
+for $N$-mixture models. We first consider a brief simulated example
 where truth is known. We then examine real data consisting of counts
 of sea otters from aerial photographs taken in Glacier Bay National
 Park, southeastern Alaska. For additional model checking examples for
-other violations of assumptions of the N-mixture model, including:
+other violations of assumptions of the $N$-mixture model, including:
 zero-inflation, extra-Poisson dispersion, extra-binomial dispersion,
 unmodeled site covariates, and unmodeled detection covariates, see
 \cite[][section 6.8]{kery2015applied}.
 
 \subsubsection*{Simulation}
-%% Analysis script in:
-%% "~/Dropbox/Post-Doc/RFiles/ModelChecking/09Jan2017/SimulatedData/09Jan2017.R"
-    %%
 %% Figure script in:
 %% "~/Dropbox/Post-Doc/manuscripts/ModelChecking/Revision2/ManuscriptFigures.R"
 
-In our simulation, we examine the most common form of N-mixture model
-for ecological data,
+We examine the most common form of $N$-mixture model for ecological
+data,
 \begin{linenomath}
   \begin{align}
     \begin{split}
@@ -1045,102 +1047,147 @@ for ecological data,
   \end{align}
 \end{linenomath}
 where $p_i$ and the expected abundance $\lambda_i$ depend on
-covariates $\textbf{w}_i$ and $\textbf{x}_i$, respectively. For our
-simulation, we examined two cases. In the first case, we used
-Eq. \ref{eq:nmix}, to simulate data. That is, we arbitrarily set
-$\boldsymbol{\beta}=(4.5,1)'$ to generate $N_i$, and subsequently set
-$\boldsymbol{\alpha}=(2,-1)'$ to generate $y_{i,j}$,
-$i=1,\ldots,n=100$, $j=1,\ldots,J=3$. The covariate matrices
-\textbf{X} and \textbf{W} each had dimensions $100\times 2$, where the
-first column was all ones, and the second column was generated by
-sampling from a Bernoulli distribution with probability 0.5
-$\forall i$. We then fit Eq. \ref{eq:nmix} to the generated data using
-a Markov Chain Monte Carlo Algorithm (MCMC) written in R version 3.2.3
-\citep{r323}. Using the fitted model, we assessed the effectiveness of
-Bayesian p-values for diagnosing the closure assumption. In this first
-case, the model used to generate the data was the same as the model
-used to fit the data, and our selected model checking procedure should
-indicate no lack of model fit. In the second case, we followed a
-similar procedure with the exception that when generating $y_{i,j}$,
-we allowed $N_i$ to vary randomly for each $j$. That is, we induced
-violation of the closure assumption. Specifically, we assumed
+covariates $\textbf{w}_i$ and $\textbf{x}_i$, respectively. We used
+equation (\ref{eq:nmix}) to simulate data, with one additional step to
+induce violation of the closure assumption. We examined a series of
+eight cases where the closure assumption was increasingly violated by
+letting
 \begin{linenomath}
   \begin{align}
-    N_{i,t} & \sim \text{Discrete Uniform}(N_{i,t-1}(1-c), N_{i,t-1}(1+c)),
+    N_{i,j} & \sim \text{Discrete Uniform}(N_{i,j-1}(1-c), N_{i,j-1}(1+c)),
   \end{align}
 \end{linenomath}
-where $c$ can be interpreted as the maximum proportion of the
-population that could move in or out of a site between $t-1$ and
-$t$. For this simulation $c=0.2$. Again, we fit Eq. \ref{eq:nmix} to
-the generated data and assessed the effectiveness of Bayesian p-values
-for diagnosing the closure assumption. In both cases, we used the
-$\chi^2$ omnibus discrepancy function to calculate Bayesian p-values.
+for $j=2,\ldots,J$, and $c = \{0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35 \}$, where $c$
+can be interpreted as the maximum proportion of the population that
+could move in or out of a site between $j-1$ and $j$. For all values
+of $c$, we arbitrarily set $\boldsymbol{\beta}=(4,1)'$, and set
+$\boldsymbol{\alpha}=(1,-1)'$, $i=1,\ldots,n=300$,
+$j=1,\ldots,J=5$. The covariate matrices \textbf{X} and \textbf{W}
+each had dimensions $300\times 2$, where the first column was all
+ones, and the second column was generated by sampling from a Bernoulli
+distribution with probability 0.5 $\forall i$. We then fit
+Eq. \ref{eq:nmix} to the generated data using a Markov Chain Monte
+Carlo Algorithm (MCMC) written in R. Using
+the fitted model, we assessed the effectiveness of Bayesian p-values,
+and sampled predictive p-values for diagnosing the closure
+assumption. When $c=0$, the model used to generate the data was the
+same as the model used to fit the data, and our model checking
+procedures should indicate no lack of model fit. In all other cases,
+the closure assumption was violated, with the degree of violation
+proportional to the value of $c$.
 
     \paragraph{Results}
-    When the closure assumption was met (case 1), the estimated
+    When the closure assumption was met ($c=0$), the estimated
     posterior distributions recovered true parameter values well,
-    which was expected (Fig. \ref{fig:noviolation}). The posterior
-    predictive p-value was 0.63, suggesting no lack of model fit
-    (Fig. \ref{fig:noviolation}). When we violated the closure
-    assumption (case 2), MCMC chains did converge to a stationary
-    posterior distribution (Fig. \ref{fig:violation}). Abundance was
-    overestimated when the closure assumption was violated, which
-    resulted in underestimates of detection probability
-    (Fig. \ref{fig:violation}). The posterior predictive p-value was
-    1.00, suggesting extreme lack of model fit
-    (Fig. \ref{fig:violation}). Thus, Bayesian p-values have the
-    potential to assess the closure assumption of N-mixture models
-    under some conditions, and simulation is a good tool for assessing
-    the types of conditions in which Bayesian p-values can be useful
-    for assessing model fit.
+    which was expected (Table \ref{tab:results}, Supplementary
+    Material XXX). The posterior predictive p-value was 0.48, and the
+    sampled predictive p-value was 0.27, suggesting no lack of model
+    fit from either model checking proceedure (Table
+    \ref{tab:results}).
 
-    Because, $E(y|N,p)=N\times p$, and $\text{var}(y|N,p)=Np(1-p)$,
-    when $p>0.5$, simultaneously increasing N and decreasing p (but
-    maintaining $p>0.5$) can result in a posterior predictive data
-    distribution with the same mean, but increased variance, thereby
-    accomidating the increased variance in the observed Y due to
-    violation in the closure assumption.
+    When the closure assumption was violated (i.e., $c>0$), MCMC
+    chains appeared to converge to stationary posterior distributions
+    (Supplementary Material XXX), and convergence was often supported
+    by Gelman-Rubin diagnostics (Table \ref{tab:results}).  However, abundance
+    was always overestimated when the closure assumption was violated,
+    and the true abundance value used to simulate the data was
+    always outside estimated 95\% credible intervals (Table \ref{tab:results}). The
+    posterior predictive p-values did not suggest lack of model fit
+    when $c<0.10$, and suggested lack of model fit otherwise (Table
+    \ref{tab:results}). The sampled predictive p-value correctly
+    identified violation in the closure assumption (assuming a type I
+    error rate of 0.05) for all values of $c$, for this simulation
+    (Table \ref{tab:results}). The effective sample sizes of the MCMC
+    chains were small due to the autocorrelation between abundance and
+    detection probability in the $N$-mixture model (Table
+    \ref{tab:results}). Mean abundance estimates erroneously
+    increased, with increased violation in the closure assumption, and
+    confidence intervals failed to cover the true abundance value by
+    allowing just 5\% of the population to move in or out of a site.
+
+    % latex table generated in R 3.3.2 by xtable 1.8-2 package Wed Apr
+    % 19 15:31:20 2017
+    % latex table generated in R 3.3.2 by xtable 1.8-2 package
+    % Wed Apr 19 15:34:25 2017
+    \begin{table}[ht]
+      \centering
+      \begin{tabular}{cccccccc}
+        \hline \hline
+        $c$ & p-value & sppv & Abundance (truth=50,989) & 95\% CRI & GR & ESS \\
+        \hline
+        0.00 & 0.48 & 0.27 & 51,200 & (49,295, 53,481) & 1.00 & 3,420 \\
+        0.05 & 0.40 & 1.00 & 60,047 & (56,605, 63,868) & 1.00 & 3,260 \\
+        0.10 & 0.00 & 1.00 & 81,299 & (75,223, 89,601) & 1.01 & 3,194 \\
+        0.15 & 0.00 & 1.00 & 97,066 & (89,149, 104,360) & 1.13 & 3,199 \\
+        0.20 & 0.00 & 0.02 & 117,624 & (108,825, 127,007) & 1.03 & 3,184 \\
+        0.25 & 0.00 & 0.01 & 119,397 & (110,477, 125,992) & 1.06 & 3,206 \\
+        0.30 & 0.00 & 0.00 & 133,797 & (124,194, 141,117) & 1.10 & 3,195 \\
+        0.35 & 0.00 & 0.00 & 139,951 & (133,351, 147,086) & 1.00 & 3,213 \\
+        \hline
+      \end{tabular}
+      \caption{Results of one simulation for examining the effect of
+        the closure assumption on model fit. The notation $c$
+        represents the maximum proportion of the population that could
+        move in or out of a site between $j-1$ and $j$, p-value  is the posterior predicitive
+        p-value using a $\chi$-squared goodness-of-fit statistic, sppv
+        is the sampled predictive p-value using the sum of variance
+        test statistic, Abundance is the mean of the marginal
+        posterior distribution for total abundance at the 300 sites,
+        the 95\% CRI are the 95\% credible intervals, GR is the
+        multi-variate Gelman-Rubin convergence diagnostic, and ESS is
+        the effective sample size of 1,000,000 MCMC iterations.}
+      \label{tab:results}
+    \end{table}
+
+    % Because, $E(y|N,p)=N\times p$, and $\text{var}(y|N,p)=Np(1-p)$,
+    % when $p>0.5$, simultaneously increasing N and decreasing p (but
+    % maintaining $p>0.5$) can result in a posterior predictive data
+    % distribution with the same mean, but increased variance, thereby
+    % accomidating the increased variance in the observed Y due to
+    % violation in the closure assumption.
 
 
-    \subsubsection*{Estimating sea otter detection probability from aerial photographs}
+    \subsubsection*{Estimating sea otter detection probability from
+      aerial photographs}
     %% Analysis script in:
     %% "~/Dropbox/Post-Doc/RFiles/ModelChecking/09Jan2017/RealData/09Jan2017.R"
     %%
     %% Figure script in:
     %% "~/Dropbox/Post-Doc/manuscripts/ModelChecking/Revision2/ManuscriptFigures.R"
 
-    Williams et al. (\emph{In Review}) describe a framework for using
-    aerial photograph data to fit N-mixture models, where photographs
+    \cite{williams2017estimating} describe a framework for using
+    aerial photograph data to fit $N$-mixture models, where photographs
     are taken such that a subset of images overlap in space. The
     subset of overlapping images provide temporal replication of
     counts of individuals at spatial locations that can be used to
-    estimate $p$ in the N-mixture modeling framework. To assess the
-    utility of their approach, Williams et al. (\emph{In Review})
+    estimate $p$ in the $N$-mixture modeling framework. To assess the
+    utility of their approach, \cite{williams2017estimating}
     conducted an aerial survey in Glacier Bay National Park,
     southeastern Alaska, in which they identified groups of sea otters
     at the surface of the ocean, flew over the groups of sea otters
     multiple times, and captured an image of the group of sea otters
     for each flight over the group. In their study, a primary observer
     operated the camera, and a secondary observer watched the groups
-    of otters to ensure the closure assumption of N-mixture models was
-    met. That is, otters did not disperse out of, or into, the
+    of sea otters to ensure the closure assumption of $N$-mixture models was
+    met. That is, whether sea otters dispersed out of, or into, the
     footprint of the photograph among temporal replicates. Of the 21
-    groups of otters that were photographed multiple times, 20 groups
+    groups of sea otters that were photographed multiple times, 20 groups
     did not appear to violate the closure assumption based on the
-    secondary observer's observations, and one site did. For analysis,
+    secondary observer's observations. At one site, sea otters began
+    moving for an unknown reason. For analysis,
     Williams et al. (\emph{In Review}) omitted the one site that
     violated the closure assumption, based on the secondary observer's
     observations. Here, we use Bayesian model checking as a formal
     method for assessing the closure assumption of two data sets that
-    are used to fit the N-mixture model. The first data set is the
+    are used to fit the $N$-mixture model. The first data set is the
     complete set of 21 observations initially collected for Williams
     et al. (\emph{In Review}), including the site where the secondary
     observer noted a violation in assumption. The second data set is
     the data provided by Williams et al. (\emph{In Review}), Table 1,
     which omits the problematic site. Both data sets are provided in
-    the R package \texttt{HierarchicalGOF}. As in our N-mixture model
-    simulation study above, we used Bayesan p-values, with a
-    sum-of-squared error test statistics. We used each data set to fit
+    the R package \texttt{HierarchicalGOF}. As in our $N$-mixture model
+    simulation study above, we used Bayesan p-values and sampled
+    posterior predictive values to check our model. We used each data set to fit
     the model
     \begin{linenomath}
       \begin{align}
@@ -1161,7 +1208,7 @@ $\chi^2$ omnibus discrepancy function to calculate Bayesian p-values.
     0.30, suggesting no lack of model fit, confirming the results of
     the secondary observer who noted a violation of closure while in
     the field. Thus, Bayesian p-values provided a formal method for
-    examining the closure assumption of N-mixture models for our
+    examining the closure assumption of $N$-mixture models for our
     example, and corroborates the auxillary information collected by
     the secondary observer.
 

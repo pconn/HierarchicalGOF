@@ -7,51 +7,50 @@ Repeated entry---line 287 of file master_bib.bib
  : @article{BanerjeeEtAl2008
  :                          ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 393 of file master_bib.bib
+Repeated entry---line 405 of file master_bib.bib
  : @article{BayarriBerger2000
  :                           ,
 I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "QiuEtAl2016"
-Warning--I didn't find a database entry for "r323"
-You've used 71 entries,
+You've used 73 entries,
             2788 wiz_defined-function locations,
-            1015 strings with 15425 characters,
-and the built_in function-call counts, 40040 in all, are:
-= -- 3412
-> -- 1731
+            1025 strings with 15739 characters,
+and the built_in function-call counts, 41356 in all, are:
+= -- 3517
+> -- 1811
 < -- 57
-+ -- 584
-- -- 496
-* -- 2749
-:= -- 6413
-add.period$ -- 284
-call.type$ -- 71
-change.case$ -- 451
-chr.to.int$ -- 70
-cite$ -- 71
-duplicate$ -- 2894
-empty$ -- 2890
-format.name$ -- 727
-if$ -- 7970
++ -- 610
+- -- 520
+* -- 2852
+:= -- 6624
+add.period$ -- 292
+call.type$ -- 73
+change.case$ -- 467
+chr.to.int$ -- 72
+cite$ -- 73
+duplicate$ -- 2988
+empty$ -- 2972
+format.name$ -- 757
+if$ -- 8226
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 586
-newline$ -- 431
-num.names$ -- 286
-pop$ -- 1135
+missing$ -- 606
+newline$ -- 443
+num.names$ -- 294
+pop$ -- 1173
 preamble$ -- 1
-purify$ -- 447
+purify$ -- 463
 quote$ -- 0
-skip$ -- 980
+skip$ -- 1004
 stack$ -- 0
-substring$ -- 2095
-swap$ -- 1326
+substring$ -- 2151
+swap$ -- 1372
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 588
+type$ -- 606
 warning$ -- 0
-while$ -- 303
+while$ -- 312
 width$ -- 0
-write$ -- 983
+write$ -- 1011
 (There were 2 error messages)

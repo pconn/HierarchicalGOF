@@ -1,4 +1,4 @@
-\begin{thebibliography}{71}
+\begin{thebibliography}{73}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -24,6 +24,13 @@ Banerjee, S., A.~E. Gelfand, A.~O. Finley, and H.~Sang.
 \newblock Stationary process approximation for the analysis of large spatial
   datasets.
 \newblock Journal of the Royal Statistical Society B {\bf 70}:825--848.
+
+\bibitem[{Barker et~al.(In Review)Barker, Schofield, Link, and
+  Sauer}]{barker2016n}
+Barker, R.~J., M.~R. Schofield, W.~A. Link, and J.~R. Sauer.
+\newblock In Review.
+\newblock N mixture models vs Poisson regression.
+\newblock Biometrics {\bf 00}:00--00.
 
 \bibitem[{Bayarri and Berger(2000)}]{BayarriBerger2000}
 Bayarri, M., and J.~O. Berger.
@@ -458,6 +465,14 @@ Williams, P.~J., and M.~B. Hooten.
 \newblock 2016.
 \newblock Combining statistical inference and decisions in ecology.
 \newblock Ecological Applications {\bf 26}:1930--1942.
+
+\bibitem[{Williams et~al.(In Press)Williams, Hooten, Womble, and
+  Bower}]{williams2017estimating}
+Williams, P.~J., M.~B. Hooten, J.~N. Womble, and M.~R. Bower.
+\newblock In Press.
+\newblock Estimating occupancy and abundance using aerial images with imperfect
+  detection.
+\newblock Methods in Ecology and Evolution {\bf 00}:00--00.
 
 \bibitem[{Wood(2006)}]{Wood2006}
 Wood, S.~N.
