@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  24 APR 2017 15:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  28 APR 2017 12:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -409,55 +409,55 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 [25] [26] [27] [28] [29] [30] [31] [32] [33] [34]
 (./ConnEtAl_HierarchicalGOF.bbl [35] [36] [37] [38] [39] [40] [41] [42])
 [43]
-Underfull \hbox (badness 10000) in paragraph at lines 1288--1288
+Underfull \hbox (badness 10000) in paragraph at lines 1289--1289
 []\OT1/cmr/m/it/12 Dependent
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1292--1292
+Underfull \hbox (badness 10000) in paragraph at lines 1293--1293
 []\OT1/cmr/m/it/12 Nonidentical
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1293--1293
+Underfull \hbox (badness 10000) in paragraph at lines 1294--1294
 []\OT1/cmr/m/it/12 Over-
  []
 
 
-Overfull \hbox (1.03975pt too wide) in paragraph at lines 1293--1293
+Overfull \hbox (1.03975pt too wide) in paragraph at lines 1294--1294
 \OT1/cmr/m/it/12 parameterization| 
  []
 
 
-Overfull \hbox (9.4887pt too wide) in paragraph at lines 1284--1296
+Overfull \hbox (9.4887pt too wide) in paragraph at lines 1285--1297
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 12.36949pt on input line 1296.
+LaTeX Warning: Float too large for page by 12.36949pt on input line 1297.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1310--1310
+Underfull \hbox (badness 10000) in paragraph at lines 1311--1311
 []\OT1/cmr/m/n/12 Likelihood ra-tio
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1311--1311
+Underfull \hbox (badness 10000) in paragraph at lines 1312--1312
 []\OT1/cmr/m/n/12 Freeman-Tukey
  []
 
 
-Underfull \hbox (badness 6348) in paragraph at lines 1313--1314
+Underfull \hbox (badness 6348) in paragraph at lines 1314--1315
 []\OT1/cmr/m/n/12 Zero in-fla-tion check for
  []
 
 
-Underfull \hbox (badness 1558) in paragraph at lines 1319--1320
+Underfull \hbox (badness 1558) in paragraph at lines 1320--1321
 \OT1/cmr/m/n/12 sky's the-o-rem) and $\OML/cmm/m/it/12 Z$ \OT1/cmr/m/n/12 is
  []
 
 
-Overfull \hbox (38.1651pt too wide) in paragraph at lines 1330--1342
+Overfull \hbox (38.1651pt too wide) in paragraph at lines 1331--1343
  [][] 
  []
 
@@ -467,30 +467,30 @@ File: Bayesian_modeling_decision_diagram.pdf Graphic file (type pdf)
 
 <use Bayesian_modeling_decision_diagram.pdf>
 Package pdftex.def Info: Bayesian_modeling_decision_diagram.pdf used on input l
-ine 1459.
+ine 1460.
 (pdftex.def)             Requested size: 483.69684pt x 362.77441pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1459--1460
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1460--1461
  [] 
  []
 
 <WOSsearch.jpeg, id=168, 536.9661pt x 466.6233pt>
 File: WOSsearch.jpeg Graphic file (type jpg)
  <use WOSsearch.jpeg>
-Package pdftex.def Info: WOSsearch.jpeg used on input line 1466.
+Package pdftex.def Info: WOSsearch.jpeg used on input line 1467.
 (pdftex.def)             Requested size: 483.69684pt x 420.3487pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1466--1467
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1467--1468
  [] 
  []
 
 <sim_count_maps.pdf, id=169, 505.89pt x 505.89pt>
 File: sim_count_maps.pdf Graphic file (type pdf)
  <use sim_count_maps.pdf>
-Package pdftex.def Info: sim_count_maps.pdf used on input line 1473.
+Package pdftex.def Info: sim_count_maps.pdf used on input line 1474.
 (pdftex.def)             Requested size: 483.69684pt x 483.70361pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1473--1474
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1474--1475
  [] 
  []
 
@@ -499,30 +499,30 @@ File: posterior_prediction_diagram.pdf Graphic file (type pdf)
 
 <use posterior_prediction_diagram.pdf>
 Package pdftex.def Info: posterior_prediction_diagram.pdf used on input line 14
-80.
+81.
 (pdftex.def)             Requested size: 483.69684pt x 362.77441pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1480--1481
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1481--1482
  [] 
  []
 
 <pivot_CDF_plot.pdf, id=171, 505.89pt x 505.89pt>
 File: pivot_CDF_plot.pdf Graphic file (type pdf)
  <use pivot_CDF_plot.pdf>
-Package pdftex.def Info: pivot_CDF_plot.pdf used on input line 1487.
+Package pdftex.def Info: pivot_CDF_plot.pdf used on input line 1488.
 (pdftex.def)             Requested size: 483.69684pt x 483.70361pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1487--1488
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1488--1489
  [] 
  []
 
 <SpatRegSimPvals.pdf, id=172, 505.89pt x 505.89pt>
 File: SpatRegSimPvals.pdf Graphic file (type pdf)
  <use SpatRegSimPvals.pdf>
-Package pdftex.def Info: SpatRegSimPvals.pdf used on input line 1494.
+Package pdftex.def Info: SpatRegSimPvals.pdf used on input line 1495.
 (pdftex.def)             Requested size: 483.69684pt x 483.70361pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1494--1495
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1495--1496
  [] 
  []
 
@@ -564,7 +564,7 @@ ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
 e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/
 2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2
 015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on ConnEtAl_HierarchicalGOF.pdf (56 pages, 629333 bytes).
+Output written on ConnEtAl_HierarchicalGOF.pdf (56 pages, 629308 bytes).
 PDF statistics:
  328 PDF objects out of 1000 (max. 8388607)
  219 compressed objects within 3 object streams
