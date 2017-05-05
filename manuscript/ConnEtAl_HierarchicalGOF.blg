@@ -1,56 +1,12 @@
-This is BibTeX, Version 0.99d (TeX Live 2015)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: ConnEtAl_HierarchicalGOF.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: ConnEtAl_HierarchicalGOF.aux
 The style file: ecology.bst
 Database file #1: master_bib.bib
-Repeated entry---line 287 of file master_bib.bib
+Repeated entry---line 286 of file master_bib.bib
  : @article{BanerjeeEtAl2008
  :                          ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 405 of file master_bib.bib
+Repeated entry---line 404 of file master_bib.bib
  : @article{BayarriBerger2000
  :                           ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "QiuEtAl2016"
-You've used 73 entries,
-            2788 wiz_defined-function locations,
-            1025 strings with 15739 characters,
-and the built_in function-call counts, 41356 in all, are:
-= -- 3517
-> -- 1811
-< -- 57
-+ -- 610
-- -- 520
-* -- 2852
-:= -- 6624
-add.period$ -- 292
-call.type$ -- 73
-change.case$ -- 467
-chr.to.int$ -- 72
-cite$ -- 73
-duplicate$ -- 2988
-empty$ -- 2972
-format.name$ -- 757
-if$ -- 8226
-int.to.chr$ -- 2
-int.to.str$ -- 1
-missing$ -- 606
-newline$ -- 443
-num.names$ -- 294
-pop$ -- 1173
-preamble$ -- 1
-purify$ -- 463
-quote$ -- 0
-skip$ -- 1004
-stack$ -- 0
-substring$ -- 2151
-swap$ -- 1372
-text.length$ -- 6
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 606
-warning$ -- 0
-while$ -- 312
-width$ -- 0
-write$ -- 1011
 (There were 2 error messages)

@@ -1,4 +1,4 @@
-\begin{thebibliography}{73}
+\begin{thebibliography}{74}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -387,6 +387,13 @@ Potts, J.~M., and J.~Elith.
 \newblock 2006.
 \newblock Comparing species abundance models.
 \newblock Ecological Modelling {\bf 199}:153--163.
+
+\bibitem[{Qiu et~al.(2016)Qiu, Feng, and Li}]{QiuEtAl2016}
+Qiu, S., C.~X. Feng, and L.~Li.
+\newblock 2016.
+\newblock Approximating cross-validatory predictive p-values with integrated IS
+  for disease mapping models.
+\newblock arXiv {\bf 1603.07668}.
 
 \bibitem[{{R Development Core Team}(2015)}]{RTeam2015}
 {R Development Core Team}, 2015.

@@ -32,18 +32,18 @@
 \begin{center}
   A guide to Bayesian model checking for ecologists
   \bigskip\\
-  \normalsize {\sc Paul B. Conn$^{1,}$\footnotemark[5], Mevin
-    B. Hooten$^{2,3,4}$, and
-    Devin S. Johnson$^1$ }\smallskip\\
+  \normalsize {\sc Paul B. Conn$^{1,}$\footnotemark[5], Devin S. Johnson$^1$, Perry J. Williams$^{2,3}$, and Mevin
+    B. Hooten$^{2,3,4}$
+     }\smallskip\\
   $^1${\em National Marine Mammal Laboratory, NOAA, National Marine
     Fisheries Service, Alaska Fisheries Science Center, 7600 Sand
-    Point Way NE, Seattle, WA 98115 USA }\\ \medskip $^2${\em
+    Point Way NE, Seattle, WA 98115 USA }\\ \medskip $^2${\em Department of Fish, Wildlife, and
+    Conservation Biology, Colorado State University, Fort Collins, CO
+    80523 USA } \\ \medskip  $^3${\em Department of Statistics, Colorado
+    State University, Fort Collins, CO 80523 USA }\\ \medskip $^4${\em
     U.S. Geological Survey, Colorado Cooperative Fish and Wildlife
     Research Unit, Colorado State University, Fort Collins, CO 80523
-    USA }\\ \medskip $^3${\em Department of Fish, Wildlife, and
-    Conservation Biology, Colorado State University, Fort Collins, CO
-    80523 USA }\\ \medskip $^4${\em Department of Statistics, Colorado
-    State University, Fort Collins, CO 80523 USA }\\ \medskip
+    USA }\\ \medskip
 \end{center}
 \footnotetext[5]{Email: paul.conn@noaa.gov}
 
@@ -82,7 +82,7 @@ review, we synthesize existing literature in order to guide ecologists
 to the many available options for Bayesian model checking.  We
 illustrate methods and procedures with several ecological case
 studies, including i) explaining variation in simulated
-spatio-temporal count data, and (ii) modeling survival and residence
+spatio-temporal count data, (ii) modeling survival and residence
 times of fur seal mothers on a rookery, and (iii) using $N$-mixture
 models to estimate abundance and detection probability of sea otters
 from an aircraft.  We find that commonly used procedures based on
@@ -173,7 +173,7 @@ the ecological literature.  For instance, a search of recent volumes
 of Ecology indicated that only 25\% of articles employing Bayesian
 analysis on real datasets reported any model checking or
 goodness-of-fit testing (Fig. \ref{fig:WOS}).  There are several
-reasons why Bayesian model checking is uncommon.  First, it likely has
+reasons why Bayesian model checking (hereafter, BMC) is uncommon.  First, it likely has
 to do with momentum; the lack of precedent in ecological literature
 may lead some authors looking for templates on how to publish Bayesian
 analyses to conclude that model checking is unnecessary.  Second, when
@@ -221,16 +221,12 @@ accurate characterizations of model fit.
 
 In this monograph, we have collated relevant statistical literature
 with the goal of providing ecologists with a practical guide to
-Bayesian model checking.  We start by defining a consistent notation
+BMC.  We start by defining a consistent notation
 that we use throughout the paper. Next, we work to compile a bestiary
-of Bayesian model checking procedures, providing positives and
-negatives associated with each approach.  We illustrate Bayesian model
-checking using several simulation studies (including spatial
-regression and $N$-mixture models), as well as a case study involving
-capture-recapture sampling of adult female fur seals
-(\textit{Callorhinus ursinus}) on a rookery in Alaska, U.S.A., and
-estimating abundance and distribution of sea otters in Glacier Bay,
-Alaska, U.S.A.  We conclude with several recommendations on how model
+of BMC procedures, providing pros and cons for each approach.  We illustrate BMC with several examples.  In the first, we use simulation to study the properties of a wide variety of BMC procedures applied to spatial models for count data.  In the second example, we apply BMC procedures to check the closure assumption of N-mixture models, using both simulated data and data from northern sea otters (\textit{Enhydra lutris kenyoni}) in Glacier Bay,
+Alaska, U.S.A.  Finally, we apply BMC to examine lack-of-fit in attendance patterns of northern fur seals (\textit{Callorhinus ursinus}) as estimated from capture-recapture data
+ at a rookery in Alaska, U.S.A.
+  We conclude with several recommendations on how model
 checking results should be presented in the ecological literature.
 
 
@@ -286,9 +282,9 @@ Table \ref{tab:discrepancy}.
 
 \section{Model checking procedures}
 
-Our goal in this section is to review relevant Bayesian model checking
+Our goal in this section is to review relevant BMC
 procedures for typical models in ecology, with the requirement that
-such procedures be accessible to statistics-savvy ecologists.  As
+such procedures be accessible to statistically-minded ecologists.  As
 such, we omit several approaches that have good statistical properties
 but have been criticized \citep[e.g.,][]{Johnson2007b,Zhang2014} as
 too computationally intensive, conceptually difficult, or
@@ -297,7 +293,9 @@ instance, we omit consideration of double sampling methods that may
 increase the computational burden of a Bayesian analysis by an order
 of magnitude \citep{Johnson2007b}, including ``partial posterior" and
 ``conditional predictive" p-values \citep[see
-e.g.,][]{BayarriBerger1999,RobinsEtAl2000,BayarriCastellanos2007}.
+e.g.,][]{BayarriBerger1999,RobinsEtAl2000,BayarriCastellanos2007}.  A brief summary of 
+the model checking procedures we consider is provided in Table \ref{tab:checks}; we now describe
+each of these approaches in greater depth.
 
 \subsection{Prior predictive checks}
 
@@ -366,7 +364,7 @@ checking advanced in statistical texts read by ecologists
 \citep[e.g.,][]{KingEtAl2009,LinkBarker2010,KerySchaub2012,GelmanEtAl2014}. Although
 sample size was small ($n=25$), our survey of recent \textit{Ecology}
 volumes indicated that posterior predictive checks are also the
-dominant form of Bayesian model checking being reported in ecological
+dominant form of BMC being reported in ecological
 literature (if any checking is reported at all; Fig. \ref{fig:WOS}).
 Posterior predictive checks are based on the intuition that data
 simulated under a fitted model should be comparable to the real world
@@ -413,7 +411,7 @@ misspecification is occurring within the modeling hierarchy (e.g.,
 poorly specified priors, errant mean structure, underdispersed error
 distribution).  Further, a poorly specified mean structure may still
 result in reasonable fit of the model if the model is made
-sufficiently flexible through inclusion of random effects.
+sufficiently flexible (e.g., via random effects).
 
 These cautions do not imply that posterior predictive checks are
 completely devoid of value.  Indeed, given that tests are
@@ -465,7 +463,7 @@ suggest that it may be a preferable choice, both in terms of Type I
 error control and power to detect lack-of-fit.  In fact, sampled
 posterior p-values are guaranteed to at least have an asymptotic
 uniform distribution under the null \citep[i.e., when the model fit to
-the data is the ``true" model][]{Gosselin2011}.  Sampled posterior
+the data is the ``true" model;][]{Gosselin2011}.  Sampled posterior
 p-values can also be calculated using pivotal discrepancy measures,
 reducing computational burden (i.e., eliminating the requirement that
 replicate datasets be generated). We describe an example of this
@@ -481,7 +479,7 @@ levels of modeling hierarchy.  One approach to conducting
 goodness-of-fit at multiple levels of the model is to use discrepancy
 functions based on pivotal quantities
 \citep{Johnson2004,YuanJohnson2012}.  Pivotal quantities are random
-variables that can be functions of data, parameters, or both, that
+variables that can be functions of data, parameters, or both, and that
 have known probability distributions that are independent of
 parameters \citep[see e.g.,][section 9.2.2]{CasellaBerger1990}.  For
 instance, if
@@ -517,7 +515,7 @@ The advantage of using PDMs is that the reference distribution is
 known and does not necessarily involve simulation of replicated
 datasets, $\bfy^{rep}$.  However, in practice, there are several
 difficulties with using pivotal quantities as discrepancy measures in
-Bayesian model checking.  First, as with the sampled predictive
+BMC.  First, as with the sampled predictive
 p-value, p-values using PDMs are only guaranteed to be uniform under
 the null if calculated with respect to a single posterior parameter
 draw, $\tilde{\bftheta} \sim [\bftheta | \bfy]$.  The joint
@@ -613,7 +611,7 @@ Alg. 4).
 Cross-validation can also be useful for diagnosing outliers in spatial
 modeling applications.  For instance, \citet{SternCressie2000} and
 \citet{MarshallSpiegelhalter2003} use it to identify regions that have
-inconsistent behavior relative to the model.  Such outliers can either
+inconsistent behavior relative to the model.  Such outliers can
 indicate that the model does not sufficiently explain variation in
 responses, that there are legitimate ``hot spots" worthy of additional
 investigation \citep{MarshallSpiegelhalter2003}, or both.
@@ -698,7 +696,7 @@ important.
 
 \subsection{Graphical techniques}
 
-Many of the tests described previously require discrepancy functions,
+Many of the previously described tests require discrepancy functions,
 and it may be difficult to formulate such functions for different
 types of lack-of-fit (e.g., Table \ref{tab:lof}).  Many scientists are
 visual learners, and displaying model checking information graphically
@@ -742,7 +740,7 @@ distribution of Bayesian p-values, which must be uniformly distributed
 on (0,1) to provide an unbiased test.
 
 Simulation has been previously used to assess the properties of
-alternative Bayesian model checking procedures
+alternative BMC procedures
 \citep[e.g.,][]{Gosselin2011,YuanJohnson2012,Zhang2014}, but the
 problems studied have often been simplistic relative to the types of
 Bayesian models used in real world ecological applications.  In this
@@ -775,8 +773,7 @@ inference \citep{Legendre1993,LichsteinEtAl2002}.
 In this simulation study, we generate count data under a Poisson
 distribution where the true mean response is a function of a
 hypothetical covariate, spatially autocorrelated error, and additional
-Gaussian noise.  Data simulated in this manner can be viewed as
-arising from a spatially autocorrelated Poisson-normal mixture, and
+Gaussian noise.  Data simulated in this manner arise from a spatially autocorrelated Poisson-normal mixture, and
 can be expected to be overdispersed relative to the Poisson, in much
 the same way that a negative binomial distribution (a Poisson-gamma
 mixture) is.  We then examine the effectiveness of alternative model
@@ -838,7 +835,7 @@ greater detail.
 
 \subsubsection{Posterior predictive p-values}
 
-For each dataset and estimation model, we several posterior predictive
+For each dataset and estimation model, we calculated several posterior predictive
 p-values with different discrepancy measures.  These included
 $\chi^2$, Freeman-Tukey, and deviance-based omnibus p-values, as well
 as directed p-values examining tail probabilities (Table
@@ -990,7 +987,7 @@ assumed to be independent binomial random variables, conditional on
 constant abundance $N_i$ and detection probability $p$;
 $y_{i,j} \sim \text{Binomial}(N_i,p)$. Additionally, $N_i$ is assumed
 to be an independent random variable with probability mass function
-$[N_i|\boldsymbol{\theta}]$ (e.g., Poisson, Negative Binomial,
+$[N_i|\boldsymbol{\theta}]$ (e.g., Poisson, negative binomial,
 Conway-Maxwell Poisson).  The assumption of constant abundance
 $N_{i,j}=N_i~ \forall j$ is critical for accurate estimates of $N_i$
 and $p$. In practice, this assumption implies that a population at
@@ -1017,7 +1014,7 @@ system, and whether individual movement is small, compared to the size
 of sample plots (e.g., \citealt{efford2012occupancy}; but see
 \citealt{DailMadsen2011}, for a frequentist test of this assumption
 using a model selection approach). As an alternative, we consider the
-utility of Bayesian model checking to assess the closure assumption
+utility of BMC to assess the closure assumption
 for $N$-mixture models. We first consider a brief simulated example
 where truth is known. We then examine real data consisting of counts
 of sea otters from aerial photographs taken in Glacier Bay National
@@ -1106,39 +1103,7 @@ simulation are provided in Appendix 3.
     true abundance value by allowing just 5\% of the population to
     move in or out of a site between surveys.
 
-    % latex table generated in R 3.3.2 by xtable 1.8-2 package Wed Apr
-    % 19 15:31:20 2017
-    % latex table generated in R 3.3.2 by xtable 1.8-2 package
-    % Wed Apr 19 15:34:25 2017
-    \begin{table}[ht]
-      \centering
-      \begin{tabular}{cccccccc}
-        \hline \hline
-        $c$ & p-value & sppv & Abundance (truth=50,989) & 95\% CRI & GR & ESS \\
-        \hline
-        0.00 & 0.48 & 0.27 & 51,200 & (49,295, 53,481) & 1.00 & 3,420 \\
-        0.05 & 0.40 & 1.00 & 60,047 & (56,605, 63,868) & 1.00 & 3,260 \\
-        0.10 & 0.00 & 1.00 & 81,299 & (75,223, 89,601) & 1.01 & 3,194 \\
-        0.15 & 0.00 & 1.00 & 97,066 & (89,149, 104,360) & 1.13 & 3,199 \\
-        0.20 & 0.00 & 0.02 & 117,624 & (108,825, 127,007) & 1.03 & 3,184 \\
-        0.25 & 0.00 & 0.01 & 119,397 & (110,477, 125,992) & 1.06 & 3,206 \\
-        0.30 & 0.00 & 0.00 & 133,797 & (124,194, 141,117) & 1.10 & 3,195 \\
-        0.35 & 0.00 & 0.00 & 139,951 & (133,351, 147,086) & 1.00 & 3,213 \\
-        \hline
-      \end{tabular}
-      \caption{Results of one simulation for examining the effect of
-        the closure assumption on model fit. The notation $c$
-        represents the maximum proportion of the population that could
-        move in or out of a site between $j-1$ and $j$, p-value  is the posterior predicitive
-        p-value using a $\chi$-squared goodness-of-fit statistic, sppv
-        is the sampled predictive p-value using the sum of variance
-        test statistic, Abundance is the mean of the marginal
-        posterior distribution for total abundance at the 300 sites,
-        the 95\% CRI are the 95\% credible intervals, GR is the
-        multi-variate Gelman-Rubin convergence diagnostic, and ESS is
-        the effective sample size of 1,000,000 MCMC iterations.}
-      \label{tab:results}
-    \end{table}
+
 
     % Because, $E(y|N,p)=N\times p$, and $\text{var}(y|N,p)=Np(1-p)$,
     % when $p>0.5$, simultaneously increasing N and decreasing p (but
@@ -1234,9 +1199,11 @@ simulation are provided in Appendix 3.
 
     Mean structure vs. dispersion - not always obvious where
     misspecification occurs.
+    
+    REVIEW RESULTS FOR EACH SECTION.  In count data simulations, only sampled p-values and cross-validatory p-value procedures had properly stated frequentist properties.  Although all approaches did well at rejecting the fit of the simplistic model without random effects of any type, omnibus predictive p-value tests failed to reject a model without spatial structure, even though data had been simulated with spatial structure.
 
     The purpose of this paper was to provide a general overview of
-    common approaches to Bayesian model checking and the strengths and
+    common approaches to BMC and the strengths and
     weaknesses of each.  We do not, however, claim to be entirely
     comprehensive. For instance, we limited our discussion to
     approaches that are relatively straightforward to implement.
@@ -1278,7 +1245,7 @@ simulation are provided in Appendix 3.
 
     TABLES
 
-    \begin{table}[ht]
+    \begin{table}[htp]
       \caption{Types and causes of lack-of-fit in statistical models}
       \label{tab:lof}
       \centering
@@ -1296,7 +1263,7 @@ simulation are provided in Appendix 3.
       \end{tabular}
     \end{table}
 
-    \begin{table}[ht]
+    \begin{table}[htp]
       \caption{Discrepancy functions and pivotal quantities useful for hierarchical model checking.
       }
       \label{tab:discrepancy}
@@ -1323,10 +1290,10 @@ simulation are provided in Appendix 3.
     \end{table}
 
 
-    \begin{table}[ht]
+    \begin{table}[htp]
       \caption{A summary of Bayesian model checking approaches.  For each method, we describe whether each method allows for (1) computation of an overall p-value (``p-value?"), (2) whether the method tends to be conservative (i.e., has overstated power to detect goodness-of-fit; ``conservative?"), (3) whether all levels of the modeling hierarchy can be evaluated (``all levels?"), (4) whether out-of-sample data are used to assess lack-of-fit (``out-of-sample?"), and (5) computing cost (``cost").
       }
-      \label{tab:discrepancy}
+      \label{tab:checks}
       \centering
       \begin{tabular}{lccccc}
         \hline
@@ -1341,6 +1308,41 @@ simulation are provided in Appendix 3.
         \hline
       \end{tabular}
     \end{table}
+    
+        % latex table generated in R 3.3.2 by xtable 1.8-2 package Wed Apr
+    % 19 15:31:20 2017
+    % latex table generated in R 3.3.2 by xtable 1.8-2 package
+    % Wed Apr 19 15:34:25 2017
+    \begin{table}[htp]
+      \centering
+            \caption{Results of one simulation for examining the effect of
+        the closure assumption on model fit in the sea otter example. The notation $c$
+        represents the maximum proportion of the population that could
+        move in or out of a site between $j-1$ and $j$, p-value  is the posterior predicitive
+        p-value using a $\chi$-squared goodness-of-fit statistic, sppv
+        is the sampled predictive p-value using the sum of variance
+        test statistic, Abundance is the mean of the marginal
+        posterior distribution for total abundance at the 300 sites,
+        the 95\% CRI are the 95\% credible intervals, GR is the
+        multi-variate Gelman-Rubin convergence diagnostic, and ESS is
+        the effective sample size of 1,000,000 MCMC iterations.}
+      \begin{tabular}{cccccccc}
+        \hline \hline
+        $c$ & p-value & sppv & Abundance (truth=50,989) & 95\% CRI & GR & ESS \\
+        \hline
+        0.00 & 0.48 & 0.27 & 51,200 & (49,295, 53,481) & 1.00 & 3,420 \\
+        0.05 & 0.40 & 1.00 & 60,047 & (56,605, 63,868) & 1.00 & 3,260 \\
+        0.10 & 0.00 & 1.00 & 81,299 & (75,223, 89,601) & 1.01 & 3,194 \\
+        0.15 & 0.00 & 1.00 & 97,066 & (89,149, 104,360) & 1.13 & 3,199 \\
+        0.20 & 0.00 & 0.02 & 117,624 & (108,825, 127,007) & 1.03 & 3,184 \\
+        0.25 & 0.00 & 0.01 & 119,397 & (110,477, 125,992) & 1.06 & 3,206 \\
+        0.30 & 0.00 & 0.00 & 133,797 & (124,194, 141,117) & 1.10 & 3,195 \\
+        0.35 & 0.00 & 0.00 & 139,951 & (133,351, 147,086) & 1.00 & 3,213 \\
+        \hline
+      \end{tabular}
+      \label{tab:results}
+    \end{table}
+    
     \pagebreak
 
     FIGURE CAPTIONS
