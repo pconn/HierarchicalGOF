@@ -1179,11 +1179,46 @@ simulation are provided in Appendix 3.
     example, and corroborates the auxillary information collected by
     the secondary observer.
 
-    \subsection{Should I stay or should I go? Hidden (Semi-) Markov Models}
+    \subsection{Should I stay or should I go? Hidden Markov Models}
     
-    In this example we present another analysis of model fit for a model that is becoming quite well known within the ecological community, the Hidden Markov Model (HMM). HMMs are a very general class of models that has become an appealing way to model time series data in ecological research due to the fact that there is a relatively simple algorithm for calculating the data likelihood whether the observed data are continuous or discrete. In addition, because the model is built upon the idea of a latent state, ecologists can construct a model to make inference to a biologically relevant `state' that may not be directly equivalent to the observable data. 
+    In this example we present another assessment of goodness-of-fit for a model that is becoming quite well known within the ecological community, the Hidden Markov Model (HMM). HMMs are a very general class of models that has become an appealing way to model time series data in ecological research due to the fact that there is a relatively simple algorithm for calculating the data likelihood whether the observed data are continuous or discrete. In addition, because the model is built upon the idea of a latent state, ecologists can construct a model to make inference to a biologically relevant `state' that may not be directly equivalent to the observable data. There is one implicit assumption within the HMM framework that may not often be assessed, that is, the amount of time spent within a state (the {\it residence time}) is geometrically distributed. We present an analysis of California sea lion (CSL; {\it Zalophus californianus}) attendance patterns before and after birth of their pup. Using this analysis we assessed the goodness-of-fit of a 4 state HMM to this data. In addition, we assessed the fit of an alternative Hidden Semi-Markov Model (HSMM), which provides an alternative to the geometric residence time of the HMM.
     
-    There is 
+    The HMM is formed by considering a time series of categorical variables, $X_{1}, \dots, X_{T}$ that represent the hidden states. For each $t$, $X_{t} \in \{1, \dots, S\}$, where $S$ is the number of latent states. The $X_t$ process follows a Markov chain with transition matrix $\boldsymbol{\Gamma}$ in which the $j,k$ entry is $\Gamma_{jk} = [X_{t+1} = k | X_t = j]$. The state process is hidden (at least partially), so, the researcher is able to make observation $y_t$ with distribution $[y_t|X_t]$ and observations are independent given the hidden states, which implies the joint distribution,
+    \begin{equation}
+    [\mathbf{y}, \mathbf{X}| \boldsymbol{\psi}, \boldsymbol{\Gamma}] = \prod_{t=2}^T [y_t|X_t, \boldsymbol{\psi}]\ [X_t|X_{t-1},\boldsymbol{\Gamma}]\ [X_1],
+    \end{equation}
+ where $\boldsymbol{\psi}$ is a parameter vector for the observation process. For Bayesian inference within an MCMC algorithm, we can make use of the forward algorithm \citep[see][]{zucchini2009hidden} to integrate over the missing state process and evaluate the marginal model $[\mathbf{y}|\boldsymbol{\psi}, \boldsymbol{\Gamma}]$, thus we can generate a posterior sample without having to sample $\boldsymbol{X}$ in the process. 
+ 
+ The CSL data is composed of a time series or capture-history of 66 females on San Miguel I., California over the course of 2 months (61 days) prior to the pupping season. It was noted whether or not a marked female was seen on a particular day (i.e., $y_{it} =1,0$, respectively, $i=1,\dots,66$ and $t=1,\dots,61$). The probability of observing a particular female on a given day depends on her unobserved reproductive state: (1) pre-birth, (2) post-birth, (3) at-sea foraging, and (4) on-land nursing. The detection probability for females in the pre-birth state is likely to be low as they are not attached to the rookery yet with a pup and can come and go as they please. If the female is at-sea, of coarse she cannot not be observed and detection is 0. For females that have just given birth, or are returning from a foraging trip, they will be tending to their pups and are more available to be detected. 
+ 
+In an initial attempt to make inference on the attendance patterns of the CSL we used an HMM with a $\boldsymbol{\Gamma}$ in which all entries are 0 except:
+\begin{itemize}
+\item all diagonal entries, $\Gamma_{kk} = \gamma_k$, 
+\item $\Gamma_{12} = 1-\gamma_1$,
+\item $\Gamma_{23} = 1-\gamma_2$,
+\item $\Gamma_{34} = 1-\gamma_3$, and 
+\item $\Gamma_{43} = 1-\gamma_4$
+\end{itemize}
+ This allows the process to pass from each state to the next in the reproductive schedule with alternating in the (3) at-sea and (4) on-land states. The observation model was given as
+ $$
+ [y_{it}|X_{it}] = Bernoulli(\psi(X_{it})),
+ $$
+ where $\psi(1) = \psi_1$, $\psi(3) = 0$, and $\psi(2) = \psi(4) = \psi_2$. To assess model fit, we used the Tukey fit statistic 
+ \begin{equation}
+ T(\mathbf{y}; \boldsymbol{\psi},\boldsymbol{\Gamma}) =  \sum_t\left(\sqrt{d_t} - \sqrt{E[d_t]}\right)^2,
+ \end{equation} 
+ where $d_t$ is the number of observed detections on occasion $t$ and $E[d_t]$ is the expected number of detections given by the HMM model. This expectation is
+ \begin{equation}
+ E[d_t] = \sum_i  \boldsymbol{\delta}'\boldsymbol{\Gamma}^{t-1}\boldsymbol{\psi},
+ \end{equation}
+ were $\boldsymbol{\delta} = [X_{i1}] = (1\ 0\ 0\ 0)'$, as all animals start in the pre-birth state, and $\boldsymbol{\psi} = (\psi_1\ \psi_2\ 0\ \psi_2)'$
+ 
+ 
+ The Markov assumption of the latent state process implies that after landing in state $k$, the amount of time spent there is geometrically distributed with parameter $1-\Gamma_{kk}$. Further, this implies that the most common (i.e., mode) amount of time spent is one time step. As $\Gamma_{kk}$ approaches 1, this distribution flattens out, but retains a mode of 1. An alternative model that relaxes this assumption is the Hidden Semi-Markov Model (HSMM). In the HSMM, the residence time is explicitly modeled and at the end of the residence period a transition is made to another state with probability $\tilde\Gamma_{jk}$. For an HSMM, $\tilde\Gamma_{kk} = 0$ because remaining in a state is governed by the residence time model. This extra generality comes at a computational cost, however, \citet{langrock2011hidden} provide a method for approximating an HSMM with an HMM to whatever degree a accuracy required, therefore, the forward algorithm can still be used for inference. 
+    
+    In terms of the CSL analysis, The hidden state process for female $i$ on occasion $t$ is $X_{it}$, which represents  pre-birth, birth, at-sea, and on-land. 
+     
+    
 
     \section{Discussion}
 

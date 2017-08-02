@@ -1,4 +1,4 @@
-\begin{thebibliography}{74}
+\begin{thebibliography}{76}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -300,6 +300,12 @@ King, R., B.~Morgan, O.~Gimenez, and S.~Brooks.
 \newblock Bayesian analysis for population ecology.
 \newblock CRC Press, Boca Raton, Florida.
 
+\bibitem[{Langrock and Zucchini(2011)}]{langrock2011hidden}
+Langrock, R., and W.~Zucchini.
+\newblock 2011.
+\newblock Hidden Markov models with arbitrary state dwell-time distributions.
+\newblock Computational Statistics \&amp; Data Analysis {\bf 55}:715--724.
+
 \bibitem[{Legendre(1993)}]{Legendre1993}
 Legendre, P.
 \newblock 1993.
@@ -498,5 +504,11 @@ Zhang, J.~L.
 \newblock 2014.
 \newblock Comparative investigation of three Bayesian p values.
 \newblock Computational Statistics \& Data Analysis {\bf 79}:277--291.
+
+\bibitem[{Zucchini and MacDonald(2009)}]{zucchini2009hidden}
+Zucchini, W., and I.~L. MacDonald.
+\newblock 2009.
+\newblock Hidden Markov models for time series: an introduction using R.
+\newblock CRC Press.
 
 \end{thebibliography}
