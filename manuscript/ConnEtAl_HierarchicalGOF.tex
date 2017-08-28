@@ -32,8 +32,8 @@
 \begin{center}
   A guide to Bayesian model checking for ecologists
   \bigskip\\
-  \normalsize {\sc Paul B. Conn$^{1,}$\footnotemark[5], Devin S. Johnson$^1$, Perry J. Williams$^{2,3}$, Mevin
-    B. Hooten$^{2,3,4}$, and Sharon R. Melin$^1$
+  \normalsize {\sc Paul B. Conn$^{1,}$\footnotemark[5], Devin S. Johnson$^1$, Perry J. Williams$^{2,3}$, Sharon R. Melin$^1$, and Mevin
+    B. Hooten$^{2,3,4}$
      }\smallskip\\
   $^1${\em Marine Mammal Laboratory, NOAA, National Marine
     Fisheries Service, Alaska Fisheries Science Center, 7600 Sand
@@ -64,11 +64,8 @@ arising from sampling artifacts. However, ecologists tend to be less
 focused on checking model assumptions and assessing potential
 lack-of-fit when applying Bayesian methods than when they applying
 more traditional modes of inference such as maximum likelihood.  There
-are also multiple ways of assessing goodness-of-fit for Bayesian
-models, each of which has strengths and weaknesses.  For instance, in
-ecological applications, the posterior predictive p-value is probably
-the most widely used approach for assessing lack of fit in Bayesian
-models. Such p-values are relatively easy to compute, but they are
+are also multiple ways of assessing the fit of Bayesian
+models, each of which has strengths and weaknesses.  For instance, Bayesian p-values are relatively easy to compute, but are
 well known to be conservative, producing p-values biased toward 0.5.
 Alternatively, lesser known approaches to model checking, such as
 prior predictive checks, cross-validation probability integral
@@ -81,12 +78,9 @@ check for residual temporal or spatial autocorrelation.  In this
 review, we synthesize existing literature in order to guide ecologists
 to the many available options for Bayesian model checking.  We
 illustrate methods and procedures with several ecological case
-studies, including i) explaining variation in simulated
-spatio-temporal count data, (ii) modeling survival and residence
-times of fur seal mothers on a rookery, and (iii) using $N$-mixture
-models to estimate abundance and detection probability of sea otters
-from an aircraft.  We find that commonly used procedures based on
-posterior predictive p-values have high power to detect extreme model
+studies, including i) analysis of simulated spatio-temporal count data, (ii) $N$-mixture
+models for estimating abundance and detection probability of sea otters
+from an aircraft, and (iii) hidden Markov modeling to describe attendance patterns of California sea lion mothers on a rookery.  We find that commonly used procedures based on posterior predictive p-values have high power to detect extreme model
 inadequacy, but low power to detect more subtle cases of lack of fit.
 Tests based on cross-validation and pivot discrepancy measures
 (including the ``sampled predictive p-value'') appear to be much
@@ -96,10 +90,10 @@ of scientific discovery and learning that should accompany most
 Bayesian analyses presented in the literature.
 
 
-{\em Bayesian p-value, count data, goodness-of-fit diagnostic check,
+{\em Bayesian p-value, count data, goodness-of-fit diagnostic check, hidden Markov model,
   hierarchical model, model checking, $N$-mixture model, pivot
   discrepancy, posterior predictive check, probability interval
-  transform, sampled predictive p-value, spatio-temporal model}
+  transform, sampled predictive p-value}
 
 
 
@@ -127,7 +121,7 @@ autocorrelation, individual level random effects, and hidden states
 Bayesian calculus also results in posterior probability distributions
 for parameters of interest; used together with posterior model
 probabilities, these can provide the basis for mathematically coherent
-decision and risk analyses \citep{LinkBarker2006,Berger2013,
+decision and risk analysis \citep{LinkBarker2006,Berger2013,
   williams2016combining}.
 
 Ultimately, the reliability of inference from a fitted model (Bayesian
@@ -156,7 +150,7 @@ goodness-of-fit diagnostics that examine different types of
 lack-of-fit (Table \ref{tab:lof}).  For instance, when fitting
 generalized linear \citep{McCullaghNelder1989} or additive
 \citep{Wood2006} models in the R programming environment
-\citep{RTeam2015}, one can easily access diagnostics such as
+\citep{RTeam2017}, one can easily access diagnostics such as
 quantile-quantile, residual, and leverage plots.  These diagnostics
 allow one to assess the reasonability of the assumed probability
 model, to examine whether there is evidence of heteroskedasticity, and
@@ -224,9 +218,8 @@ with the goal of providing ecologists with a practical guide to
 BMC.  We start by defining a consistent notation
 that we use throughout the paper. Next, we work to compile a bestiary
 of BMC procedures, providing pros and cons for each approach.  We illustrate BMC with several examples.  In the first, we use simulation to study the properties of a wide variety of BMC procedures applied to spatial models for count data.  In the second example, we apply BMC procedures to check the closure assumption of N-mixture models, using both simulated data and data from northern sea otters (\textit{Enhydra lutris kenyoni}) in Glacier Bay,
-Alaska, U.S.A.  Finally, we apply BMC to examine lack-of-fit in attendance patterns of northern fur seals (\textit{Callorhinus ursinus}) as estimated from capture-recapture data
- at a rookery in Alaska, U.S.A.
-  We conclude with several recommendations on how model
+Alaska, U.S.A.  Finally, we apply BMC to examine lack-of-fit in attendance patterns of California sea lion (CSL; {\it Zalophus californianus}) as estimated from capture-recapture data from a rookery on San Miguel Island, California, U.S.A.
+We conclude with several recommendations on how model
 checking results should be presented in the ecological literature.
 
 
@@ -288,12 +281,12 @@ such procedures be accessible to statistically-minded ecologists.  As
 such, we omit several approaches that have good statistical properties
 but have been criticized \citep[e.g.,][]{Johnson2007b,Zhang2014} as
 too computationally intensive, conceptually difficult, or
-problem-specific to be of relevant use in common applications.  For
+problem-specific.  For
 instance, we omit consideration of double sampling methods that may
 increase the computational burden of a Bayesian analysis by an order
 of magnitude \citep{Johnson2007b}, including ``partial posterior" and
 ``conditional predictive" p-values \citep[see
-e.g.,][]{BayarriBerger1999,RobinsEtAl2000,BayarriCastellanos2007}.  A brief summary of 
+e.g.,][]{BayarriBerger1999,RobinsEtAl2000,BayarriCastellanos2007}.  A brief summary of
 the model checking procedures we consider is provided in Table \ref{tab:checks}; we now describe
 each of these approaches in greater depth.
 
@@ -323,8 +316,7 @@ replicate data $\bfy^{rep}$ are simulated via
 and then compared to observed data $\bfy$ via a discrepancy function
 (Appendix A, Alg. 1).
 
-When the prior distribution(s) $[\bftheta]$ are proper statistical
-distributions, p-values from prior predictive checks are uniformly
+When the prior distribution $[\bftheta]$ is proper, p-values from prior predictive checks are uniformly
 distributed under the null model and have properly stated frequentist
 properties.  The main problem with this approach is that the models
 being considered need to have considerable historical investment and
@@ -362,7 +354,7 @@ process with the prior distributions used for calibration
 Posterior predictive checks are the dominant form of Bayesian model
 checking advanced in statistical texts read by ecologists
 \citep[e.g.,][]{KingEtAl2009,LinkBarker2010,KerySchaub2012,GelmanEtAl2014}. Although
-sample size was small ($n=25$), our survey of recent \textit{Ecology}
+sample size was small ($n=25$), a survey of recent \textit{Ecology}
 volumes indicated that posterior predictive checks are also the
 dominant form of BMC being reported in ecological
 literature (if any checking is reported at all; Fig. \ref{fig:WOS}).
@@ -377,11 +369,9 @@ Posterior predictive checks can be used to look at differences between
 observed and simulated data graphically, or can be used to calculate
 ``Bayesian p-values" (Appendix A, Alg. 2).  Bayesian p-values
 necessarily involve application of a discrepancy function,
-$T(\textbf{y},\boldsymbol{\theta})$, for comparing observed and
-simulated data.  There are several omnibus discrepancy measures that
-can be employed to examine overall lack-of-fit, and targeted
-discrepancy measures can be used to look for specific data features
-that systematically differ between simulated and observed data (Table
+$T(\textbf{y},\boldsymbol{\theta})$, for comparing observations to
+simulated data.  Omnibus discrepancy functions help diagnose global lack-of-fit, while targeted
+discrepancy functions can be used to look for systematic differences in specific data features (Table
 \ref{tab:discrepancy}).
 
 Posterior predictive checks are straightforward to implement.
@@ -414,7 +404,7 @@ result in reasonable fit of the model if the model is made
 sufficiently flexible (e.g., via random effects).
 
 These cautions do not imply that posterior predictive checks are
-completely devoid of value.  Indeed, given that tests are
+devoid of value.  Indeed, given that tests are
 conservative, small (e.g., $<0.05$) or very large (e.g., $>0.95$)
 p-values strongly suggest lack-of-fit.  Further, graphical displays
 (see \textit{Graphical techniques}) and targeted discrepancies (Table
@@ -569,7 +559,7 @@ predicted responses). These advantages are extremely appealing in that
 one can more thoroughly test distributional assumptions and look for
 places where lack-of-fit may be occurring, something that can be
 difficult to do with posterior predictive checks.  We apply this
-algorithm in \textit{Examples} and provide R code for applying this
+algorithm in \textit{Spatial models for count data} and provide R code for applying this
 approach to generic MCMC data in the R package
 \texttt{HierarchicalGOF} accompanying this paper (see
 \textit{Software} for more information).
@@ -583,12 +573,10 @@ running an analysis, and seeing how model predictions match up with
 actual observations.  This process is often repeated sequentially for
 different partitions of the data.  It is most often used to examine
 the relative predictive performance of different models \citep[i.e.,
-for model selection; see e.g.][]{ArlotCelisse2010}.  However, it also
-possible to use cross-validation techniques to examine model fit and
-diagnose outlier behavior.  The major advantage of conducting tests in
-this fashion is that there is no duplicate use of data (as with
-posterior predictive tests or those based on joint PDMs).  The major
-disadvantage is that it can be computationally challenging for
+for model selection; see e.g.][]{ArlotCelisse2010}.  However, one can also use cross-validation to examine model fit and
+determine outliers.  The primary advantage of conducting tests in
+this fashion is that there is no duplicate use of data as with
+posterior predictive tests or those based on joint PDMs. However, cross validation can be computationally intensive (and sometimes prohibitively so) for
 complicated hierarchical models.
 
 One approach to checking models using cross-validation is the
@@ -596,7 +584,7 @@ cross-validated probability integral transform (PIT) test, which has
 long been exploited to examine the adequacy of probabilistic forecasts
 \citep[e.g.,][]{Dawid1984,Fruiiwirth1996,GneitingEtAl2007,CzadoEtAl2009}. These
 tests work by simulating data at a set of times or locations, and
-computing the CDF of the predictions evaluated at the realized data
+computing the CDF of the predictions evaluated at a set of realized data
 (where realized data are not used to fit the model).  This can be
 accomplished in a sequential fashion for time series data, or by
 withholding data (as with leave-one-out cross-validation).  In either
@@ -659,7 +647,7 @@ posterior density associated with a statistic such as Moran's I
 \citep{Moran1950} or Getis-Ord G* \citep{GetisOrd1992} on residuals.
 For example, calculating Moran's I for each posterior sample $j$
 relative to posterior residuals
-${\bf Y} - \textrm{E}({\bf Y} | \boldsymbol{\theta}_j)$, a histogram
+${\bf y} - \textrm{E}({\bf y} | \boldsymbol{\theta}_j)$, a histogram
 of $I_j$ values can be constructed; substantial overlap with zero
 suggests little evidence of residual spatial autocorrelation.  As
 calculation of Moran's I is dependent upon a a pre-specified distance
@@ -670,8 +658,7 @@ evaluate residual spatial autocorrelation at different scales.
 \subsection{Just build a bigger model!  Tradeoffs between fit and
   prediction}
 
-One way to ensure a model fits the data is simply to build a model
-high complexity.  To take an extreme example, one could simply start
+One way to ensure a model fits the data is simply to build a highly complex model.  To take an extreme example, one could simply start
 with a saturated model (one where there is a separate parameter for
 each datum) so that the model fits the data perfectly.  No one would
 actually do this in practice; science proceeds be establishing
@@ -715,7 +702,7 @@ of diagnostic plots in the following examples.
 \section{Computing}
 
 We conduct all subsequent analyses using a combination of R
-\citep{RTeam2015} and JAGS \citep{Plummer2003}.  We used R to simulate
+\citep{RTeam2017} and JAGS \citep{Plummer2003}.  We used R to simulate
 data and to conduct model testing procedures; JAGS was used to conduct
 MCMC inference and produce posterior predictions. We developed an R
 package, \texttt{HierarchicalGOF}, that contains all of our code.
@@ -727,32 +714,9 @@ it can be used as a template for ecologists conducting their own model
 checking exercises.
 
 
-\section{Simulation studies}
+\section{Examples}
 
-We conducted several simulation studies to illustrate application of
-alternative model checking procedures when trying to detect departures
-from model assumptions.  Simulation is extremely useful for
-illustrating concepts as truth is known, and we can examine the
-large-scale properties of model testing procedures, including the
-important case when the same model is used to fit the data as is used
-to generate them.  For example, we can describe the empirical null
-distribution of Bayesian p-values, which must be uniformly distributed
-on (0,1) to provide an unbiased test.
-
-Simulation has been previously used to assess the properties of
-alternative BMC procedures
-\citep[e.g.,][]{Gosselin2011,YuanJohnson2012,Zhang2014}, but the
-problems studied have often been simplistic relative to the types of
-Bayesian models used in real world ecological applications.  In this
-section, we study the properties of different model checking methods
-when applied to simulated data sets more typical for ecological
-inference.  First, we examine spatial regression models applied to
-simulated count data.  In this case, we are interested in detecting
-residual spatial autocorrelation and overdispersion relative the
-Poisson distribution.  In our second example, we investigate
-$N$-mixture models.
-
-\subsection{Spatial models for count data}
+\subsection{Spatial regression simulations}
 
 We examined alternative model checking procedures for spatially
 explicit regression models applied to simulated count data.  Such
@@ -881,8 +845,7 @@ data set and model type.  For all models, we assessed fit of the
 Poisson stage; for the \texttt{PoisMix} and \texttt{PoisMixSp} models,
 we also applied PDM tests on the Gaussian stage (see e.g.,
 Fig. \ref{fig:pivotCDF}).  These tests produce a collection of
-p-values for each fitted model; one for each posterior sample of
-parameters (i.e., one for each MCMC iteration).  We used the median
+p-values for each fitted model; one for each posterior parameter sample (i.e., one for each MCMC iteration).  We used the median
 p-value from this collection to summarize overall PDM goodness-of-fit.
 
 \subsubsection{Sampled predictive p-values}
@@ -973,10 +936,8 @@ on posterior predictive checks) had no power to detect model
 inadequacy (Fig. \ref{fig:SpatReg_pvals}).
 
 
-\section{Examples}
 
-
-\subsection*{The need for closure: $N$-mixture models}
+\subsection{The need for closure: $N$-mixture models}
 
 $N$-mixture models are a class of hierarchical models that use count
 data collected from repeated visits to multiple sites to estimate
@@ -1000,12 +961,11 @@ result in $N_i$ being biased high and $p$ being biased low
 abundance, $\lambda$, will be biased high, and is not necessarily
 biologically interpretable \citep[e.g., it does not necessarily
 provide an estimate of the total number of individuals ever associated
-with a site, c.f. \emph{superpopulation};][]{kery2015applied}.
+with a site, c.f. \emph{superpopulation};][]{NicholsEtAl2009}.
 
 Assessing the closure assumption of $N$-mixture models can be
 challanging because scientifically plausible alternative models in
-which $N_i$ (or $\lambda_i$) is non-identifiable or does not even
-exist, lead to data that are practically indistinguishable from data
+which $N_i$ (or $\lambda_i$) are allowed to vary lead to data that are practically indistinguishable from data
 generated under an $N$-mixture model \citep{barker2016n}. In practice,
 the appropriateness of the closure assumption has typically been
 determined by judgment of the investigators, who assess whether time
@@ -1048,11 +1008,9 @@ equation (\ref{eq:nmix}) to simulate data, with one additional step to
 induce violation of the closure assumption. We examined a series of
 eight cases where the closure assumption was increasingly violated by
 letting
-\begin{linenomath}
-  \begin{align}
-    N_{i,j} & \sim \text{Discrete Uniform}(N_{i,j-1}(1-c), N_{i,j-1}(1+c)),
-  \end{align}
-\end{linenomath}
+\begin{eqnarray*}
+     N_{i,j} & \sim & \text{Discrete-Uniform}(N_{i,j-1}(1-c), N_{i,j-1}(1+c)),
+\end{eqnarray*}
 for $j=2,\ldots,J$, and
 $c = \{0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35 \}$, where $c$ can
 be interpreted as the maximum proportion of the population that could
@@ -1065,7 +1023,7 @@ ones, and the second column was generated by sampling from a Bernoulli
 distribution with probability 0.5 $\forall i$. We then fit
 Eq. \ref{eq:nmix} to the generated data using a Markov Chain Monte
 Carlo Algorithm (MCMC) written in R. Using the fitted model, we
-assessed the effectiveness of Bayesian p-values, and sampled
+assessed the effectiveness of posterior predictive and sampled
 predictive p-values for diagnosing the closure assumption. When $c=0$,
 the model used to generate the data was the same as the model used to
 fit the data, and our model checking procedures should indicate no
@@ -1074,208 +1032,180 @@ violated, with the degree of violation proportional to the value of
 $c$. Annotated \texttt{R} code, results, and figures from the
 simulation are provided in Appendix 3.
 
-    \paragraph{Results}
-    When the closure assumption was met ($c=0$), the estimated
-    posterior distributions recovered true parameter values well,
-    which was expected (Table \ref{tab:results}, Appendix C). The
-    posterior predictive p-value was 0.48, and the sampled predictive
-    p-value was 0.27, suggesting no lack of model fit from either
-    model checking proceedure (Table \ref{tab:results}).
+\subsubsection{Results}
+When the closure assumption was met ($c=0$), the estimated
+posterior distributions recovered true parameter values well,
+which was expected (Table \ref{tab:results}, Appendix C). The
+posterior predictive p-value was 0.48, and the sampled predictive
+p-value was 0.27, suggesting no lack of model fit from either
+model checking proceedure (Table \ref{tab:results}).
 
-    When the closure assumption was violated (i.e., $c>0$), MCMC
-    chains appeared to converge to stationary posterior distributions
-    (Appendix C), and convergence was often supported by Gelman-Rubin
-    diagnostics (Table \ref{tab:results}).  However, abundance was
-    always overestimated when the closure assumption was violated, and
-    the true abundance value used to simulate the data was always
-    outside estimated 95\% credible intervals (Table
-    \ref{tab:results}). The posterior predictive p-values did not
-    suggest lack of model fit when $c<0.10$, and suggested lack of
-    model fit otherwise (Table \ref{tab:results}). The sampled
-    predictive p-value correctly identified violation in the closure
-    assumption (assuming a type I error rate of 0.05) for all values
-    of $c$, for this simulation (Table \ref{tab:results}). The
-    effective sample sizes of the MCMC chains were small due to the
-    autocorrelation between abundance and detection probability in the
-    $N$-mixture model (Table \ref{tab:results}). Mean abundance
-    estimates erroneously increased, with increased violation in the
-    closure assumption, and confidence intervals failed to cover the
-    true abundance value by allowing just 5\% of the population to
-    move in or out of a site between surveys.
-
-
-
-    % Because, $E(y|N,p)=N\times p$, and $\text{var}(y|N,p)=Np(1-p)$,
-    % when $p>0.5$, simultaneously increasing N and decreasing p (but
-    % maintaining $p>0.5$) can result in a posterior predictive data
-    % distribution with the same mean, but increased variance, thereby
-    % accomidating the increased variance in the observed Y due to
-    % violation in the closure assumption.
+When the closure assumption was violated (i.e., $c>0$), MCMC
+chains appeared to converge to stationary posterior distributions
+(Appendix C), and convergence was often supported by Gelman-Rubin
+diagnostics (Table \ref{tab:results}).  However, abundance was
+always overestimated when the closure assumption was violated, and
+the true abundance value used to simulate the data was always
+outside estimated 95\% credible intervals (Table
+\ref{tab:results}). The posterior predictive p-values did not
+suggest lack of model fit when $c<0.10$, and suggested lack of
+model fit otherwise (Table \ref{tab:results}). The sampled
+predictive p-value correctly identified violation in the closure
+assumption (assuming a type I error rate of 0.05) for all values
+of $c$, for this simulation (Table \ref{tab:results}). The
+effective sample sizes of the MCMC chains were small due to the
+autocorrelation between abundance and detection probability in the
+$N$-mixture model (Table \ref{tab:results}). Mean abundance
+estimates erroneously increased, with increased violation in the
+closure assumption, and confidence intervals failed to cover the
+true abundance value by allowing just 5\% of the population to
+move in or out of a site between surveys.
 
 
-    \subsubsection*{Estimating sea otter detection probability from
-      aerial photographs}
-    %% Analysis script in:
-    %% "~/Dropbox/Post-Doc/RFiles/ModelChecking/EcologicalMonographs/"
 
-    \cite{williams2017estimating} describe a framework for using
-    aerial photograph data to fit $N$-mixture models, where
-    photographs are taken such that a subset of images overlap in
-    space. The subset of overlapping images provide temporal
-    replication of counts of individuals at spatial locations that can
-    be used to estimate $p$ in the $N$-mixture modeling framework. To
-    assess the utility of their approach,
-    \cite{williams2017estimating} conducted an aerial survey in
-    Glacier Bay National Park, southeastern Alaska, in which they
-    identified groups of sea otters at the surface of the ocean, flew
-    over the groups of sea otters multiple times, and captured an
-    image of the group of sea otters for each flight over the
-    group. In their study, a primary observer operated the camera, and
-    a secondary observer watched the groups of sea otters to ensure
-    the closure assumption of $N$-mixture models was met. That is,
-    whether sea otters dispersed out of, or into, the footprint of the
-    photograph among temporal replicates. Of the 21 groups of sea
-    otters that were photographed multiple times, 20 groups did not
-    appear to violate the closure assumption based on the secondary
-    observer's observations. At one site, sea otters began moving for
-    an unknown reason. For analysis, \citet{williams2017estimating}
-    omitted the one site that violated the closure assumption, based
-    on the secondary observer's observations. Here, we use Bayesian
-    model checking as a formal method for assessing the closure
-    assumption of two data sets that are used to fit the $N$-mixture
-    model. The first data set is the complete set of 21 observations
-    initially collected for \citet{williams2017estimating},
-    including the site where the secondary observer noted a violation
-    in assumption. The second data set is the data provided by
-    \citet{williams2017estimating}, Table 1, which omits the
-    problematic site. The full data set is provided in the R package
-    \texttt{HierarchicalGOF}. As in our $N$-mixture model simulation
-    study above, we used Bayesan p-values and sampled posterior
-    predictive values to check our model. We used each data set to fit
-    the model
-    \begin{linenomath}
-      \begin{align}
-        \begin{split}
-          y_{i,j} & \sim \text{Binomial}(N_{i},p),\\
-          N_{i} & \sim \text{Poisson}(\lambda_{i}), \\
-          \lambda_i & \sim
-          \text{Gamma}(0.001,0.001), \\
-          p & \sim \text{Beta}(1,1),
-        \end{split}
-              \label{eq:nmix2}
-      \end{align}
-    \end{linenomath}
-    using an MCMC algorithm written in R (Appendix C). The Bayesian
-    p-value for the full data set (21 sites) was 0.048 and the sampled
-    posterior predictive value was 0.059, suggesting
-    potential lack
-    of model fit. The Bayesian p-value for the restricted data set
-    used in \citet{williams2017estimating} was 0.5630 and the sampled
-    posterior predictive value was 0.823, suggesting no
-    lack of model fit. These results confirm the results of the secondary
-    observer who noted a violation of closure while in the
-    field. Thus, model checking proceedures can provide a formal method for
-    examining the closure assumption of $N$-mixture models for our
-    example, and corroborates the auxillary information collected by
-    the secondary observer.
+% Because, $E(y|N,p)=N\times p$, and $\text{var}(y|N,p)=Np(1-p)$,
+% when $p>0.5$, simultaneously increasing N and decreasing p (but
+% maintaining $p>0.5$) can result in a posterior predictive data
+% distribution with the same mean, but increased variance, thereby
+% accomidating the increased variance in the observed Y due to
+% violation in the closure assumption.
 
-    \subsection{Should I stay or should I go? Hidden Markov Models}
-    
-    In this example we present another assessment of goodness-of-fit for a model that is becoming quite well known within the ecological community, the Hidden Markov Model (HMM). HMMs are a very general class of models that has become an appealing way to model time series data in ecological research due to the fact that there is a relatively simple algorithm for calculating the data likelihood whether the observed data are continuous or discrete. In addition, because the model is built upon the idea of a latent state, ecologists can construct a model to make inference to a biologically relevant `state' that may not be directly equivalent to the observable data. There is one implicit assumption within the HMM framework that may not often be assessed, that is, the amount of time spent within a state (the {\it residence time}) is geometrically distributed. We present an analysis of California sea lion (CSL; {\it Zalophus californianus}) attendance patterns before and after birth of their pup. Using this analysis we assessed the goodness-of-fit of a 4 state HMM to this data. In addition, we assessed the fit of an alternative Hidden Semi-Markov Model (HSMM), which provides an alternative to the geometric residence time of the HMM.
-    
-    The HMM is formed by considering a time series of categorical variables, $X_{1}, \dots, X_{T}$ that represent the hidden states. For each $t$, $X_{t} \in \{1, \dots, S\}$, where $S$ is the number of latent states. The $X_t$ process follows a Markov chain with transition matrix $\boldsymbol{\Gamma}_t$ in which the $j,k$ entry is $\Gamma_{tjk} = [X_t = k | X_{t-1} = j]$. The state process is hidden (at least partially), so, the researcher is only able to make observation $y_t$ with distribution $[y_t|X_t]$ and observations are independent given the hidden states. For $n$ independent individual replications, the complete likelihood is
-    \begin{equation}
-    [\mathbf{y}, \mathbf{X}| \boldsymbol{\psi}, \boldsymbol{\Gamma}] = \prod_{i=1}^n\prod_{t=1}^T [y_{it}|X_{it}, \boldsymbol{\psi}_t]\ [X_{it}|X_{i,t-1},\boldsymbol{\Gamma}_t],
-    \end{equation}
- where $\boldsymbol{\psi}_t$ is a parameter vector for the observation process. For Bayesian inference within an MCMC algorithm, we can make use of the forward algorithm \citep[see][]{zucchini2009hidden} to integrate over the missing state process and evaluate the integrated likelihood $[\mathbf{y}|\boldsymbol{\psi}, \boldsymbol{\Gamma}]$, thus we can generate a posterior sample without having to sample $\boldsymbol{X}$ in the process.
- 
- The CSL data is composed of a time series or capture-history of 66 females on San Miguel I., California over the course of 2 months (61 days) prior to the pupping season. It was noted whether or not a previously marked female was seen on a particular day (i.e., $y_{it} =1,0$, respectively, $i=1,\dots,66$ and $t=1,\dots,61$). The probability of observing a particular female on a given day depends on her unobserved reproductive state: (1) pre-birth, (2) neonatal, (3) at-sea foraging, and (4) on-land nursing. The detection probability for females in the pre-birth state is likely to be low as they are not attached to the rookery yet with a pup and can come and go as they please. In the neonatal state the female remains on shore for approximately 7--9 days to nurse the newborn pup. After this period, the female begins foraging trips where she feed for several days and returns to nurse the pup. If the female is at-sea, of coarse she cannot not be observed and detection is 0. For females that have just given birth, or are returning from a foraging trip, they will be tending to their pups and are more available to be detected. 
- 
-In an initial attempt to make inference on the attendance patterns of the CSL we used an HMM with a $\boldsymbol{\Gamma}_t = \boldsymbol{\Gamma}$ in which all entries are 0 except:
+
+\subsubsection*{Estimating sea otter detection probability from
+  aerial photographs}
+%% Analysis script in:
+%% "~/Dropbox/Post-Doc/RFiles/ModelChecking/EcologicalMonographs/"
+
+\cite{williams2017estimating} describe a framework for using
+aerial photograph data to fit $N$-mixture models, where
+photographs are taken such that a subset of images overlap in
+space. The subset of overlapping images provide temporal
+replication of counts of individuals at spatial locations that can
+be used to estimate $p$ in the $N$-mixture modeling framework. To
+assess the utility of their approach,
+\cite{williams2017estimating} conducted an aerial survey in
+Glacier Bay National Park, southeastern Alaska, in which they
+identified groups of sea otters at the surface of the ocean, flew
+over the groups of sea otters multiple times, and captured an
+image of the group of sea otters for each flight over the
+group. In their study, a primary observer operated the camera, and
+a secondary observer watched the groups of sea otters to ensure
+the closure assumption of $N$-mixture models was met. That is,
+whether sea otters dispersed out of, or into, the footprint of the
+photograph among temporal replicates. Of the 21 groups of sea
+otters that were photographed multiple times, 20 groups did not
+appear to violate the closure assumption based on the secondary
+observer's observations. At one site, sea otters began moving for
+an unknown reason. For analysis, \citet{williams2017estimating}
+omitted the one site that violated the closure assumption, based
+on the secondary observer's observations. Here, we use Bayesian
+model checking as a formal method for assessing the closure
+assumption of two data sets that are used to fit the $N$-mixture
+model. The first data set is the complete set of 21 observations
+initially collected for \citet{williams2017estimating},
+including the site where the secondary observer noted a violation
+in assumption. The second data set is the data provided by
+\citet{williams2017estimating}, Table 1, which omits the
+problematic site. The full data set is provided in the R package
+\texttt{HierarchicalGOF}. As in our $N$-mixture model simulation
+study above, we used Bayesan p-values and sampled posterior
+predictive values to check our model. We used each data set to fit
+the model
+\begin{linenomath}
+  \begin{align}
+    \begin{split}
+      y_{i,j} & \sim \text{Binomial}(N_{i},p),\\
+      N_{i} & \sim \text{Poisson}(\lambda_{i}), \\
+      \lambda_i & \sim
+      \text{Gamma}(0.001,0.001), \\
+      p & \sim \text{Beta}(1,1),
+    \end{split} \nonumber
+          \label{eq:nmix2}
+  \end{align}
+\end{linenomath}
+using an MCMC algorithm written in R (Appendix C). The Bayesian
+p-value for the full data set (21 sites) was 0.048 and the sampled
+posterior predictive value was 0.059, suggesting
+potential lack
+of model fit. The Bayesian p-value for the restricted data set
+used in \citet{williams2017estimating} was 0.5630 and the sampled
+posterior predictive value was 0.823, suggesting no
+lack of model fit. These results confirm the results of the secondary
+observer who noted a violation of closure while in the
+field. Thus, model checking proceedures can provide a formal method for
+examining the closure assumption of $N$-mixture models for our
+example, and corroborates the auxillary information collected by
+the secondary observer.
+
+\subsection{Should I stay or should I go? Hidden Markov Models}
+
+In this example we present another assessment of goodness-of-fit for a model that is quickly becoming popular within the ecological community, the Hidden Markov Model (HMM). HMMs are a general class of models that are appealing for time series data in ecological research due to the fact that there is a relatively simple algorithm for calculating the data likelihood whether the observed data are continuous or discrete. In addition, because the model is built upon the idea of a latent state, ecologists can construct a model to make inference to a biologically relevant `state' that may not be directly observable.
+
+One implicit (and seldom tested) assumption of HMM models is that the amount of time spent within a state (the {\it residence time}) is geometrically distributed. The geometric distribution implies a strictly decreasing distribution of residence times, and may not be realistic for certain ecological time series.  For instance, if a hidden state corresponds to ``foraging," one might expect a dome-shaped distribution of residence times.
+
+In this section, we use BMC methods to assess the assumption of geometrically distributed residence times in HMMs applied to California sea lion (CSL) rookery attendance patterns.  We do this by comparing the fit of a Bayesian HMM, as well as the fit of an alternative Bayesian hidden \textit{semi}-Markov model (HSMM) that allows more flexible residence time distributions.
+
+
+The HMM is formed by considering a time series of categorical variables, $Z_{1}, \dots, Z_{T}$ that represent the hidden states. For each $t$, $Z_{t} \in \{1, \dots, S\}$, where $S$ is the number of latent states. The $Z_t$ process follows a Markov chain with transition matrix $\boldsymbol{\Gamma}_t$ in which the $j,k$ entry is $\Gamma_{tjk} = [Z_t = k | Z_{t-1} = j]$. The state process is hidden (at least partially), so, the researcher is only able to make observation $y_t$ with distribution $[y_t|X_t]$ and observations are independent given the hidden states. For $n$ independent individual replications, the complete likelihood is
+\begin{eqnarray*}
+[\mathbf{y}, \mathbf{Z}| \boldsymbol{\psi}, \boldsymbol{\Gamma}] & = & \prod_{i=1}^n\prod_{t=1}^T [y_{it}|Z_{it}, \boldsymbol{\psi}_t]\ [Z_{it}|Z_{i,t-1},\boldsymbol{\Gamma}_t],
+\end{eqnarray*}
+ where $\boldsymbol{\psi}_t$ is a parameter vector for the observation process. For Bayesian inference within an MCMC algorithm, we can make use of the forward algorithm \citep[see][]{zucchini2009hidden} to integrate over the missing state process and evaluate the integrated likelihood $[\mathbf{y}|\boldsymbol{\psi}, \boldsymbol{\Gamma}]$, thus we can generate a posterior sample without having to sample $\boldsymbol{Z}$ in the process.
+
+ The CSL data is composed of a time series or capture-history of 66 females on San Miguel I., California over the course of 2 months (61 days) prior to the pupping season. It was noted whether or not a previously marked female was seen on a particular day (i.e., $y_{it} =1,0$, respectively, $i=1,\dots,66$ and $t=1,\dots,61$). The probability of observing a particular female on a given day depends on her unobserved reproductive state: (1) pre-birth, (2) neonatal, (3) at-sea foraging, and (4) on-land nursing. The detection probability for females in the pre-birth state is likely to be low as they are not attached to the rookery yet with a pup and can come and go as they please. In the neonatal state the female remains on shore for approximately 7--9 days to nurse the newborn pup. After this period, the female begins foraging trips where she feed for several days and returns to nurse the pup. While the female is at-sea she has a detection probability of 0.0. For females that have just given birth, or are returning from a foraging trip, they will be tending to their pups and are more available to be detected.
+
+In an initial attempt to make inference on the attendance patterns of the CSL we used an HMM with the state transition matrix $\boldsymbol{\Gamma}_t = \boldsymbol{\Gamma}$ in which all entries are 0 except:
 \begin{itemize}
-\item diagonal entries, $\Gamma_{kk} = \gamma_k$, 
+\item diagonal entries, $\Gamma_{kk} = \gamma_k$,
 \item $\Gamma_{12} = 1-\gamma_1$,
 \item $\Gamma_{23} = 1-\gamma_2$,
-\item $\Gamma_{34} = 1-\gamma_3$, and 
+\item $\Gamma_{34} = 1-\gamma_3$, and
 \item $\Gamma_{43} = 1-\gamma_4$
 \end{itemize}
  This allows the process to pass from each state to the next in the reproductive schedule with alternating in the (3) at-sea and (4) on-land states. Conditioning on the reproductive state, the observation model is
  $$
- [y_{it}|X_{it}] = Bernoulli(\psi(X_{it})),
+ [y_{it}|X_{it}] = \text{Bernoulli}(\psi(Z_{it})),
  $$
- where $\psi(1) = \psi_1$, $\psi(3) = 0$, and $\psi(2) = \psi(4) = \psi_2$. The parameters $\psi_1$ and $\psi_2$ represent a pre-birth and after-birth detection probability. 
- 
- To assess model fit, we used the Tukey fit statistic 
- \begin{equation}
- T(\mathbf{y}; \boldsymbol{\psi},\boldsymbol{\Gamma}) =  \sum_t\left(\sqrt{d_t} - \sqrt{E[d_t]}\right)^2,
- \end{equation} 
- where $d_t$ is the number of observed detections on occasion $t$ and $E[d_t]$ is the expected number of detections given by the HMM model. This statistic is less sensitive to small expected values, which are likely to occur early in the summer as detection probabilities for the pre-birth state are quite low leading to few expected detections, we did not want the goodness-of-fit to be overly sensitive to this early period. For day $t$, the expected number of detections is
- \begin{equation}
- E[d_t] = \sum_{i=1}^n \boldsymbol{\delta}'\boldsymbol{\Gamma}^{t-1}\boldsymbol{\psi},
- \end{equation}
+ where the detection parameters are constrained as $\psi(1) = \psi_1$, $\psi(3) = 0$, and $\psi(2) = \psi(4) = \psi_2$. The parameters $\psi_1$ and $\psi_2$ represent pre-birth and after-birth detection probability.
+
+ To assess model fit, we used the Tukey fit statistic
+ \begin{eqnarray*}
+ T(\mathbf{y}; \boldsymbol{\psi},\boldsymbol{\Gamma}) & = &  \sum_t\left(\sqrt{d_t} - \sqrt{E[d_t]}\right)^2,
+ \end{eqnarray*}
+ where $d_t$ is the number of observed detections on occasion $t$ and $E[d_t]$ is the expected number of detections given by the HMM model. This statistic is less sensitive to small expected values, which are likely to occur early in the summer as detection probabilities for the pre-birth state are quite low leading to few expected detections. For day $t$, the expected number of detections is
+ \begin{eqnarray*}
+ E[d_t] & = & \sum_{i=1}^n \boldsymbol{\delta}'\boldsymbol{\Gamma}^{t-1}\boldsymbol{\psi},
+ \end{eqnarray*}
  were $\boldsymbol{\delta} = (1\ 0\ 0\ 0)'$, as all animals start in the pre-birth state, and $\boldsymbol{\psi} = (\psi_1\ \psi_2\ 0\ \psi_2)'$
- 
- Two versions of the HMM model were fitted to the data, one in which $\psi_1$ and $\psi_2$ where constant through time and one in which they were allowed to vary with each occasion (shared additive time effect). For variable time $\psi$ models, detection was parameterized ${\rm logit}\ \psi_{lt} = \mbox{logit } \psi_l + \epsilon_t$ for $l=1,2$, $t=1,\dots,61$, and $\epsilon_1 = 0$ for identifiability. Prior distributions used in this analysis were:
+
+ Two versions of the HMM model were fitted to the data, one in which $\psi_1$ and $\psi_2$ where constant through time and one in which they were allowed to vary with each occasion (shared additive time effect). For variable time $\psi$ models, detection was parameterized ${\rm logit}\ (\psi_{lt}) = \mbox{logit } (\psi_l) + \epsilon_t$ for $l=1,2$, $t=1,\dots,61$, and $\epsilon_1 = 0$ for identifiability. Prior distributions used in this analysis were:
  \begin{itemize}
- \item $[{\rm logit}\ \gamma_k] \propto 1$
+ \item $[{\rm logit}\ (\gamma_k)] \propto 1$
  \item $[\psi_l] = U(0,1);\ l=1,2$
  \item $[\epsilon_t] \propto \exp\{-|\epsilon_t|/2\};\ t=2,\dots,61$.
- \end{itemize} 
-  The Laplace prior for $\epsilon_t$ was used to shrink unnecessary deviations to zero. 
-  
- A collapsed MCMC sampler using the forward algorithm to calculate $[\mathbf{y}|\boldsymbol{\psi},\boldsymbol{\gamma}]$ was used so that the $X_{it}$ process did not have to be sampled. Each sampler was run for 50,000 iterations following burnin. For the p-value, replicated data was simulated at every 10th iteration. After fitting, the $p$-value for both models was calculated to be $\approx$ 0, which strongly implies lack of fit.  Although, individual detection heterogeneity might be the source of fit issues, it one examines Figure \ref{fig:attend} one can observe a systemic positive bias in the initial days and a negative bias in the middle of season, suggesting issues with basic model structure.     
- 
- The Markov assumption of the latent state process implies that after landing in state $k$, the amount of time spent there is geometrically distributed with parameter $1-\gamma_k$. Further, this implies that the most common (i.e., modal) amount of time spent is one time step. As $\gamma_k$ approaches 1, this distribution flattens out, but retains a mode of 1. An alternative model that relaxes this assumption is the Hidden {\it Semi}-Markov Model (HSMM). In the HSMM, the residence time is explicitly modeled and at the end of the residence period a transition is made to another state with probability $\tilde\Gamma_{jk}$. For an HSMM, $\tilde\Gamma_{kk} = 0$ because remaining in a state is governed by the residence time model. This extra generality comes at a computational cost, however, \citet{langrock2011hidden} provide a method for calculating an HSMM likelihood with an HMM algorithms, therefore, the forward algorithm can still be used for inference. 
- 
-    In terms of the CSL analysis, the HSMM transition matrix nonzero offdiagonal elements occur at the same spots but are all equal to 1 because once the residence time has expired, the animal immediately moves to the stage in the reproductive schedule (alternating between at-sea and on-land at the end). The residence time was modeled using a shifted Poisson($\lambda_k$), that is residence time minus 1 is Poisson distributed. Prior distributions for the detection parameters remained the same as before, each of the residence time parameters were {\it a priori} distributed $[\log \lambda_k] \propto 1$. Using the ``HSMM as HMM" technique of \citet{langrock2011hidden}, sampled the posterior distributions using the same MCMC algorithm as in the HMM case. 
-    
-    The p-value for the Tukey fit statistic under the constant time model was $0.09$, so, it was an improvement over the HMM models, but still low enough to cause concern. However, for the time varying $\psi$ HSMM model the p-value = 0.82. Thus, indicative a substantial improvement in goodness-of-fit. By reducing the probability that an animal would transition from pre-birth to birth immediately after the start of the study, the HSMM model was able to have an a comparable residence time average without maintaining a mode of 1 (Figure \ref{fig:attend}), producing a more biologically realistic model.    
-     
-    
+ \end{itemize}
+  The Laplace prior for $\epsilon_t$ was used to shrink unnecessary deviations to zero.
 
-    \section{Discussion}
+ A collapsed MCMC sampler using the forward algorithm to calculate $[\mathbf{y}|\boldsymbol{\psi},\boldsymbol{\gamma}]$ was used so that the $Z_{it}$ process did not have to be sampled. Each sampler was run for 50,000 iterations following burn-in. To calculate the reference distribution for the discrepancy function, replicated data were simulated at every 10th iteration. After fitting, the posterior predictive $p$-value for both models was $\approx$ 0, which strongly implies lack of fit.  Although individual detection heterogeneity might be the source of fit issues, examination of Figure \ref{fig:attend} suggests a systemic positive bias in the initial days and a negative bias in the middle of season, indicating possible issues with basic model structure.
+
+ The Markov assumption of the latent state process implies that after landing in state $k$, the amount of time spent there is geometrically distributed with parameter $1-\gamma_k$. Further, this implies that the most common (i.e., modal) amount of time spent is one time step. As $\gamma_k$ approaches 1, this distribution flattens out, but retains a mode of 1. An alternative model that relaxes this assumption is the HSMM. In the HSMM, the residence time is explicitly modeled and at the end of the residence period a transition is made to another state with probability $\tilde\Gamma_{jk}$. For an HSMM, $\tilde\Gamma_{kk} = 0$ because remaining in a state is governed by the residence time model. This extra generality comes at a computational cost; however, \citet{langrock2011hidden} provide a method for calculating an HSMM likelihood with an HMM algorithm, such that the forward algorithm can still be used for inference.
+
+    In terms of the CSL analysis, the offdiagonal elements of the HSMM transition matrix occur at the same locations as in the HMM but are all equal to 1 because once the residence time has expired, the animal immediately moves to the stage in the reproductive schedule (alternating between at-sea and on-land at the end). The residence time was modeled using a shifted Poisson($\lambda_k$), that is residence time minus 1 is Poisson distributed. We set prior distributions for residence time parameters as $[\log \lambda_k] \propto 1$.  Prior distributions for the detection parameters remained the same as before.  Using the ``HSMM as HMM" technique of \citet{langrock2011hidden}, we sampled the posterior distributions using the same MCMC algorithm as in the HMM case.
+
+    The p-value for the Tukey fit statistic under the constant time model was $0.09$, so, it was an improvement over the HMM models, but still low enough to cause concern. However, for the time varying $\psi$ HSMM model the p-value = 0.82. Thus, indicative of a substantial improvement in goodness-of-fit. By reducing the probability that an animal would transition from pre-birth to birth immediately after the start of the study, the HSMM model was able to accomodate a similar average residence time to the HMM without maintaining a mode of 1 (Figure \ref{fig:attend}), producing a more biologically realistic model.
 
 
-    Previous articles in the ecological literature that use Bayesian
-    analysis have tended to focus on prior sensitivity, convergence
-    diagnostics and sometimes model comparison (e.g., DIC or
-    cross-validation) - not as much focus on GOF.
 
-    GOF on most general model, then model
-    selection/comparison/averaging \citep{BurnhamAnderson2002}.
+\section{Discussion}
 
-    Standard regression analysis software In capture-recapture
-    analysis and other areas of ecological statistics, there has been
-    considerable focus on developing procedures to assess
-    goodness-of-fit \citep[e.g.,][]{ChoquetEtAl2009}
+Researchers are increasingly using hierarchical, Bayesian models to analyze complex ecological processes.  Such models are powerful, but it can be difficult to assess whether models fit data satisfactorily.  In ecology, well behaved processes are rare: we often expect heterogeneity among individuals, patchy responses, and variation that is partially unexplained by gathered covariates.  Therein lies an apparent contradiction: we expect lack-of-fit in our models, but still want to minimize biases attributable to poor modeling assumptions.  From our perspective, the goal of model checking should not be to develop a model that fits the data perfectly, but rather to probe models for assumptions that result in systematic errors.  Such systematic errors can lead to erroneous ecological inferences or misstated estimates, which are problematic in applied conservation and for scientific enterprise in general.
 
-    Mean structure vs. dispersion - not always obvious where
-    misspecification occurs.
-    
-    REVIEW RESULTS FOR EACH SECTION.  In count data simulations, only sampled p-values and cross-validatory p-value procedures had properly stated frequentist properties.  Although all approaches did well at rejecting the fit of the simplistic model without random effects of any type, omnibus predictive p-value tests failed to reject a model without spatial structure, even though data had been simulated with spatial structure.
+In this paper, we have described a wide variety of Bayesian model checking procedures with the aim of providing ecologists an overview of possible approaches, including strengths and limitations.  Our intention is not to be prescriptive, but to guide ecologists into making an appropriate choice. For instance, using simulation, we showed that the popular posterior predictive p-value (and several other metrics) can have overstated power to ``reject" the null hypothesis that data arose from the model.  For instance, the Bayesian p-value often failed to reject models without spatial structure even when data were simulated with considerable spatial autocorrelation.  This overstated power is because of the double use of data, which are used both to fit the model and also to calculate a tail probability.  However, as shown in the sea otter and California sea lion examples, the posterior predictive p-value can be extremely useful in diagnosing obvious cases of lack-of-fit and in producing more biologically realistic models.  Other choices, such as those based on cross validation, have better stated properties and would be preferable on theoretical grounds, but may be more difficult for the casual analyst to implement.  Regardless of the approach(es) chosen, we hope that ecologists will start incorporating BMC as a standard part of their analysis workflow (e.g. Fig. \ref{fig:decision}).
 
-    The purpose of this paper was to provide a general overview of
-    common approaches to BMC and the strengths and
-    weaknesses of each.  We do not, however, claim to be entirely
-    comprehensive. For instance, we limited our discussion to
-    approaches that are relatively straightforward to implement.
-    There are a variety of options to producing p-values with good
-    statistical properties provided one has the time and technical
-    acumen to implement them \citep[e.g., ``partial posterior" and
-    ``conditional predictive" p-values;
-    see][]{BayarriBerger1999,RobinsEtAl2000,BayarriCastellanos2007}. Another
-    possibility is to use data sets simulated from the prior
-    predictive distribution to study the realized Bayesian p-values
-    under the null model and calibrate p-values accordingly
-    \citep{HjortEtAl2006}.  For example, if p-values exhibit a dome
-    shaped pattern (c.f., dashed lines in
-    Fig. \ref{fig:SpatReg_pvals}), we might adjust p-value cut off
-    values to be the 5th and 95th quantiles of the realized values.
-    Other approaches to model checking may be useful in more
-    specialized areas of ecology.  For instance, \citet{Shipley2009}
-    introduced directional-separation tests for assessing the path
-    structure of directed, acyclic graphs.  These tests can be useful
-    for assessing the graph structure of ecological networks.
+
+
+
+
 
 
     \centerline{\sc Acknowledgments} Views and conclusions in this
@@ -1290,9 +1220,7 @@ In an initial attempt to make inference on the attendance patterns of the CSL we
 
 
 
-    \pagebreak
-
-
+   
 
 
     TABLES
@@ -1314,6 +1242,9 @@ In an initial attempt to make inference on the attendance patterns of the CSL we
         \hline
       \end{tabular}
     \end{table}
+
+ \pagebreak
+
 
     \begin{table}[htp]
       \caption{Discrepancy functions and pivotal quantities useful for hierarchical model checking.
@@ -1343,24 +1274,24 @@ In an initial attempt to make inference on the attendance patterns of the CSL we
 
 
     \begin{table}[htp]
-      \caption{A summary of Bayesian model checking approaches.  For each method, we describe whether each method allows for (1) computation of an overall p-value (``p-value?"), (2) whether the method tends to be conservative (i.e., has overstated power to detect goodness-of-fit; ``conservative?"), (3) whether all levels of the modeling hierarchy can be evaluated (``all levels?"), (4) whether out-of-sample data are used to assess lack-of-fit (``out-of-sample?"), and (5) computing cost (``cost").
+      \caption{A summary of Bayesian model checking approaches.  For each method, we describe whether each method (1) tends to be conservative (i.e., has overstated power to detect goodness-of-fit; ``conservative"), (2) whether all levels of the modeling hierarchy can be evaluated (``all levels"), (3) whether out-of-sample data are used to assess lack-of-fit (``out-of-sample"), and (4) computing cost (``cost").
       }
       \label{tab:checks}
       \centering
-      \begin{tabular}{lccccc}
+      \begin{tabular}{lcccc}
         \hline
-        Method & p-value? & conservative? & all levels? & out-of-sample?  & cost?\\
+        Method & conservative & all levels & out-of-sample  & cost\\
         \hline
-        Pivotal discrepancy & Yes & Yes & Yes & No & medium \\
-        Posterior predictive check & Yes & Yes & No & No & low \\
-        Prior predictive check & Yes & No & Yes & No & low \\
-        Predictive PIT tests & No & No & No & Yes & very high \\
-        Sampled predictive p-value & Yes & No & Maybe & No & low \\
-        Graphical & No & Maybe & Yes & No & low-medium \\
+        Pivotal discrepancy & Yes & Yes & No & medium \\
+        Posterior predictive check & Yes & No & No & low \\
+        Prior predictive check & No & Yes & No & low \\
+        Predictive PIT tests &  No & No & Yes & high \\
+        Sampled predictive p-value & No & Maybe & No & low \\
+        Graphical & No & Maybe &  No & low \\
         \hline
       \end{tabular}
     \end{table}
-    
+
         % latex table generated in R 3.3.2 by xtable 1.8-2 package Wed Apr
     % 19 15:31:20 2017
     % latex table generated in R 3.3.2 by xtable 1.8-2 package
@@ -1394,7 +1325,7 @@ In an initial attempt to make inference on the attendance patterns of the CSL we
       \end{tabular}
       \label{tab:results}
     \end{table}
-    
+
     \pagebreak
 
     FIGURE CAPTIONS
@@ -1505,8 +1436,8 @@ In an initial attempt to make inference on the attendance patterns of the CSL we
     discrepancy (`PP.Tail'), and sampled predictive p-values relative
     the Gaussian (`Sampled.Gauss') and Poisson (`Sampled.Pois') parts
     of the model.
-    
-    FIGURE 7. Observed and expected values for the number of detected animals that were previously marked. The blue envelops represent the 50 and 90th highest probability density interval for the expected number of detections under the HMM model. The red envelops represent the equivalent intervals for the HSMM model with shifted Poisson residence time distributions for each state. The gaps in the envelops represent days in which resighting did not occur, so detection probabilities where fixed to 0, the expected number of detections is fixed to 0.
+
+    FIGURE 7. Observed and expected values for the number of detected animals that were previously marked. Light and dark blue envelopes represent the 50 and 90th highest probability density interval for the expected number of detections under the HMM model, respectively. The red envelopes represent the equivalent intervals for the HSMM model with shifted Poisson residence time distributions for each state. The gaps in the envelopes represent days in which resighting did not occur and detection probabilities were fixed to 0.
 
 
     \pagebreak

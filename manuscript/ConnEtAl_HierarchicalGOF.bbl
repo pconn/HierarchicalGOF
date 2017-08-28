@@ -1,4 +1,4 @@
-\begin{thebibliography}{76}
+\begin{thebibliography}{77}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -371,6 +371,14 @@ Moran, P. A.~P.
 \newblock Notes on continuous stochastic phenomena.
 \newblock Biometrika {\bf 37}:17--23.
 
+\bibitem[{Nichols et~al.(2009)Nichols, Thomas, and Conn}]{NicholsEtAl2009}
+Nichols, J., L.~Thomas, and P.~Conn, 2009.
+\newblock Inferences about landbird abundance from count data: recent advances
+  and future directions.
+\newblock Pages 201--236 {\em in\/} D.~Thomson, E.~Cooch, and M.~Conroy,
+  editors. Modeling demographic processes in marked populations, volume~3 of
+  {\em Environmental and Ecological Statistics Series\/}. Springer, New York.
+
 \bibitem[{Perry et~al.(2002)Perry, Liebhold, Rosenberg, Dungan, Miriti,
   Jakomulska, and Citron-Pousty}]{PerryEtAl2002}
 Perry, J., A.~Liebhold, M.~Rosenberg, J.~Dungan, M.~Miriti, A.~Jakomulska, and
@@ -401,8 +409,8 @@ Qiu, S., C.~X. Feng, and L.~Li.
   for disease mapping models.
 \newblock arXiv {\bf 1603.07668}.
 
-\bibitem[{{R Development Core Team}(2015)}]{RTeam2015}
-{R Development Core Team}, 2015.
+\bibitem[{{R Development Core Team}(2017)}]{RTeam2017}
+{R Development Core Team}, 2017.
 \newblock R: A Language and Environment for Statistical Computing.
 \newblock R Foundation for Statistical Computing, Vienna, Austria.
 \newblock \urlprefix\url{http://www.R-project.org}.
@@ -479,13 +487,13 @@ Williams, P.~J., and M.~B. Hooten.
 \newblock Combining statistical inference and decisions in ecology.
 \newblock Ecological Applications {\bf 26}:1930--1942.
 
-\bibitem[{Williams et~al.(In Press)Williams, Hooten, Womble, and
+\bibitem[{Williams et~al.(2017)Williams, Hooten, Womble, and
   Bower}]{williams2017estimating}
 Williams, P.~J., M.~B. Hooten, J.~N. Womble, and M.~R. Bower.
-\newblock In Press.
+\newblock 2017.
 \newblock Estimating occupancy and abundance using aerial images with imperfect
   detection.
-\newblock Methods in Ecology and Evolution {\bf 00}:00--00.
+\newblock Methods in Ecology and Evolution {\bf DOI: 10.1111/2041-210X.12815}.
 
 \bibitem[{Wood(2006)}]{Wood2006}
 Wood, S.~N.

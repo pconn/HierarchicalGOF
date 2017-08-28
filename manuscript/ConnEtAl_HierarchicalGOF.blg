@@ -1,55 +1,12 @@
-This is BibTeX, Version 0.99d (TeX Live 2016)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: ConnEtAl_HierarchicalGOF.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: ConnEtAl_HierarchicalGOF.aux
 The style file: ecology.bst
 Database file #1: master_bib.bib
-Repeated entry---line 268 of file master_bib.bib
+Repeated entry---line 260 of file master_bib.bib
  : @article{BanerjeeEtAl2008
  :                          ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 365 of file master_bib.bib
+Repeated entry---line 357 of file master_bib.bib
  : @article{BayarriBerger2000
  :                           ,
 I'm skipping whatever remains of this entry
-You've used 76 entries,
-            2788 wiz_defined-function locations,
-            1038 strings with 16167 characters,
-and the built_in function-call counts, 42933 in all, are:
-= -- 3651
-> -- 1886
-< -- 59
-+ -- 634
-- -- 541
-* -- 2962
-:= -- 6882
-add.period$ -- 304
-call.type$ -- 76
-change.case$ -- 486
-chr.to.int$ -- 75
-cite$ -- 76
-duplicate$ -- 3104
-empty$ -- 3080
-format.name$ -- 791
-if$ -- 8536
-int.to.chr$ -- 2
-int.to.str$ -- 1
-missing$ -- 629
-newline$ -- 461
-num.names$ -- 306
-pop$ -- 1222
-preamble$ -- 1
-purify$ -- 482
-quote$ -- 0
-skip$ -- 1044
-stack$ -- 0
-substring$ -- 2209
-swap$ -- 1422
-text.length$ -- 6
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 630
-warning$ -- 0
-while$ -- 323
-width$ -- 0
-write$ -- 1052
 (There were 2 error messages)
