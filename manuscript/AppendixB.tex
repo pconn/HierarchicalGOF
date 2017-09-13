@@ -62,7 +62,8 @@
 \begin{center} \bf {\large A GUIDE TO BAYESIAN MODEL CHECKING FOR ECOLOGISTS}
 
 \vspace{0.7cm}
-Paul B. Conn$^{1*}$, Mevin B. Hooten$^{2,3,4}$, and Devin S. Johnson$^1$
+Paul B. Conn$^{1*}$, Devin S. Johnson$^1$, Perry J. Williams$^{2,3}$, Sharon R. Melin$^1$, and Mevin
+    B. Hooten$^{4,2,3}$
 \end{center}
 \vspace{0.5cm}
 
@@ -103,7 +104,7 @@ For each of 1000 simulation replicates, we generated a spatial count data set at
   \item  Generate expected abundance for all $s \in \mathcal{S}$ as $\bfmu = \exp( {\bf X}\bfbeta + \bfeta +\bfepsilon )$, where ${\bf X}$ is a two-column design matrix specifying a linear effect of $\bfx$, $\bfeta$ are spatially autocorrelated random effects, and $\bfepsilon_s \sim Normal(0,\tau_\epsilon^{-1})$ are iid Gaussian errors.  For each simulation, we used $\tau_\epsilon = 5$ and $\bfbeta = [2.0 0.75]^\prime$.
   \item Simulate count data, $y_i|\mu_i \sim \textrm{Poisson}(\mu_i)$, at each of the $i \in \{ 1,2,\hdots,200 \}$ points.
 \end{enumerate}
-  
+
 
 \section{Hierarchical modeling framework}
 
@@ -132,8 +133,8 @@ The following prior distributions were used in all MCMC runs:
 \begin{itemize}
   \item $[\beta] = \textrm{Normal}(0,\tau=100)$
   \item $[\tau_\epsilon]=[\tau_\eta]=\textrm{gamma}(1.0,0.01)$.
-\end{itemize} 
-The parameters of the gamma prior lead to an approximately flat distribution near the origin with reasonable mass on plausible parameter values. 
+\end{itemize}
+The parameters of the gamma prior lead to an approximately flat distribution near the origin with reasonable mass on plausible parameter values.
 
 \renewcommand{\refname}{Literature Cited}
 % \bibliographystyle{JEcol}
