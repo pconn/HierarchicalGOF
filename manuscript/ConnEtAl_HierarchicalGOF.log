@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  13 SEP 2017 11:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.21)  5 OCT 2017 09:34
 entering extended mode
 **C:/Users/paul.conn/git/HierarchicalGOF/manuscript/ConnEtAl_HierarchicalGOF.te
 x
@@ -374,11 +374,11 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 35.
+LaTeX Font Info:    Try loading font information for U+msa on input line 36.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 35.
+LaTeX Font Info:    Try loading font information for U+msb on input line 36.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -387,97 +387,94 @@ Non-PDF special ignored!
 
 {C:/Users/paul.conn/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3]
  [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14]
-[15] [16] [17] [18] [19] [20] [21]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 751.
+[15] [16] [17] [18] [19] [20]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 721.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 751.
- [22] [23] [24]
-[25] [26]
-
-Package natbib Warning: Citation `kery2015applied' on page 27 undefined on inpu
-t line 940.
-
-[27] [28] [29] [30] [31] [32] [33] [34] [35] [36] [37] [38]
-(ConnEtAl_HierarchicalGOF.bbl [39] [40] [41] [42] [43] [44] [45] [46])
-Underfull \hbox (badness 10000) in paragraph at lines 1215--1215
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 721.
+ [21] [22] [23]
+[24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36] [37] [38]
+(ConnEtAl_HierarchicalGOF.bbl [39] [40] [41] [42] [43] [44] [45]) [46]
+Underfull \hbox (badness 10000) in paragraph at lines 1202--1202
 []\OT1/cmr/m/it/12 Dependent
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1217--1217
+Underfull \hbox (badness 10000) in paragraph at lines 1204--1204
 []\OT1/cmr/m/it/12 Nonidentical
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1219--1219
+Underfull \hbox (badness 10000) in paragraph at lines 1206--1206
 []\OT1/cmr/m/it/12 Over-
  []
 
 
-Overfull \hbox (1.03975pt too wide) in paragraph at lines 1219--1219
+Overfull \hbox (1.03975pt too wide) in paragraph at lines 1206--1206
 \OT1/cmr/m/it/12 parameterization| 
  []
 
 
-Overfull \hbox (9.4887pt too wide) in paragraph at lines 1211--1224
+Overfull \hbox (9.4887pt too wide) in paragraph at lines 1198--1211
  [][] 
  []
 
 [47] [48]
-Underfull \hbox (badness 10000) in paragraph at lines 1241--1241
+Underfull \hbox (badness 10000) in paragraph at lines 1230--1230
 []\OT1/cmr/m/n/12 Likelihood ra-tio
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1242--1242
+Underfull \hbox (badness 10000) in paragraph at lines 1232--1232
 []\OT1/cmr/m/n/12 Freeman-Tukey
  []
 
 
-Underfull \hbox (badness 6348) in paragraph at lines 1244--1245
+Underfull \hbox (badness 6348) in paragraph at lines 1234--1235
 []\OT1/cmr/m/n/12 Zero in-fla-tion check for
  []
 
 
-Underfull \hbox (badness 1558) in paragraph at lines 1250--1251
+Underfull \hbox (badness 1558) in paragraph at lines 1244--1245
 \OT1/cmr/m/n/12 sky's the-o-rem) and $\OML/cmm/m/it/12 Z$ \OT1/cmr/m/n/12 is
  []
 
-[49] [50] [51] [52] [53] [54]
+[49] [50] [51
+
+] [52] [53] [54]
 <Bayesian_modeling_decision_diagram.pdf, id=191, 722.7pt x 542.025pt>
 File: Bayesian_modeling_decision_diagram.pdf Graphic file (type pdf)
 
 <use Bayesian_modeling_decision_diagram.pdf>
 Package pdftex.def Info: Bayesian_modeling_decision_diagram.pdf used on input l
-ine 1426.
+ine 1422.
 (pdftex.def)             Requested size: 483.69684pt x 362.77441pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1426--1427
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1422--1423
  [] 
  []
 
 <WOSsearch.jpeg, id=192, 536.9661pt x 466.6233pt>
 File: WOSsearch.jpeg Graphic file (type jpg)
  <use WOSsearch.jpeg>
-Package pdftex.def Info: WOSsearch.jpeg used on input line 1433.
+Package pdftex.def Info: WOSsearch.jpeg used on input line 1429.
 (pdftex.def)             Requested size: 483.69684pt x 420.3487pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1433--1434
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1429--1430
  [] 
  []
 
 <sim_count_maps.pdf, id=193, 505.89pt x 505.89pt>
 File: sim_count_maps.pdf Graphic file (type pdf)
  <use sim_count_maps.pdf>
-Package pdftex.def Info: sim_count_maps.pdf used on input line 1440.
+Package pdftex.def Info: sim_count_maps.pdf used on input line 1436.
 (pdftex.def)             Requested size: 483.69684pt x 483.70361pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1440--1441
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1436--1437
  [] 
  []
 
@@ -486,55 +483,52 @@ File: posterior_prediction_diagram.pdf Graphic file (type pdf)
 
 <use posterior_prediction_diagram.pdf>
 Package pdftex.def Info: posterior_prediction_diagram.pdf used on input line 14
-47.
+43.
 (pdftex.def)             Requested size: 483.69684pt x 362.77441pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1447--1448
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1443--1444
  [] 
  []
 
 <pivot_CDF_plot.pdf, id=195, 505.89pt x 505.89pt>
 File: pivot_CDF_plot.pdf Graphic file (type pdf)
  <use pivot_CDF_plot.pdf>
-Package pdftex.def Info: pivot_CDF_plot.pdf used on input line 1454.
+Package pdftex.def Info: pivot_CDF_plot.pdf used on input line 1450.
 (pdftex.def)             Requested size: 483.69684pt x 483.70361pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1454--1455
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1450--1451
  [] 
  []
 
 <SpatRegSimPvals.pdf, id=196, 505.89pt x 505.89pt>
 File: SpatRegSimPvals.pdf Graphic file (type pdf)
  <use SpatRegSimPvals.pdf>
-Package pdftex.def Info: SpatRegSimPvals.pdf used on input line 1461.
+Package pdftex.def Info: SpatRegSimPvals.pdf used on input line 1457.
 (pdftex.def)             Requested size: 483.69684pt x 483.70361pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1461--1462
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1457--1458
  [] 
  []
 
 <attendance_fit.pdf, id=197, 397.485pt x 289.08pt>
 File: attendance_fit.pdf Graphic file (type pdf)
  <use attendance_fit.pdf>
-Package pdftex.def Info: attendance_fit.pdf used on input line 1468.
+Package pdftex.def Info: attendance_fit.pdf used on input line 1464.
 (pdftex.def)             Requested size: 483.69684pt x 351.79047pt.
 
-Overfull \hbox (13.94145pt too wide) in paragraph at lines 1468--1469
+Overfull \hbox (13.94145pt too wide) in paragraph at lines 1464--1465
  [] 
  []
-
-
-Package natbib Warning: There were undefined citations.
 
 [55 <./Bayesian_modeling_decision_diagram.pdf>] [56 <./WOSsearch.jpeg>]
 [57 <./sim_count_maps.pdf>] [58 <./posterior_prediction_diagram.pdf>] [59 <./pi
 vot_CDF_plot.pdf>] [60 <./SpatRegSimPvals.pdf>] [61 <./attendance_fit.pdf>]
 (ConnEtAl_HierarchicalGOF.aux) ) 
 Here is how much of TeX's memory you used:
- 5224 strings out of 493334
- 77116 string characters out of 3139186
- 156559 words of memory out of 3000000
- 8628 multiletter control sequences out of 15000+200000
+ 5223 strings out of 493334
+ 77111 string characters out of 3139186
+ 157564 words of memory out of 3000000
+ 8627 multiletter control sequences out of 15000+200000
  23145 words of font info for 86 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,20n,38p,1456b,505s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -556,7 +550,7 @@ iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiK
 TeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/f
 onts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
 e1/public/amsfonts/cm/cmtt12.pfb>
-Output written on ConnEtAl_HierarchicalGOF.pdf (61 pages, 692264 bytes).
+Output written on ConnEtAl_HierarchicalGOF.pdf (61 pages, 691002 bytes).
 PDF statistics:
  349 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

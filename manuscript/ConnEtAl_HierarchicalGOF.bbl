@@ -49,7 +49,7 @@ Bayarri, M.~J., and J.~O. Berger, 1999.
 \newblock Quantifying surprise in the data and model verification.
 \newblock Pages 53--82 {\em in\/} J.~M. Bernardo, J.~O. Berger, A.~P. Dawid,
   and A.~F.~M. Smith, editors. Bayesian Statistics 6. Oxford University Press,
-  London.
+  London, U.K.
 
 \bibitem[{Beaumont et~al.(2002)Beaumont, Zhang, and Balding}]{BeaumontEtAl2002}
 Beaumont, M.~A., W.~Zhang, and D.~J. Balding.
@@ -61,14 +61,14 @@ Beaumont, M.~A., W.~Zhang, and D.~J. Balding.
 Berger, J.~O.
 \newblock 2013.
 \newblock Statistical decision theory and Bayesian analysis.
-\newblock Springer Science \& Business Media.
+\newblock Springer Science \& Business Media, New York.
 
 \bibitem[{Box(1980)}]{Box1980}
 Box, G.~E.
 \newblock 1980.
 \newblock Sampling and Bayes' inference in scientific modelling and robustness.
-\newblock Journal of the Royal Statistical Society. Series A (General) pages
-  383--430.
+\newblock Journal of the Royal Statistical Society. Series A (General) {\bf
+  143}:383--430.
 
 \bibitem[{Burnham and Anderson(2002)}]{BurnhamAnderson2002}
 Burnham, K.~P., and D.~R. Anderson.
@@ -81,7 +81,7 @@ Burnham, K.~P., and D.~R. Anderson.
 Casella, G., and R.~L. Berger.
 \newblock 1990.
 \newblock Statistical Inference.
-\newblock Duxbury Press, Belmont, CA.
+\newblock Duxbury Press, Belmont, California.
 
 \bibitem[{Choquet et~al.(2009)Choquet, Lebreton, Gimenez, Reboulet, and
   Pradel}]{ChoquetEtAl2009}
@@ -112,12 +112,6 @@ Conn, P.~B., J.~M. Ver~Hoef, B.~T. McClintock, E.~E. Moreland, J.~M. London,
 \newblock Estimating multi-species abundance using automated detection systems:
   ice-associated seals in the eastern {B}ering {S}ea.
 \newblock Methods in Ecology and Evolution {\bf 5}:1280--1293.
-
-\bibitem[{Cox and Snell(1989)}]{CoxSnell1989}
-Cox, D.~R., and E.~J. Snell.
-\newblock 1989.
-\newblock Analysis of binary data.
-\newblock CRC Press, Boca Raton, Florida.
 
 \bibitem[{Cressie et~al.(2009)Cressie, Calder, Clark, Ver~Hoef, and
   Wikle}]{CressieEtAl2009}
@@ -150,8 +144,8 @@ Dail, D., and L.~Madsen.
 Dawid, A.~P.
 \newblock 1984.
 \newblock Statistical theory: the prequential approach.
-\newblock Journal of the Royal Statistical Society. Series A (General) pages
-  278--292.
+\newblock Journal of the Royal Statistical Society. Series A (General) {\bf
+  147}:278--292.
 
 \bibitem[{Dey et~al.(1998)Dey, Gelfand, Swartz, and Vlachos}]{DeyEtAl1998}
 Dey, D.~K., A.~E. Gelfand, T.~B. Swartz, and P.~K. Vlachos.
@@ -226,7 +220,7 @@ Guttman, I.
 \newblock The use of the concept of a future observation in goodness-of-fit
   problems.
 \newblock Journal of the Royal Statistical Society. Series B (Methodological)
-  pages 83--100.
+  {\bf 29}:83--100.
 
 \bibitem[{Hjort et~al.(2006)Hjort, Dahl, and Steinbakk}]{HjortEtAl2006}
 Hjort, N.~L., F.~A. Dahl, and G.~H. Steinbakk.
@@ -276,14 +270,14 @@ Johnson, V.~E.
 K\'{e}ry, M., and J.~A. Royle.
 \newblock 2016.
 \newblock Applied hierarchical modeling in ecology.
-\newblock Elsevier, London.
+\newblock Elsevier, London, U.K.
 
 \bibitem[{K{\'e}ry and Schaub(2012)}]{KerySchaub2012}
 K{\'e}ry, M., and M.~Schaub.
 \newblock 2012.
 \newblock Bayesian population analysis using WinBUGS: a hierarchical
   perspective.
-\newblock Academic Press, London.
+\newblock Academic Press, London, U.K.
 
 \bibitem[{King et~al.(2009)King, Morgan, Gimenez, and Brooks}]{KingEtAl2009}
 King, R., B.~Morgan, O.~Gimenez, and S.~Brooks.
@@ -457,6 +451,12 @@ Ver~Hoef, J.~M., and P.~L. Boveng.
 \newblock Iterating on a single model is a viable alternative to multimodel
   inference.
 \newblock Journal of Wildlife Management {\bf 79}:719--729.
+
+\bibitem[{Ver~Hoef and Frost(2003)}]{VerHoefFrost2003}
+Ver~Hoef, J.~M., and K.~J. Frost.
+\newblock 2003.
+\newblock A {B}ayesian hierarchical model for monitoring harbor seal changes in
+  {P}rince {W}illiam {S}ound, {A}laska {\bf 10}:201--219.
 
 \bibitem[{Williams and Hooten(2016)}]{williams2016combining}
 Williams, P.~J., and M.~B. Hooten.
