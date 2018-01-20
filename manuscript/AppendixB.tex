@@ -62,7 +62,8 @@
 \begin{center} \bf {\large A GUIDE TO BAYESIAN MODEL CHECKING FOR ECOLOGISTS}
 
 \vspace{0.7cm}
-Paul B. Conn$^{1*}$, Mevin B. Hooten$^{2,3,4}$, and Devin S. Johnson$^1$
+Paul B. Conn$^{1*}$, Devin S. Johnson$^1$, Perry J. Williams$^{2,3}$, Sharon R. Melin$^1$, and Mevin
+    B. Hooten$^{4,2,3}$
 \end{center}
 \vspace{0.5cm}
 
@@ -97,13 +98,13 @@ Appendix B: Simulation and estimation procedures for spatial regression example
 For each of 1000 simulation replicates, we generated a spatial count data set at a set of $n=200$, randomly selected points in space.  We generated data in several steps.
 
 \begin{enumerate}
-  \item Locate $n=200$ points at random in a square study area $\mathcal{A}_1$, where $\mathcal{A}_1 \subset \mathcal{A}_2 \subset \R2$, and $\mathcal{A}_1$ and $\mathcal{A}_2$ are subsets of $\R2$.  Call the set of $n=200$ points $\mathcal{S} = \{ s_1, s_2, \hdots, s_n \}$.
-  \item Generate a hypothetical, spatially autocorrelated covariate $\bfx$ using a Mat\'{e}rn cluster process on $\mathcal{A}_2$.  Note that the covariate is generated over a larger space than $\mathcal{A}_1$ to minimize any boundary effects with how the covariate is constructed.  The Mat\'{e}rn cluster process was simulated using the \texttt{rMatClust} function in the \texttt{spatstat} package \citep{BaddeleyEtAl2015} of the R programming environment \citep{RTeam2015}.  This function requires three arguments: $\kappa$, $r$, and $\mu$, which represent the intensity of the Poisson process of cluster centers, the radius of the clusters, and the mean number of points per cluster, respectively.  These values were set to 12, 0.25, and 100, respectively.  Next, a 2-dimensional Gaussian kernel density estimate was fitted to the simulated point pattern on a $100 \times 100$ grid (call the realized density at each grid cell $j$ $Z_j$).  Finally, the covariate $\bfx$ was constructed as $\bfx = {\bf W} {\bf Z}$, where ${\bf W}$ is a matrix where entries $w_{ij}$ give the Euclidean distance between $s_i$ and $Z_j$.  The covariate was then standardized by dividing it by its mean.
-  \item Generate spatially autocorrelated random effects, $\bfeta$.  We generated random effects using a predictive process formulation \citep{BanerjeeEtAl2008}, where spatially autocorrelated random effects are generated on a reduced dimensional subspace.  To start, we generated spatial autocorrelated random effects on a $9 \times 9$ grid of ``knots" placed regularly over $\mathcal{A}_2$ (see Fig. 3 in main article text) as $\tilde{\bfeta} \sim \textrm{MVN}({\bf 0},\bfSigma)$, where $\bfSigma$ is a covariance matrix with entries $\sigma_{ij} = \rho_{ij}/\tau_\eta$.  The random effects $\bfeta$ are then generated as $\bfeta = \bfSigma^* \bfSigma^{-1} \tilde{\bfeta}$, where $\bfSigma^*$ is a cross-covariance matrix between observed spatial locations $\mathcal{S}$ and the knot locations \citep{BanerjeeEtAl2008}.  For all simulations, we set $\tau_\eta = 1.0$ and used an exponential correlation function with a decay of $\theta=2.0$ to set the values of $\rho_{ij}$.
+  \item Locate $n=200$ points at random in a square study area $\mathcal{A}_1$, where $\mathcal{A}_1 \subset \mathcal{A}_2 \subset \R2$.  Call the set of $n=200$ points $\mathcal{S} = \{ s_1, s_2, \hdots, s_n \}$.
+  \item Generate a hypothetical, spatially autocorrelated covariate $\bfx$ using a Mat\'{e}rn cluster process on $\mathcal{A}_2$.  Note that the covariate is generated over a larger space than $\mathcal{A}_1$ to minimize any boundary effects with how the covariate is constructed.  The Mat\'{e}rn cluster process was simulated using the \texttt{rMatClust} function in the \texttt{spatstat} package \citep{BaddeleyEtAl2015} of the R programming environment \citep{RTeam2017}.  This function requires three arguments: $\kappa$, $r$, and $\mu$, which represent the intensity of the Poisson process of cluster centers, the radius of the clusters, and the mean number of points per cluster, respectively.  These values were set to 12, 0.25, and 100, respectively.  Next, a 2-dimensional Gaussian kernel density estimate was fitted to the simulated point pattern on a $100 \times 100$ grid (call the realized density at each grid cell $j$ $Z_j$).  Finally, the covariate $\bfx$ was constructed as $\bfx = {\bf W} {\bf Z}$, where ${\bf W}$ is a matrix where entries $w_{ij}$ give the Euclidean distance between $s_i$ and $Z_j$.  The covariate was then standardized by dividing it by its mean.
+  \item Generate spatially autocorrelated random effects, $\bfeta$.  We generated random effects using a predictive process formulation \citep{BanerjeeEtAl2008}, where spatially autocorrelated random effects are generated on a reduced dimensional subspace.  To start, we generated spatial autocorrelated random effects on a $9 \times 9$ grid of ``knots" placed regularly over $\mathcal{A}_2$ (see Fig. 3 in main article text) as $\tilde{\bfeta} \sim \textrm{MVN}({\bf 0},\bfSigma)$, where $\bfSigma$ is a covariance matrix with entries $\sigma_{ij} = \rho_{ij}/\tau_\eta$.  The random effects $\bfeta$ are then generated as $\bfeta = \bfSigma^* \bfSigma^{-1} \tilde{\bfeta}$, where $\bfSigma^*$ is a cross-covariance matrix between observed spatial locations $\mathcal{S}$ and the knot locations \citep{BanerjeeEtAl2008}.  For all simulations, we set $\tau_\eta = 1.0$ and used an exponential correlation function with a decay of $\phi=2.0$ to set the values of $\rho_{ij}$.
   \item  Generate expected abundance for all $s \in \mathcal{S}$ as $\bfmu = \exp( {\bf X}\bfbeta + \bfeta +\bfepsilon )$, where ${\bf X}$ is a two-column design matrix specifying a linear effect of $\bfx$, $\bfeta$ are spatially autocorrelated random effects, and $\bfepsilon_s \sim Normal(0,\tau_\epsilon^{-1})$ are iid Gaussian errors.  For each simulation, we used $\tau_\epsilon = 5$ and $\bfbeta = [2.0 0.75]^\prime$.
   \item Simulate count data, $y_i|\mu_i \sim \textrm{Poisson}(\mu_i)$, at each of the $i \in \{ 1,2,\hdots,200 \}$ points.
 \end{enumerate}
-  
+
 
 \section{Hierarchical modeling framework}
 
@@ -126,14 +127,14 @@ For each simulated data set, we fit a sequence of three models following naming 
            \tilde{\bfeta} & \sim & \mathcal{N}(\textbf{0},\bfSigma) \\
           \end{eqnarray*}
       \end{itemize}
-Here, the ${\bf w}$ consists of the predictive process ``design matrix," $\bfSigma_{sk} \bfSigma^{-1}$ (see \textit{Data generating procedure}, step 4).  Even with the dimension reduction afforded by the predictive process formulation, computation in JAGS was still quite slow for the \texttt{PoisMixSp} model.  To speed it up further, we implemented a ``blocky" predictive process formulation.  In particular, we discretized the parameter space for the exponential decay parameter, $\theta$, to the set $\{0.4, 0.8, 1.2, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0\}$ (recall that the true value was 2.0).  Specifying a discrete uniform prior on this set, we could then calculate all possible combinations of correlation, cross correlation, and inverse correlation matrices needed for predictive process calculations and input them directly into JAGS (i.e. there was no need for computing extra matrix inverse calculations during MCMC).  This greatly decreased execution times.
+Here, the ${\bf w}$ consists of the predictive process ``design matrix," $\bfSigma_{sk} \bfSigma^{-1}$ (see \textit{Data generating procedure}, step 4).  Even with the dimension reduction afforded by the predictive process formulation, computation in JAGS was still quite slow for the \texttt{PoisMixSp} model.  To speed it up further, we implemented a ``blocky" predictive process formulation.  In particular, we discretized the parameter space for the exponential decay parameter, $\phi$, to the set $\{0.4, 0.8, 1.2, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0\}$ (recall that the true value was 2.0).  Specifying a discrete uniform prior on this set, we could then calculate all possible combinations of correlation, cross correlation, and inverse correlation matrices needed for predictive process calculations and input them directly into JAGS (i.e. there was no need for computing extra matrix inverse calculations during MCMC).  This greatly decreased execution times.
 
 The following prior distributions were used in all MCMC runs:
 \begin{itemize}
   \item $[\beta] = \textrm{Normal}(0,\tau=100)$
   \item $[\tau_\epsilon]=[\tau_\eta]=\textrm{gamma}(1.0,0.01)$.
-\end{itemize} 
-The parameters of the gamma prior lead to an approximately flat distribution near the origin with reasonable mass on plausible parameter values. 
+\end{itemize}
+The parameters of the gamma prior lead to an approximately flat distribution near the origin with reasonable mass on plausible parameter values.
 
 \renewcommand{\refname}{Literature Cited}
 % \bibliographystyle{JEcol}

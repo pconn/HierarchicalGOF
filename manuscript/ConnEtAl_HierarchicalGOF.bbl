@@ -1,4 +1,4 @@
-\begin{thebibliography}{76}
+\begin{thebibliography}{74}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -25,12 +25,12 @@ Banerjee, S., A.~E. Gelfand, A.~O. Finley, and H.~Sang.
   datasets.
 \newblock Journal of the Royal Statistical Society B {\bf 70}:825--848.
 
-\bibitem[{Barker et~al.(In Review)Barker, Schofield, Link, and
-  Sauer}]{barker2016n}
+\bibitem[{Barker et~al.(2017)Barker, Schofield, Link, and
+  Sauer}]{BarkerEtAl2017}
 Barker, R.~J., M.~R. Schofield, W.~A. Link, and J.~R. Sauer.
-\newblock In Review.
-\newblock N mixture models vs Poisson regression.
-\newblock Biometrics {\bf 00}:00--00.
+\newblock 2017.
+\newblock On the reliability of N-mixture models for count data.
+\newblock Biometrics {\bf 00}:10.1111/biom.12734.
 
 \bibitem[{Bayarri and Berger(2000)}]{BayarriBerger2000}
 Bayarri, M., and J.~O. Berger.
@@ -42,14 +42,14 @@ Bayarri, M., and J.~O. Berger.
 Bayarri, M., and M.~Castellanos.
 \newblock 2007.
 \newblock Bayesian checking of the second levels of hierarchical models.
-\newblock Statistical science {\bf 22}:322--343.
+\newblock Statistical Science {\bf 22}:322--343.
 
 \bibitem[{Bayarri and Berger(1999)}]{BayarriBerger1999}
 Bayarri, M.~J., and J.~O. Berger, 1999.
 \newblock Quantifying surprise in the data and model verification.
 \newblock Pages 53--82 {\em in\/} J.~M. Bernardo, J.~O. Berger, A.~P. Dawid,
   and A.~F.~M. Smith, editors. Bayesian Statistics 6. Oxford University Press,
-  London.
+  London, U.K.
 
 \bibitem[{Beaumont et~al.(2002)Beaumont, Zhang, and Balding}]{BeaumontEtAl2002}
 Beaumont, M.~A., W.~Zhang, and D.~J. Balding.
@@ -61,14 +61,14 @@ Beaumont, M.~A., W.~Zhang, and D.~J. Balding.
 Berger, J.~O.
 \newblock 2013.
 \newblock Statistical decision theory and Bayesian analysis.
-\newblock Springer Science \& Business Media.
+\newblock Springer Science \& Business Media, New York.
 
 \bibitem[{Box(1980)}]{Box1980}
 Box, G.~E.
 \newblock 1980.
 \newblock Sampling and Bayes' inference in scientific modelling and robustness.
-\newblock Journal of the Royal Statistical Society. Series A (General) pages
-  383--430.
+\newblock Journal of the Royal Statistical Society. Series A (General) {\bf
+  143}:383--430.
 
 \bibitem[{Burnham and Anderson(2002)}]{BurnhamAnderson2002}
 Burnham, K.~P., and D.~R. Anderson.
@@ -81,7 +81,7 @@ Burnham, K.~P., and D.~R. Anderson.
 Casella, G., and R.~L. Berger.
 \newblock 1990.
 \newblock Statistical Inference.
-\newblock Duxbury Press, Belmont, CA.
+\newblock Duxbury Press, Belmont, California.
 
 \bibitem[{Choquet et~al.(2009)Choquet, Lebreton, Gimenez, Reboulet, and
   Pradel}]{ChoquetEtAl2009}
@@ -102,7 +102,7 @@ Clark, J.~S., and O.~N. Bj{\o}rnstad.
 Congdon, P.
 \newblock 2014.
 \newblock Applied {B}ayesian modelling.
-\newblock John Wiley \& Sons.
+\newblock John Wiley \& Sons, Hoboken, New Jersey.
 
 \bibitem[{Conn et~al.(2014)Conn, Ver~Hoef, McClintock, Moreland, London,
   Cameron, Dahle, and Boveng}]{ConnEtAl2014}
@@ -112,12 +112,6 @@ Conn, P.~B., J.~M. Ver~Hoef, B.~T. McClintock, E.~E. Moreland, J.~M. London,
 \newblock Estimating multi-species abundance using automated detection systems:
   ice-associated seals in the eastern {B}ering {S}ea.
 \newblock Methods in Ecology and Evolution {\bf 5}:1280--1293.
-
-\bibitem[{Cox and Snell(1989)}]{CoxSnell1989}
-Cox, D.~R., and E.~J. Snell.
-\newblock 1989.
-\newblock Analysis of binary data.
-\newblock CRC Press.
 
 \bibitem[{Cressie et~al.(2009)Cressie, Calder, Clark, Ver~Hoef, and
   Wikle}]{CressieEtAl2009}
@@ -149,10 +143,9 @@ Dail, D., and L.~Madsen.
 \bibitem[{Dawid(1984)}]{Dawid1984}
 Dawid, A.~P.
 \newblock 1984.
-\newblock Present position and potential developments: Some personal views:
-  Statistical theory: The prequential approach.
-\newblock Journal of the Royal Statistical Society. Series A (General) pages
-  278--292.
+\newblock Statistical theory: the prequential approach.
+\newblock Journal of the Royal Statistical Society. Series A (General) {\bf
+  147}:278--292.
 
 \bibitem[{Dey et~al.(1998)Dey, Gelfand, Swartz, and Vlachos}]{DeyEtAl1998}
 Dey, D.~K., A.~E. Gelfand, T.~B. Swartz, and P.~K. Vlachos.
@@ -173,17 +166,17 @@ Fr{\"u}iiwirth-Schnatter, S.
   state space models.
 \newblock Environmental and Ecological Statistics {\bf 3}:291--309.
 
-\bibitem[{Gelman et~al.(2004)Gelman, Carlin, Stern, and Rubin}]{GelmanEtAl2004}
-Gelman, A., J.~B. Carlin, H.~S. Stern, and D.~B. Rubin.
-\newblock 2004.
-\newblock Bayesian Data Analysis, 2nd Edition.
-\newblock Chapman and Hall, Boca Raton.
+\bibitem[{Gelfand and Smith(1990)}]{GelfandSmith1990}
+Gelfand, A.~E., and A.~F.~M. Smith.
+\newblock 1990.
+\newblock Sampling-based approaches to calculating marginal densities {\bf
+  85}:398--409.
 
 \bibitem[{Gelman et~al.(2014)Gelman, Carlin, Stern, and Rubin}]{GelmanEtAl2014}
 Gelman, A., J.~B. Carlin, H.~S. Stern, and D.~B. Rubin.
 \newblock 2014.
-\newblock Bayesian data analysis, Third edition.
-\newblock Taylor \& Francis.
+\newblock Bayesian data analysis, third edition.
+\newblock CRC Press, Boca Raton, Florida.
 
 \bibitem[{Gelman et~al.(1996)Gelman, Meng, and Stern}]{GelmanEtAl1996}
 Gelman, A., X.-L. Meng, and H.~Stern.
@@ -227,7 +220,7 @@ Guttman, I.
 \newblock The use of the concept of a future observation in goodness-of-fit
   problems.
 \newblock Journal of the Royal Statistical Society. Series B (Methodological)
-  pages 83--100.
+  {\bf 29}:83--100.
 
 \bibitem[{Hjort et~al.(2006)Hjort, Dahl, and Steinbakk}]{HjortEtAl2006}
 Hjort, N.~L., F.~A. Dahl, and G.~H. Steinbakk.
@@ -239,7 +232,7 @@ Hjort, N.~L., F.~A. Dahl, and G.~H. Steinbakk.
 Hobbs, N.~T., and M.~B. Hooten.
 \newblock 2015.
 \newblock Bayesian Models: A Statistical Primer for Ecologists.
-\newblock Princeton University Press.
+\newblock Princeton University Press, Princeton, New Jersey.
 
 \bibitem[{Hoeting et~al.(1999)Hoeting, Madigan, Raftery, and
   Volinsky}]{HoetingEtAl1999}
@@ -273,26 +266,18 @@ Johnson, V.~E.
   models.
 \newblock Statistical Science {\bf 22}:353--358.
 
-\bibitem[{K{\'e}ry and Royle(2015)}]{kery2015applied}
-K{\'e}ry, M., and J.~A. Royle.
-\newblock 2015.
-\newblock Applied Hierarchical Modeling in Ecology: Analysis of distribution,
-  abundance and species richness in R and BUGS: Volume 1: Prelude and Static
-  Models.
-\newblock Academic Press.
-
 \bibitem[{K\'{e}ry and Royle(2016)}]{KeryRoyle2016}
 K\'{e}ry, M., and J.~A. Royle.
 \newblock 2016.
-\newblock Applied Hierarchical Modeling in Ecology.
-\newblock Elsevier, London.
+\newblock Applied hierarchical modeling in ecology.
+\newblock Elsevier, London, U.K.
 
 \bibitem[{K{\'e}ry and Schaub(2012)}]{KerySchaub2012}
 K{\'e}ry, M., and M.~Schaub.
 \newblock 2012.
 \newblock Bayesian population analysis using WinBUGS: a hierarchical
   perspective.
-\newblock Academic Press.
+\newblock Academic Press, London, U.K.
 
 \bibitem[{King et~al.(2009)King, Morgan, Gimenez, and Brooks}]{KingEtAl2009}
 King, R., B.~Morgan, O.~Gimenez, and S.~Brooks.
@@ -322,7 +307,7 @@ Lichstein, J., T.~Simons, S.~Shriner, and K.~E. Franzreb.
 \bibitem[{Link and Barker(2010)}]{LinkBarker2010}
 Link, W., and R.~Barker.
 \newblock 2010.
-\newblock Bayesian Inference with Ecological Applications.
+\newblock Bayesian inference with ecological applications.
 \newblock Academic Press, London, U.K.
 
 \bibitem[{Link et~al.(2002)Link, Cam, Nichols, and Cooch}]{LinkEtAl2002}
@@ -342,7 +327,7 @@ Link, W.~A., and R.~J. Barker.
   Spiegelhalter}]{LunnEtAl2013}
 Lunn, D., C.~Jackson, N.~Best, A.~Thomas, and D.~Spiegelhalter.
 \newblock 2013.
-\newblock The {BUGS} book: A practical introduction to {B}ayesian analysis.
+\newblock The {BUGS} book: a practical introduction to {B}ayesian analysis.
 \newblock Chapman \& Hall/CRC, Boca Raton, Florida.
 
 \bibitem[{Marshall and Spiegelhalter(2003)}]{MarshallSpiegelhalter2003}
@@ -362,7 +347,7 @@ Marshall, E.~C., and D.~J. Spiegelhalter.
 \bibitem[{McCullagh and Nelder(1989)}]{McCullaghNelder1989}
 McCullagh, P., and J.~A. Nelder.
 \newblock 1989.
-\newblock Generalized Linear Models.
+\newblock Generalized linear models.
 \newblock Chapman and Hall, New York.
 
 \bibitem[{Moran(1950)}]{Moran1950}
@@ -401,9 +386,9 @@ Qiu, S., C.~X. Feng, and L.~Li.
   for disease mapping models.
 \newblock arXiv {\bf 1603.07668}.
 
-\bibitem[{{R Development Core Team}(2015)}]{RTeam2015}
-{R Development Core Team}, 2015.
-\newblock R: A Language and Environment for Statistical Computing.
+\bibitem[{{R Development Core Team}(2017)}]{RTeam2017}
+{R Development Core Team}, 2017.
+\newblock R: a Language and environment for statistical computing.
 \newblock R Foundation for Statistical Computing, Vienna, Austria.
 \newblock \urlprefix\url{http://www.R-project.org}.
 
@@ -441,12 +426,6 @@ Sauer, J.~R., and W.~A. Link.
   hierarchical models.
 \newblock Auk {\bf 128}:87--98.
 
-\bibitem[{Shipley(2009)}]{Shipley2009}
-Shipley, B.
-\newblock 2009.
-\newblock Confirmatory path analysis in a generalized multilevel context.
-\newblock Ecology {\bf 90}:363--368.
-
 \bibitem[{Smith(1985)}]{Smith1985}
 Smith, J.~Q.
 \newblock 1985.
@@ -473,19 +452,25 @@ Ver~Hoef, J.~M., and P.~L. Boveng.
   inference.
 \newblock Journal of Wildlife Management {\bf 79}:719--729.
 
+\bibitem[{Ver~Hoef and Frost(2003)}]{VerHoefFrost2003}
+Ver~Hoef, J.~M., and K.~J. Frost.
+\newblock 2003.
+\newblock A {B}ayesian hierarchical model for monitoring harbor seal changes in
+  {P}rince {W}illiam {S}ound, {A}laska {\bf 10}:201--219.
+
 \bibitem[{Williams and Hooten(2016)}]{williams2016combining}
 Williams, P.~J., and M.~B. Hooten.
 \newblock 2016.
 \newblock Combining statistical inference and decisions in ecology.
 \newblock Ecological Applications {\bf 26}:1930--1942.
 
-\bibitem[{Williams et~al.(In Press)Williams, Hooten, Womble, and
+\bibitem[{Williams et~al.(2017)Williams, Hooten, Womble, and
   Bower}]{williams2017estimating}
 Williams, P.~J., M.~B. Hooten, J.~N. Womble, and M.~R. Bower.
-\newblock In Press.
+\newblock 2017.
 \newblock Estimating occupancy and abundance using aerial images with imperfect
   detection.
-\newblock Methods in Ecology and Evolution {\bf 00}:00--00.
+\newblock Methods in Ecology and Evolution {\bf DOI: 10.1111/2041-210X.12815}.
 
 \bibitem[{Wood(2006)}]{Wood2006}
 Wood, S.~N.
@@ -509,6 +494,6 @@ Zhang, J.~L.
 Zucchini, W., and I.~L. MacDonald.
 \newblock 2009.
 \newblock Hidden Markov models for time series: an introduction using R.
-\newblock CRC Press.
+\newblock CRC Press, Boca Raton, Florida.
 
 \end{thebibliography}
