@@ -88,7 +88,7 @@ Rcpp::List attendance_hsmm(
   delta = arma::normalise(delta, 1);
   
   // State transitions are fixed for attendance model //
-  arma:mat A(k,k, fill::zeros);
+  arma::mat A(k,k, fill::zeros);
   A(0,1) = 1; A(1,2) = 1; A(2,3) = 1; A(3,2) = 1;
   
   // make Gamma mat... move inside loop for time inhomogeneous HSMM
@@ -243,7 +243,7 @@ dlogitbeta = function(x, a, b, log=FALSE){
 //   delta = arma::normalise(delta, 1);
 //   
 //   // State transitions are fixed for attendance model //
-//   arma:mat A(k,k, fill::zeros);
+//   arma::mat A(k,k, fill::zeros);
 //   A(0,1) = 1; A(1,2) = 1; A(2,3) = 1; A(3,2) = 1;
 //   
 //   // make Gamma mat... move inside loop for time inhomogeneous HSMM
@@ -319,7 +319,7 @@ Rcpp::List attendance_expected(
   arma::rowvec delta = as<arma::rowvec>(delta_prior);
   delta = arma::normalise(delta, 1);
   
-  arma:mat A(4,4, fill::zeros);
+  arma::mat A(4,4, fill::zeros);
   A(0,1) = 1; A(1,2) = 1; A(2,3) = 1; A(3,2) = 1;
   
   Rcpp::List clist = make_c_list(dt_beta, m, model);
@@ -390,7 +390,7 @@ Rcpp::List attendance_sim_data(
   arma::rowvec delta = as<arma::rowvec>(delta_prior);
   delta = arma::normalise(delta, 1);
   
-  arma:mat A(4,4, fill::zeros);
+  arma::mat A(4,4, fill::zeros);
   A(0,1) = 1; A(1,2) = 1; A(2,3) = 1; A(3,2) = 1;
   
   Rcpp::List clist = make_c_list(dt_beta, m, model);

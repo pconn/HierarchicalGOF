@@ -1,13 +1,13 @@
 
 ### Need hsmm package from github user Jlaake.
 # Install with the devtools package
-# devtools::install_github("dsjohnson/hsmm/hsmm")
+devtools::install_github("jlaake/hsmm/hsmm")
 
 library(hsmm)
 library(tidyverse)
 library(lubridate)
 library(numDeriv)
-Rcpp::sourceCpp('attendance_hsmm.cpp')
+Rcpp::sourceCpp(file.path(dir, 'attendance_hsmm.cpp'))
 
 data(attendance)
 
@@ -40,40 +40,46 @@ ln_prior_time = function(model_par, prior_par){
 fit_list = vector(mode = "list", 0)
 ### Poisson DT fit
 # No time effects
+message("Fitting HSMM without time effects")
 fit_list$post_mode_pois =fit_attendance(ddl, p_dm=p_dm, m=c(30,30,10,10), model=2, 
                                model_inits=c(2,2,1,0,-3,4),
                                ln_prior=ln_prior,
                                method="BFGS",
-                               control=list(trace=6, REPORT=1),
+                               control=list(trace=6, REPORT=10),
                                hessian=T
 )
 
 # time effects
+message("Fitting HSMM *with* time effects")
 pois_inits = c(fit_list$post_mode_pois$par, rep(0, ncol(p_dm_time)-2))
 fit_list$post_mode_pois_time =fit_attendance(ddl, p_dm=p_dm_time, m=c(30,30,10,10), model=2, 
                                     model_inits=pois_inits,
                                     ln_prior=ln_prior_time,
                                     method="BFGS",
-                                    control=list(trace=6, REPORT=1),
+                                    control=list(trace=6, REPORT=10),
                                     hessian=T
 )
 
 ### HMM fit-- geometric DT distribution
+message("Fitting HMM without time effects")
 fit_list$post_mode_geom=fit_attendance(ddl, p_dm=p_dm, m=rep(1,4), model=1, 
                               model_inits=c(-2,-2,-1,0,-3,4),
                               ln_prior=ln_prior,
                               method="BFGS",
-                              control=list(trace=6, REPORT=1),
+                              control=list(trace=6, REPORT=10),
                               hessian=T
 )
+
 #time effects
+message("Fitting HMM *with* time effects")
 geom_inits = c(fit_list$post_mode_geom$par, rep(0, ncol(p_dm_time)-2))
 fit_list$post_mode_geom_time =fit_attendance(ddl, p_dm=p_dm_time, m=rep(1,4), model=1, 
                                     model_inits=geom_inits,
                                     ln_prior=ln_prior_time,
                                     method="BFGS",
-                                    control=list(trace=6, REPORT=1),
+                                    control=list(trace=6, REPORT=10),
                                     hessian=T
 )
 
+message('Saving output')
 save(list=ls(), file=paste0("hsmm_fit", ".rda"))

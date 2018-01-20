@@ -19,8 +19,8 @@ for(i in 1:4){
 
 ### p-value storage
 
-pval_tukey_list = vector(mode="list", length=length(mcmc_list))
-names(pval_tukey_list) = names(mcmc_list)
+pval_dev_list <- pval_tukey_list <- vector(mode="list", length=length(mcmc_list))
+names(pval_dev_list) <- names(pval_tukey_list) <- names(mcmc_list)
 
 for(i in 1:length(mcmc_list)){
 
@@ -38,15 +38,18 @@ for(i in 1:length(mcmc_list)){
     if(i==4) p_mat = p_dm_time else p_mat = p_dm
   }
   
-pval_tukey_list[[i]] = rep(NA, reps)
-  T_tukey_obs <- T_tukey_rep <- rep(NA, reps)
+  pval_dev_list[[i]] <- pval_tukey_list[[i]] <-  rep(NA, reps)
+  # rep_det = matrix(NA, ncol=n_occ, nrow=reps)
+  T_dev_obs <- T_dev_rep <- T_tukey_obs <- T_tukey_rep <- rep(NA, reps)
   st = Sys.time()
   for(j in 1:reps){
     par = mcmc_list[[i]][idx[j],]
     nd = attend_sim_data(par, ddl, p_mat, m=m, model=model)$data %>% matrix(., ncol=n_occ, byrow=T)
     exp_det = attend_expected(par, ddl, p_mat, m=m, model=model) %>% matrix(., ncol=n_occ, byrow=T) %>% colSums()
+    T_dev_obs[j] = dev(par, data=NULL, model, m, p_mat)
     T_tukey_obs[j] = sum((sqrt(obs_det) - sqrt(exp_det))^2)
     rep_det = colSums(nd)
+    T_dev_rep[j] = dev(par, data=nd, model, m, p_mat)
     T_tukey_rep[j] = sum((sqrt(rep_det) - sqrt(exp_det))^2)
     if(j ==10){
       tpi = difftime(Sys.time(), st, units="secs")/j
@@ -57,6 +60,7 @@ pval_tukey_list[[i]] = rep(NA, reps)
     }
     if(j >=100 & j%%100==0) cat(j, "(", i, ") ")
   }
+  pval_dev_list[[i]] = as.numeric(T_dev_rep > T_dev_obs)
   pval_tukey_list[[i]] = as.numeric(T_tukey_rep > T_tukey_obs)
   
 }
