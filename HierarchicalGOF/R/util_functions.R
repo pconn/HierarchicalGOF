@@ -6,7 +6,6 @@
 #' @param leg.title Title of the legend
 #' @return ggplot2 map of predictions on a grid
 #' @export 
-#' @keywords 
 #' @author Paul Conn \email{paul.conn@@noaa.gov}
 plot.prediction.map<-function(N,Coords,highlight=NULL,myPalette=NULL,leg.title="Abundance"){
   #require(rgeos)

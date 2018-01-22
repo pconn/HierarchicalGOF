@@ -84,16 +84,26 @@ Appendix A: Algorithms for model checking procedures
 
 \rm \begin{flushleft}
 
+Here, we provide pseudocode for several algorithms that can be used to conduct Bayesian model checks.  We use the following conventions when describing algorithms:
+\begin{itemize}
+  \item We use bold symbols to denote vector- or matrix-valued quantities
+  \item We use $\textbf{y}$ (with no superscript) to denote observed data, and $\textbf{y}_i^{rep}$ to denote a simulated data set.
+  \item We use brackets do designate a probability distribution.  For instance, $[\boldsymbol{\theta}]$ denotes the distribution of $\boldsymbol{\theta}$, and $[\textbf{y}|\boldsymbol{\theta}]$ denotes the conditional distribution of $\textbf{y}$ given $\boldsymbol{\theta}$
+  \item We use a left arrow $\leftarrow$ to mean ``set equal to"
+  \item The notation $\forall$ means ``for every"
+  \item The notation $\in$ means ``in the set"
+\end{itemize}
+
 
 \begin{algorithm}
-\caption{Prior predictive check algorithm for computing a Bayesian p-value, $P$ using $m$ samples from the prior distribution. A selection of discrepancy measures $T(\textbf{y},\boldsymbol{\theta})$ are provided in Table 2 of the main article text.}
+\caption{Prior predictive check algorithm for computing a Bayesian p-value, $P$ using $m$ samples from the prior distribution. A selection of discrepancy measures $T(\textbf{y},\boldsymbol{\theta})$ is provided in Table 2 of the main article text.}
 \label{alg:prior}
 \begin{algorithmic}
 \STATE $P \leftarrow 0$
 \FOR{$i \in 1:m$}
   \STATE Draw $\boldsymbol{\theta}_i \sim [\boldsymbol{\theta}]$
-  \STATE Draw $\textbf{y}_i^{rep} \sim [\textbf{y} | \boldsymbol{\theta}_i]$ \STATE Calculate $T_i^{rep} = T(\textbf{y}_i^{rep},\boldsymbol{\theta}_i)$
-  \STATE Calculate $T_i^{obs} = T(\textbf{y},\boldsymbol{\theta}_i)$
+  \STATE Draw $\textbf{y}_i^{rep} \sim [\textbf{y} | \boldsymbol{\theta}_i]$ \STATE Set $T_i^{rep} \leftarrow T(\textbf{y}_i^{rep},\boldsymbol{\theta}_i)$
+  \STATE Set $T_i^{obs} \leftarrow T(\textbf{y},\boldsymbol{\theta}_i)$
   \IF{$T_i^{obs} < T_i^{rep}$}
     \STATE $P \leftarrow P+1$
   \ENDIF
@@ -103,14 +113,14 @@ Appendix A: Algorithms for model checking procedures
 \end{algorithm}
 
 \begin{algorithm}
-\caption{Posterior predictive check algorithm for computing a Bayesian p-value, $P$ using $m$ samples from the posterior distribution.  A selection of discrepancy measures $T(\textbf{y},\boldsymbol{\theta})$ are provided in Table 2 of the main article text.}
+\caption{Posterior predictive check algorithm for computing a Bayesian p-value, $P$ using $m$ samples from the prior distribution.  A selection of discrepancy measures $T(\textbf{y},\boldsymbol{\theta})$ is provided in Table 2 of the main article text.}
 \label{alg:posterior}
 \begin{algorithmic}
 \STATE $P \leftarrow 0$
 \FOR{$i \in 1:m$}
   \STATE Draw $\boldsymbol{\theta}_i \sim [\boldsymbol{\theta}|{\bf y}]$
-  \STATE Draw $\textbf{y}_i^{rep} \sim [\textbf{y} | \boldsymbol{\theta}_i]$ \STATE Calculate $T_i^{rep} = T(\textbf{y}_i^{rep},\boldsymbol{\theta}_i)$
-  \STATE Calculate $T_i^{obs} = T(\textbf{y},\boldsymbol{\theta}_i)$
+  \STATE Draw $\textbf{y}_i^{rep} \sim [\textbf{y} | \boldsymbol{\theta}_i]$ \STATE Set $T_i^{rep} \leftarrow T(\textbf{y}_i^{rep},\boldsymbol{\theta}_i)$
+  \STATE Set $T_i^{obs} \leftarrow T(\textbf{y},\boldsymbol{\theta}_i)$
   \IF{$T_i^{obs} < T_i^{rep}$}
     \STATE $P \leftarrow P+1$
   \ENDIF
@@ -120,7 +130,7 @@ Appendix A: Algorithms for model checking procedures
 \end{algorithm}
 
 \begin{algorithm}
-\caption{Algorithm for conducting a pivotal discrepancy check to assess the distribution of modeled quantities.  If distributional assumptions are reasonable, the cumulative distribution function associated with modeled quantities should be uniformly distributed \citep{Johnson2004,YuanJohnson2012}. Note that $n$ denotes sample size and $m$ denotes the number of posterior samples utilized.  This method relies on binning the pivotal quantity ($w_{ij} = g(y_{ij},\boldsymbol{\theta}_i)$ into $K \times L$ bins, where $K$ and $L$ are fixed by the investigator (bins should be chosen to achieve reasonable sample size in each of the $KL$ bin combinations).  We use $\Theta$ to denote the cumulative distribution function for the distribution of the pivotal quantity.  Specific examples of $g()$ and $\Theta$ are provided in the text.  As written, this algorithm assesses the fit of the data distribution $[{\bf y}|\boldsymbol{\theta}$]; however, note that it can be applied to other levels of a hierarchical model.}
+\caption{Algorithm for conducting a pivotal discrepancy check to assess the distribution of modeled quantities.  If distributional assumptions are reasonable, the cumulative distribution function associated with modeled quantities should be uniformly distributed \citep{Johnson2004,YuanJohnson2012}. Note that $n$ denotes sample size and $m$ denotes the number of posterior samples utilized.  This method relies on binning the pivotal quantity $w_{ij} = g(y_{ij},\boldsymbol{\theta}_i)$ into $K \times L$ bins, where $K$ and $L$ are fixed by the investigator (bins should be chosen to achieve reasonable sample size in each of the $KL$ bin combinations).  We use $\Theta$ to denote the cumulative distribution function for the distribution of the pivotal quantity.  Specific examples of $g()$ and $\Theta$ are provided in the text.  As written, this algorithm assesses the fit of the data distribution $[{\bf y}|\boldsymbol{\theta}$]; however, note that it can be applied to other levels of a hierarchical model.}
 \label{alg:pivot}
 \begin{algorithmic}
 \STATE Set $b_l \leftarrow l/L$ for $l=0,1,\hdots,L$
@@ -143,7 +153,7 @@ Appendix A: Algorithms for model checking procedures
       \ENDIF
     \ENDFOR
     \FOR{$l \in 1:L$}
-      \IF{$\Theta(w_{ij}) \in (b_{l-1},b_l]$ \& $r_{ij}=k$}
+      \IF{$\Theta(w_{ij}) \in (b_{l-1},b_l]$ \& $r_{ij}==k$}
         \STATE $O_{ikl} \leftarrow O_{ikl}+1$
       \ENDIF
     \ENDFOR
@@ -161,20 +171,20 @@ Appendix A: Algorithms for model checking procedures
 \caption{Algorithm for conducting predictive probability integral transform (PIT) checks, as described by e.g., \citet{Fruiiwirth1996}.  This approach requires having ``test" data; here we assume that a ``leave-one-out" procedure is used, although other  approaches are certainly possible (and may be preferable, especially when sample sizes are large).  To this end, we define $\textbf{y}_{-i}$ as the set of data for which the $i$th observation is missing, $m$ to be the total number of observations, and $n$ to be the number of posterior samples that are analyzed for each data set.  The indicator function $I(A)$ takes on the value 1.0 if the statement $A$ is true, and is 0.0 otherwise.}
 \label{alg:PIT}
 \begin{algorithmic}
-\STATE Set $u_j = 0 \: \forall  \: j \in \{ 1,2,\hdots,n \}$
+\STATE Set $u_j \leftarrow 0 \: \forall  \: j \in \{ 1,2,\hdots,n \}$
 \FOR{$i \in 1:m$}
   \FOR{$j \in 1:n$}
     \STATE Simulate a draw $\boldsymbol{\theta}_{ij}$ from the posterior distribution $[\theta | \textbf{y}_{-i}] \propto [ \textbf{y}_{-i} | \theta][\theta]$
     \STATE Simulate a posterior prediction $y_{ij}^{rep}$ from the predictive density (or mass function), $[y_i | \boldsymbol{\theta}_{ij}]$
   \ENDFOR
     \IF{$y_i$ has continuous support}
-      \STATE{Set $u_i = n^{-1} \sum_j I(y_{ij}^{rep} \le y_i)$}
+      \STATE{Set $u_i \leftarrow n^{-1} \sum_j I(y_{ij}^{rep} \le y_i)$}
     \ENDIF
     \IF{$y_i$ has nonnegative integer support (i.e. for count data)}
-      \STATE{Set $u_i = n^{-1}\sum_j I(y_{ij}^{rep} < y_i) + 0.5 I(\tilde{y}_{ij}=y_{ij})$}
+      \STATE{Set $u_i \leftarrow n^{-1}\sum_j I(y_{ij}^{rep} < y_i) + 0.5 I(\tilde{y}_{ij}==y_{ij})$}
     \ENDIF
     \IF{$y_i$ has binary support}
-      \STATE{Set $u_i = n^{-1}\sum_j I(y_{ij}^{rep}=y_{ij})$}
+      \STATE{Set $u_i \leftarrow n^{-1}\sum_j I(y_{ij}^{rep}==y_{ij})$}
     \ENDIF
 \ENDFOR
 \STATE Divergence from a Uniform(0,1) distribution is indicative of lack of fit.  Very high or very low values may indicate outliers.

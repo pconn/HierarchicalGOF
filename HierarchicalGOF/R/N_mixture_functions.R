@@ -19,10 +19,8 @@
 #' @param name Character name of file output is saved after every checkpoint
 #' @param starting.values MCMC starting values
 #'
-#' @return
+#' @return MCMC output
 #' @export
-#'
-#' @examples
 run.Nmixmcmc.parallel=function(Y,
                                X,
                                W,
@@ -168,10 +166,8 @@ run.Nmixmcmc.parallel=function(Y,
 #' @param name Character name of file output is saved after every checkpoint
 #' @param thin The thinning rate
 #'
-#' @return
+#' @return MCMC output
 #' @export
-#'
-#' @examples
 Nmixmcmc=function(Y,q.p,r.p,alpha,beta,n.iter,checkpoint,name,thin){
 
     ## Packages and subroutines
@@ -273,10 +269,8 @@ Nmixmcmc=function(Y,q.p,r.p,alpha,beta,n.iter,checkpoint,name,thin){
 #' @param name.l List of character name of file output that is saved after every checkpoint
 #' @param starting.values A list of MCMC starting values
 #'
-#' @return
+#' @return MCMC output
 #' @export
-#'
-#' @examples
 run.chain.2pl.list=function(models,
                             Y.list,
                             X,

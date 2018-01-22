@@ -1,0 +1,24 @@
+Package: HierarchicalGOF
+Maintainer: Paul B Conn <paul.conn@noaa.gov>
+License: GNU GENERAL PUBLIC LICENSE, Version 2
+Title: HierarchicalGOF
+Type: Package
+LazyLoad: yes
+Author: P.B. Conn, D.S. Johnson, P.J. Williams
+Description: Code to conduct goodness-of-fit testing for select
+  Bayesian models (from "A guide to Bayesian model checking for 
+	ecologists").
+Version: 0.90
+Depends:
+    MASS,
+    fields,
+    mvtnorm,
+    ggplot2,
+    RColorBrewer,
+    rgeos,
+    Matrix,
+    ape,
+    rjags,
+    R2jags
+Date: 2018-1-19
+RoxygenNote: 6.0.1
