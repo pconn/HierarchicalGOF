@@ -2,7 +2,7 @@
 HierarchicalGOF
 ---------------
 
-This package presents code and analysis used for assessment of goodness-of-fit for Bayesian hierarchical models. The package is meant to accompany the paper "A Guide to Bayesian Model Checking for Ecologists" by Paul B. Conn, Devin S. Johnson, Perry J. Williams, Sharon R. Melin, and Mevin B. Hooten in [Methods in Ecology and Evolution](http://besjournals.onlinelibrary.wiley.com/hub/journal/10.1111/(ISSN)2041-210X/).
+This package presents code and analysis used for assessment of goodness-of-fit for Bayesian hierarchical models. The package is meant to accompany the paper "A Guide to Bayesian Model Checking for Ecologists" by Paul B. Conn, Devin S. Johnson, Perry J. Williams, Sharon R. Melin, and Mevin B. Hooten. Preprint is available at [PeerJ](https://peerj.com/preprints/3390.pdf).
 
 ### Disclaimer
 
