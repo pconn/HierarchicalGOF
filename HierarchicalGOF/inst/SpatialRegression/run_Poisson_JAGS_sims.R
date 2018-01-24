@@ -1,22 +1,8 @@
 ##### Run spatial poisson regression model simulations using JAGS
 
-setwd('c:/users/paul.conn/git/hierarchicalGOF')
-library(MASS)
-library(fields)
-library(mvtnorm)
-library(spatstat)
-library(rjags)
-library(R2jags)
-library(ape)
-library(ggplot2)
-library(RColorBrewer)
-#set.factory("bugs::Conjugate",FALSE,type="sampler")
-source('./hierarchicalGOF/R/mcmc_functions.R')
-source('./hierarchicalGOF/R/pivot_functions.R')
-
 
 ####   set simulation specifications ###########
-n_sims = 1000 #number of simulation replicates
+n_sims = 1 #number of simulation replicates
 n_Y=200  #number of sample locations
 Knots=expand.grid(c(0:8),c(0:8))/2  #knots for predictive process spatial model
 n_k=nrow(Knots)
@@ -50,6 +36,34 @@ X_RE=array(0,dim=c(n_Y,n_k,n_incr))
 Tmp=c(1:n_k)
 P=rep(incr,n_incr)*c(1:n_incr)
 
+var.fcn.pois = mean.fcn.pois = function(x){
+  return(x)
+}
+mean.fcn.normal <- function(Theta){ #takes Mu[1:n],tau
+  n_par=length(Theta)
+  return(Theta[1:n_par])
+}
+var.fcn.normal <- function(Theta){ #takes Mu[1:n],tau
+  n_par=length(Theta)
+  return(1/Theta[n_par])
+}
+
+mean.fcn.pois<-var.fcn.pois<-function(Theta){
+  return(Theta)
+}
+
+my.pnorm<-function(Y,Theta){
+  n_par=length(Theta)
+  return(pnorm(Y,Theta[1:n_par],sqrt(1/Theta[n_par])))
+}
+my.dnorm<-function(Y,Theta){
+  n_par=length(Theta)
+  return(dnorm(Y,Theta[1:n_par],sqrt(1/Theta[n_par])))
+}
+
+my.ppois<-function(Y,Theta)ppois(Y,Theta)
+my.dpois<-function(Y,Theta)dpois(Y,Theta)
+
 
 #####  BEGIN SIMULATIONS #####
 cur_time = proc.time()
@@ -72,7 +86,7 @@ for(isim in 1:n_sims){
   #covariance matrices
   Cov_kk=Exp.cov(Knots,theta=theta_true,distMat=Dkk)/tau_eta_true
   Cov_yk=Exp.cov(Coords,Knots,theta=theta_true,distMat=Dyk)/tau_eta_true
-  Cov_pk=Exp.cov(Coords_plot,Knots,theta=theta_true,distMat=Dpk)/tau_eta_true
+  #Cov_pk=Exp.cov(Coords_plot,Knots,theta=theta_true,distMat=Dpk)/tau_eta_true
   
   #spatial random effects "design matrix"
   X_RE_true = Cov_yk %*% solve(Cov_kk)
@@ -102,7 +116,6 @@ for(isim in 1:n_sims){
 
   #conduct MCMC analysis of counts using a Poisson regression model without random effects
   n_B=ncol(X)
-  n_p=nrow(X_plot)
   jags_data = list("n_Y","n_B","Y","X")
   jags_params = c("Beta","Y_sim")
   jags_save =c("Beta","Y_sim","Lambda","dev_pred","deviance","dev_y")
@@ -360,13 +373,12 @@ for(isim in 1:n_sims){
     p_omni_mixed = p_omni_mixed + (ft_y<ft)
   }
   Results[isim,"poisSpat_postp_ft_mixed"]=p_omni_mixed/n_mcmc
-  save(Results,file="./Sim_results/Result.Rda")
+  save(Results,file="Result.Rda")
 }
 
 
 ##### plot Results
-load('./Sim_results/Result.Rda')
-library(ggplot2)
+load('Result.Rda')
 apply(Results,2,'mean')
 
 Plot_data <- data.frame(matrix(NA,22000,4))

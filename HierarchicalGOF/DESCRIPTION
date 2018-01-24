@@ -8,7 +8,7 @@ Author: P.B. Conn, D.S. Johnson, P.J. Williams
 Description: Code to conduct goodness-of-fit testing for select
   Bayesian models (from "A guide to Bayesian model checking for 
 	ecologists").
-Version: 0.90
+Version: 1.0
 Depends:
     MASS,
     fields,
@@ -19,6 +19,7 @@ Depends:
     Matrix,
     ape,
     rjags,
-    R2jags
-Date: 2018-1-19
+    R2jags,
+    spatstat
+Date: 2018-1-23
 RoxygenNote: 6.0.1

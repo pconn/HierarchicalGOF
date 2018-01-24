@@ -24,31 +24,6 @@ chisq.cdf.test<-function(Y,Theta,K=1,L=5,mean.fcn,var.fcn,cdf.fcn,pmf.fcn=NULL,D
   if(DISCRETE & is.null(pmf.fcn)==TRUE)cat("ERROR: A pmf must be specified for discrete distributions")
   if(is.null(cdf.fcn)==TRUE)cat("ERROR: A cdf must be specified")
   
-  mean.fcn.normal <- function(Theta){ #takes Mu[1:n],tau
-    n_par=length(Theta)
-    return(Theta[1:n_par])
-  }
-  var.fcn.normal <- function(Theta){ #takes Mu[1:n],tau
-    n_par=length(Theta)
-    return(1/Theta[n_par])
-  }
-  
-  mean.fcn.pois<-var.fcn.pois<-function(Theta){
-    return(Theta)
-  }
-  
-  my.pnorm<-function(Y,Theta){
-    n_par=length(Theta)
-    return(pnorm(Y,Theta[1:n_par],sqrt(1/Theta[n_par])))
-  }
-  my.dnorm<-function(Y,Theta){
-    n_par=length(Theta)
-    return(dnorm(Y,Theta[1:n_par],sqrt(1/Theta[n_par])))
-  }
-  
-  my.ppois<-function(Y,Theta)ppois(Y,Theta)
-  my.dpois<-function(Y,Theta)dpois(Y,Theta)
-  
   B=c(0:L)/L
   n=nrow(Y)
   m=ncol(Y)
