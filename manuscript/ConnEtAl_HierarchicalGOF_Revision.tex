@@ -177,11 +177,12 @@ diagnostics to support their contention that MCMC chains had reached
 their stationary distribution.  Perhaps there is a mistaken belief
 among authors and reviewers that convergence to a stationary
 distribution, combined with a lack of prior sensitivity, implies that
-a model fits the data.  Finally, it may just be a case of fatigue: it
+a model fits the data.  In reality, convergence diagnostics such as trace plots provide justification that the parameters of a model are reliably estimated; they do not
+provide any information on whether the model itself is adequate for explaining variation in the data. Finally, it may just be a case of fatigue: it
 takes considerable effort to envision and code complex hierarchical
 models of ecological systems, and the extra step of model checking may
 seem burdensome.  Regardless of the reason for not reporting BMC, it is
-concerning because poorly specified models can easily lead to incorrect scientific inference.
+concerning because poorly specified models can lead to incorrect scientific inference.
 
 If we accept the premise that Bayesian models should be routinely
 checked for compatibility with data, a logical next question is how
@@ -910,9 +911,12 @@ truly independent in this case.
 For the \texttt{Pois0} model, the mean directed posterior predictive
 p-value examining tail probabilities was 0.09 over all simulated data
 sets; the means of all other p-values (posterior predictive and
-otherwise) were $<0.01$ for the \texttt{Pois0} model.  As such, all
+otherwise) were $<0.01$.  As such, all
 model checking procedures had high power to appropriately detect the
-inadequacy of the basic Poisson model.
+inadequacy of the basic Poisson model.  Examining a representative plot of
+over- and under-predictions shows the inadequacy of the  
+\texttt{Pois0} model: overdispersion is clearly present, and residuals are spatially
+clustered (Fig. \ref{fig:SpatReg_outlier}). 
 
 For the \texttt{PoisMix} model, only the cross-validation test, the
 Moran I test, and tests based on PDMs of the Gaussian portion of the
@@ -1225,7 +1229,7 @@ where $d_t$ is the number of observed detections on occasion $t$ and
 $E[d_t]$ is the expected number of detections given by the HMM
 model. The Freeman-Tukey statistic is less sensitive to small expected values than other discrepancy
 functions (e.g., $\chi^2$),
-which is important in this example since the expected number of detections is small in early summer. 
+which is important in this example since the expected number of detections is small in early summer.
 For day $t$, the expected number of detections is
 \begin{eqnarray*}
   E[d_t] & = & n \boldsymbol{\delta}'\boldsymbol{\Gamma}^{t-1}\boldsymbol{\psi},
@@ -1346,7 +1350,7 @@ approaches, including strengths and limitations.  Our intention is not
 to be prescriptive, but to guide ecologists into making an appropriate
 choice. For instance, using simulation, we showed that the popular
 posterior predictive p-value (and several other metrics) can have a larger
-than nominal $\alpha$ value, so that our ability to 
+than nominal $\alpha$ value, so that our ability to
 ``reject" the null hypothesis that data arose from
 the model is overstated.  In the spatial regression example, the Bayesian p-value
 often failed to reject models without spatial structure even when data
@@ -1603,7 +1607,17 @@ should be a roughly equal number of observations in each bin.  For the
 data presented here, there appears to underpredictions at low and high
 values of the linear predictor.
 
-FIGURE 6.  Histogram bin heights showing the relative frequency of
+FIGURE 6. A plot of over- and under-predictions obtained from fitting a basic Poisson
+regression model (\texttt{Pois0}) to count data generated from an overdispersed Poisson model subject to
+spatial autocorrelation.  We plot the spatial location of each data point, and indicate
+whether each datum was below (``Under"), above (``Over") or within (``Neither") a $95\%$ posterior
+predictive credible interval (the limits of which were calculated as the 2.5\% and 97.5\% quantiles of predicted counts
+from the \texttt{Pois0} model).  Data are clearly overdispersed relative to the basic Poisson model, with only 80 of 200 observations
+within posterior predictive intervals (we would expect an average of 190 of 200 observations to be within credible intervals if the model
+fitted the data well).  There is also evidence of considerable spatial clustering not accounted for with the
+single explanatory covariate, with overpredictions occurring in the southwest and underpredictions occurring more often in the northeast.    
+
+FIGURE 7.  Histogram bin heights showing the relative frequency of
 1000 p-values as obtained in the spatial regression simulation study
 (histograms have 10 bins).  The dashed line represents the case where
 the simulation and estimation model were the same
@@ -1628,7 +1642,7 @@ using a 95th quantile discrepancy (`PP.Tail'), and sampled predictive
 p-values relative the Gaussian (`Sampled.Gauss') and Poisson
 (`Sampled.Pois') parts of the model.
 
-FIGURE 7. Observed and expected values for the number of detected
+FIGURE 8. Observed and expected values for the number of detected
 animals that were previously marked. Light and dark blue envelopes
 represent the 50 and 90th highest probability density interval for the
 expected number of detections under the HMM model, respectively. The
@@ -1672,6 +1686,13 @@ and detection probabilities were fixed to 0.
   \begin{center}
     \includegraphics[width=170mm]{pivot_CDF_plot.pdf}
     \caption{} \label{fig:pivotCDF}
+  \end{center}
+\end{figure*}
+
+\begin{figure*}
+  \begin{center}
+    \includegraphics[width=170mm]{SpatReg_outlier_plot.pdf}
+    \caption{} \label{fig:SpatReg_outlier}
   \end{center}
 \end{figure*}
 

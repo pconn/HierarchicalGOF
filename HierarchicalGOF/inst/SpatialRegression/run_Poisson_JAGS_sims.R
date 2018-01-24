@@ -376,8 +376,7 @@ for(isim in 1:n_sims){
   save(Results,file="Result.Rda")
 }
 
-
-##### plot Results
+##### plot Results summary
 load('Result.Rda')
 apply(Results,2,'mean')
 
