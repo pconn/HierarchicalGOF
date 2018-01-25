@@ -4,6 +4,12 @@ HierarchicalGOF
 
 This package presents code and analysis used for assessment of goodness-of-fit for Bayesian hierarchical models. The package is meant to accompany the paper "A Guide to Bayesian Model Checking for Ecologists" by Paul B. Conn, Devin S. Johnson, Perry J. Williams, Sharon R. Melin, and Mevin B. Hooten. Preprint is available at [PeerJ](https://peerj.com/preprints/3390.pdf).
 
+The easiest way to install the package makes use of the Rtools toolchain (which requires installing Rtools first). Then the package can be installed using
+
+devtools::install\_github("pconn/HierarchicalGOF/HierarchicalGOF")
+
+on the command line.
+
 Spatial regression simulations
 ------------------------------
 
@@ -12,10 +18,12 @@ To run spatial regression simulations, one simply needs to run the script ./inst
 Sea otter N-mixture example
 ---------------------------
 
+The R code to replicate the sea otter analysis described in the manuscript is provided in Appendix C of the manuscript, which is also included in the ./inst/sea\_otter directory as an R markdown file. The sea otter data, and other necessary functions for the analysis are stored in the HierarchicalGOF package.
+
 California sea lion example
 ---------------------------
 
-To run the California sea lion example, the user may use the umbrella function \`run\_attendance\_analysis.' Note this function requires use of RTools to install software from a related github repository (So RTools must be installed).
+To run the California sea lion example, the user may use the umbrella function \`run\_attendance\_analysis.' Note this function requires use of Rtools to install software from a related github repository (So RTools must be installed).
 
 ### Disclaimer
 
