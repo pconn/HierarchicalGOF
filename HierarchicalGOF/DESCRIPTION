@@ -19,7 +19,5 @@ Depends:
     Matrix,
     ape,
     rjags,
-    R2jags,
-    spatstat
-Date: 2018-1-23
-RoxygenNote: 6.0.1
+    R2jags
+Date: 2018-1-19

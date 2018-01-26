@@ -80,7 +80,7 @@ review, we synthesize existing literature to guide ecologists through
 the many available options for Bayesian model checking.  We illustrate
 methods and procedures with several ecological case studies, including
 i) analysis of simulated spatio-temporal count data, (ii) $N$-mixture
-models for estimating abundance and detection probability of sea
+models for estimating abundance of sea
 otters from an aircraft, and (iii) hidden Markov modeling to describe
 attendance patterns of California sea lion mothers on a rookery.  We
 find that commonly used procedures based on posterior predictive
@@ -159,7 +159,7 @@ in the ecological literature.
 
 The implicit requirement that one conduct model checking exercises is
 not often adhered to when reporting results of Bayesian analyses.  For
-instance, a search of \textit{Ecology} in 2014 indicated that only
+instance, a search of \textit{Ecology} articles published in 2014 indicated that only
 25\% of articles employing Bayesian analysis on real datasets reported
 any model checking or goodness-of-fit testing (Fig. \ref{fig:WOS}).
 There are several reasons why Bayesian model checking (hereafter, BMC)
@@ -177,8 +177,7 @@ diagnostics to support their contention that MCMC chains had reached
 their stationary distribution.  Perhaps there is a mistaken belief
 among authors and reviewers that convergence to a stationary
 distribution, combined with a lack of prior sensitivity, implies that
-a model fits the data.  In reality, convergence diagnostics such as trace plots provide justification that the parameters of a model are reliably estimated; they do not
-provide any information on whether the model itself is adequate for explaining variation in the data. Finally, it may just be a case of fatigue: it
+a model fits the data.  In reality, convergence diagnostics such as trace plots only allow us to check the algorithm for fitting the model, not the model itself. Finally, it may just be a case of fatigue: it
 takes considerable effort to envision and code complex hierarchical
 models of ecological systems, and the extra step of model checking may
 seem burdensome.  Regardless of the reason for not reporting BMC, it is
@@ -539,7 +538,7 @@ at any level of a hierarchical model (Appendix A, Alg. 3).  For
 continuous distributions, this algorithm works by defining a quantity
 $w_{ij} = g(y_{ij},\boldsymbol{\theta})$ (this can simply be
 $w_{ij}=y_{ij}$) with a known CDF, $F$.  Then, according to the
-probability integral transformation, $F(w)$ should be uniformly
+probability integral transformation, $F(w)$ will be uniformly
 distributed if the the modeled distribution function is appropriate.
 Similarly, for discrete distributions, we can apply a randomization
 scheme \citep{Smith1985,YuanJohnson2012} to transform discrete
@@ -578,7 +577,7 @@ conducting an analysis, and checking how model predictions match up
 with actual observations.  This process is often repeated sequentially
 for different partitions of the data.  It is most often used to
 examine the relative predictive performance of different models
-\citep[i.e., for model selection][]{ArlotCelisse2010}.  However, one
+\citep[i.e., for model selection,][]{ArlotCelisse2010}.  However, one
 can also use cross-validation to examine model fit and determine
 outliers.  The primary advantage of conducting tests in this fashion
 is that there is no duplicate use of data as with posterior predictive
@@ -591,11 +590,12 @@ cross-validated probability integral transform (PIT) test, which has
 long been exploited to examine the adequacy of probabilistic forecasts
 \citep[e.g.,][]{Dawid1984,Fruiiwirth1996,GneitingEtAl2007,CzadoEtAl2009}. These
 tests work by simulating data at a set of times or locations, and
-computing the CDF of the predictions evaluated at a set of realized
+evaluating the CDF of the predictions at a set of realized
 data (where realized data are not used to fit the model).  This can be
 accomplished in a sequential fashion for time series data, or by
 withholding data (as with leave-one-out cross-validation).  In either
-case, divergence from a Uniform(0,1) distribution is indicative of a
+case, if the distribution of the CDF values from the realized data diverge from a Uniform(0,1) distribution 
+it is indicative of
 model deficiency.  In particular, a U-shape suggests an underdispersed
 model, a dome-shape suggests an overdispersed model, and skew (i.e.,
 mean not centered at 0.5) suggests bias.  \citet{Congdon2014} provided
@@ -636,9 +636,9 @@ continuous data,
 \begin{eqnarray*}
   r_i & = & \frac{y_i - E(y_i|\bftheta)}{\sqrt{\textrm{Var}(y_i | \bftheta)}},
 \end{eqnarray*}
-should generally take on values between -2.0 and 2.0.  Values very far
-out of this range represent outliers.  Similarly, for the Poisson and
-binomial distributions, an approximate rule of thumb is that the mean
+should generally take on values between -2.0 and 2.0.  Values far
+from this range represent outliers.  Similarly, for the Poisson and
+binomial distributions, a rule of thumb is that the mean
 saturated deviance should approximately equal sample size for a
 well-fitting model \citep{LunnEtAl2013}.
 
@@ -914,9 +914,9 @@ sets; the means of all other p-values (posterior predictive and
 otherwise) were $<0.01$.  As such, all
 model checking procedures had high power to appropriately detect the
 inadequacy of the basic Poisson model.  Examining a representative plot of
-over- and under-predictions shows the inadequacy of the  
+over- and under-predictions shows the inadequacy of the
 \texttt{Pois0} model: overdispersion is clearly present, and residuals are spatially
-clustered (Fig. \ref{fig:SpatReg_outlier}). 
+clustered (Fig. \ref{fig:SpatReg_outlier}).
 
 For the \texttt{PoisMix} model, only the cross-validation test, the
 Moran I test, and tests based on PDMs of the Gaussian portion of the
@@ -1613,7 +1613,7 @@ predictive credible interval (the limits of which were calculated as the 2.5\% a
 from the \texttt{Pois0} model).  Data are clearly overdispersed relative to the basic Poisson model, with only 80 of 200 observations
 within posterior predictive intervals (we would expect an average of 190 of 200 observations to be within credible intervals if the model
 fitted the data well).  There is also evidence of considerable spatial clustering not accounted for with the
-single explanatory covariate, with overpredictions occurring in the southwest and underpredictions occurring more often in the northeast.    
+single explanatory covariate, with overpredictions occurring in the southwest and underpredictions occurring more often in the northeast.
 
 FIGURE 7.  Histogram bin heights showing the relative frequency of
 1000 p-values as obtained in the spatial regression simulation study

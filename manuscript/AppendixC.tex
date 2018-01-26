@@ -1,0 +1,983 @@
+\documentclass[12pt,letterpaper,final]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amstext}
+\usepackage{amsthm}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage[hidelinks]{hyperref}
+\usepackage{mathtools}
+\setlength\parindent{0pt}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\begin{center}
+  \bf {\large A GUIDE TO BAYESIAN MODEL CHECKING FOR ECOLOGISTS}
+
+  \vspace{0.7cm} Paul B. Conn$^{1*}$, Devin S. Johnson$^1$, Perry
+  J. Williams$^{2,3}$, Sharon R. Melin$^1$, and Mevin
+  B. Hooten$^{4,2,3}$
+\end{center}
+\vspace{0.5cm}
+
+
+\rm \small
+
+\it $^1$Marine Mammal Laboratory, Alaska Fisheries Science Center,
+NOAA National Marine Fisheries Service,
+Seattle, Washington 98115 U.S.A.\\
+
+\it $^2$Department of Fish, Wildlife, and Conservation Biology, Colorado State University, Fort Collins, CO 80523 U.S.A.\\
+
+\it $^3$Department of Statistics, Colorado State University, Fort Collins, CO 80523 U.S.A.\\
+
+\it $^4$U.S. Geological Survey, Colorado Cooperative Fish and Wildlife
+Research Unit, Colorado State University, Fort Collins, CO 80523
+U.S.A.
+
+\vspace{0.7cm}
+
+\textbf{\Large Appendix C: $N$-mixture models} \\
+
+
+\tableofcontents
+
+\listoftables
+
+\listoffigures
+
+
+\pagebreak
+
+\section{Simulation Study}
+
+\subsection{Summary}
+This section describes the simulation study used for assessing the
+closure assumption of N-mixture models in the manuscript \emph{A guide
+  to Bayesian model checking for ecologists}.
+
+
+
+\subsection{Setting up the \texttt{R} workspace}
+Run the following script to install and load required packages and
+functions needed for the analysis.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{devtools}\hlopt{::}\hlkwd{install_github}\hlstd{(}\hlstr{"pconn/HierarchicalGOF/HierarchicalGOF"}\hlstd{)}
+
+\hlstd{required.packages}\hlkwb{=}\hlkwd{c}\hlstd{(}\hlstr{"coda"}\hlstd{,}
+                    \hlstr{"devtools"}\hlstd{,}
+                    \hlstr{"HierarchicalGOF"}\hlstd{,}
+                    \hlstr{"mcmcse"}\hlstd{,}
+                    \hlstr{"parallel"}\hlstd{,}
+                    \hlstr{"purrr"}\hlstd{,}
+                    \hlstr{"roxygen2"}\hlstd{,}
+                    \hlstr{"xtable"} \hlstd{)}
+
+\hlcom{## install.packages(required.packages)}
+\hlkwd{lapply}\hlstd{(required.packages,library,}\hlkwc{character.only}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Simulate data for each value of $c$}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{###}
+\hlcom{### Simulate data}
+\hlcom{###}
+
+\hlstd{no.c.vals}\hlkwb{=}\hlnum{8}
+\hlstd{Y.list}\hlkwb{=}\hlkwd{list}\hlstd{()}
+\hlstd{c.val}\hlkwb{=}\hlkwd{rep}\hlstd{(}\hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{0.35}\hlstd{,}\hlkwc{length.out}\hlstd{=no.c.vals),}\hlkwc{each}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlstd{seed}\hlkwb{=}\hlkwd{rep}\hlstd{(}\hlnum{1}\hlopt{:}\hlstd{no.c.vals,}\hlkwc{each}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlstd{n}\hlkwb{=}\hlnum{300}
+\hlstd{J}\hlkwb{=}\hlnum{5}
+\hlstd{alpha}\hlkwb{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlopt{-}\hlnum{1}\hlstd{)}
+\hlstd{w1}\hlkwb{=}\hlkwd{rep}\hlstd{(}\hlnum{1}\hlstd{,n)}
+\hlstd{w2}\hlkwb{=}\hlkwd{rbinom}\hlstd{(n,}\hlnum{1}\hlstd{,}\hlnum{0.5}\hlstd{)}
+\hlstd{W}\hlkwb{=}\hlkwd{cbind}\hlstd{(w1,w2)}
+\hlstd{p}\hlkwb{=}\hlkwd{exp}\hlstd{(W}\hlopt{%*%}\hlstd{alpha)}\hlopt{/}\hlstd{(}\hlnum{1}\hlopt{+}\hlkwd{exp}\hlstd{(W}\hlopt{%*%}\hlstd{alpha))}
+\hlstd{beta}\hlkwb{=}\hlkwd{c}\hlstd{(}\hlnum{4.5}\hlstd{,}\hlnum{1}\hlstd{)}
+\hlstd{x1}\hlkwb{=}\hlkwd{rep}\hlstd{(}\hlnum{1}\hlstd{,n)}
+\hlstd{x2}\hlkwb{=}\hlkwd{rbinom}\hlstd{(n,}\hlnum{1}\hlstd{,}\hlnum{0.5}\hlstd{)}
+\hlstd{X}\hlkwb{=}\hlkwd{cbind}\hlstd{(x1,x2)}
+\hlstd{lambda}\hlkwb{=}\hlkwd{exp}\hlstd{(X}\hlopt{%*%}\hlstd{beta)}
+\hlstd{N.true}\hlkwb{=}\hlkwd{matrix}\hlstd{(,n,J)}
+\hlstd{N.true[,}\hlnum{1}\hlstd{]}\hlkwb{=}\hlkwd{rpois}\hlstd{(n,lambda)}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(c.val))\{}
+    \hlkwd{set.seed}\hlstd{(seed[i])}
+    \hlkwa{for}\hlstd{(j} \hlkwa{in} \hlnum{2}\hlopt{:}\hlstd{J)\{}
+        \hlstd{N.true[,j]}\hlkwb{=}\hlkwd{mapply}\hlstd{(}
+            \hlstd{rdunif,} \hlnum{1}\hlstd{,} \hlkwd{round}\hlstd{(N.true[,j}\hlopt{-}\hlnum{1}\hlstd{]}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{+}\hlstd{c.val[i])),}
+            \hlkwd{round}\hlstd{(N.true[,j}\hlopt{-}\hlnum{1}\hlstd{]}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{c.val[i])))}
+    \hlstd{\}}
+    \hlstd{Y.list[[i]]}\hlkwb{=}\hlkwd{matrix}\hlstd{(}\hlkwd{rbinom}\hlstd{(J}\hlopt{*}\hlstd{n,N.true,p),n,J)}
+\hlstd{\}}
+\hlstd{starting.values.l}\hlkwb{=}\hlkwd{list}\hlstd{()}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(c.val))\{}
+    \hlkwa{if}\hlstd{((i}\hlopt{/}\hlnum{1}\hlstd{)}\hlopt{%%}\hlnum{1}\hlopt{==}\hlnum{0}\hlstd{)\{}
+        \hlstd{starting.values.l[[i]]}\hlkwb{=}\hlkwd{list}\hlstd{(alpha}\hlopt{+}\hlnum{0.1}\hlstd{,}
+                                    \hlstd{beta}\hlopt{+}\hlnum{0.1}\hlstd{,}
+                                    \hlkwd{apply}\hlstd{(Y.list[[i]],}\hlnum{1}\hlstd{,max))}
+    \hlstd{\}}
+    \hlkwa{if}\hlstd{((i}\hlopt{/}\hlnum{2}\hlstd{)}\hlopt{%%}\hlnum{1}\hlopt{==}\hlnum{0}\hlstd{)\{}
+        \hlstd{starting.values.l[[i]]}\hlkwb{=}\hlkwd{list}\hlstd{(alpha}\hlopt{-}\hlnum{0.1}\hlstd{,}
+                                    \hlstd{beta}\hlopt{-}\hlnum{0.1}\hlstd{,}
+                                    \hlkwd{apply}\hlstd{(Y.list[[i]],}\hlnum{1}\hlstd{,max))}
+    \hlstd{\}}
+\hlstd{\}}
+
+\hlstd{name.l}\hlkwb{=}\hlkwd{list}\hlstd{()}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(c.val))\{}
+    \hlstd{name.l[[i]]}\hlkwb{=}\hlkwd{paste}\hlstd{(}\hlstr{"~/SimExample"}\hlstd{,i,}\hlstr{".RData"}\hlstd{,}
+                      \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{)}
+\hlstd{\}}
+\hlkwd{save.image}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/SimulatedData.RData"}\hlstd{,}\hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Run MCMC algorithms}
+In this example, 16 MCMC algorithms are run in parallel to fit 16
+different models (two chains for each of 8 values of $c$) which
+requires 16 cores. If 16 cores are not available, models must be fit
+sequentially using a smaller number of cores (e.g., by first setting
+\texttt{models=1:8}, and saving results to \texttt{MCMCOutput1}, and
+then setting \texttt{models=9:16}, and saving results to \texttt{MCMCOutput2}).
+This may take a while.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{###}
+\hlcom{### Run algorithm}
+\hlcom{###}
+
+\hlstd{n.iter}\hlkwb{=}\hlnum{10000000}
+\hlstd{checkpoint}\hlkwb{=}\hlnum{100000}
+\hlstd{thin}\hlkwb{=}\hlnum{1}
+\hlstd{models}\hlkwb{=}\hlnum{1}\hlopt{:}\hlnum{16}
+
+\hlstd{MCMCOutput}\hlkwb{=}\hlkwd{run.chain.2pl.list}\hlstd{(models,}
+                              \hlstd{Y.list,}
+                              \hlstd{X,}
+                              \hlstd{W,}
+                              \hlstd{n.iter,}
+                              \hlstd{checkpoint,}
+                              \hlstd{thin,}
+                              \hlstd{name.l,}
+                              \hlstd{starting.values.l}
+                              \hlstd{)}
+
+\hlcom{## Save model fitting results}
+\hlkwd{save}\hlstd{(MCMCOutput,}\hlkwc{file}\hlstd{=}\hlkwd{paste}\hlstd{(}\hlstr{"~/MCMCOutput.RData"}\hlstd{,}
+                           \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Summarize results}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{##}
+\hlcom{## Load output and calculate results}
+\hlcom{##}
+
+\hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/SimulatedData.RData"}\hlstd{,}
+           \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{))}
+
+\hlcom{##}
+\hlcom{## Create empty containers for output}
+\hlcom{##}
+
+\hlstd{GR.Diag}\hlkwb{=}\hlkwd{numeric}\hlstd{(no.c.vals)}
+\hlstd{ESS}\hlkwb{=}\hlkwd{numeric}\hlstd{(no.c.vals)}
+\hlstd{Status}\hlkwb{=}\hlkwd{numeric}\hlstd{(no.c.vals)}
+\hlstd{Bayes.p}\hlkwb{=}\hlkwd{numeric}\hlstd{(no.c.vals)}
+\hlstd{Mean.N}\hlkwb{=}\hlkwd{numeric}\hlstd{(no.c.vals)} \hlcom{# Truth = 50989}
+\hlstd{LB}\hlkwb{=}\hlkwd{numeric}\hlstd{(no.c.vals)}
+\hlstd{UB}\hlkwb{=}\hlkwd{numeric}\hlstd{(no.c.vals)}
+
+\hlcom{##}
+\hlcom{## Calculate summaries for each of no.c.vals model fits with different c values}
+\hlcom{##}
+
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{no.c.vals)\{}
+
+    \hlstd{w1}\hlkwb{=}\hlkwd{new.env}\hlstd{()}
+    \hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/SimExample"}\hlstd{, i}\hlopt{*}\hlnum{2}\hlopt{-}\hlnum{1}\hlstd{,} \hlstr{".RData"}\hlstd{,}
+               \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{),}
+         \hlkwc{envir}\hlstd{=w1)}
+    \hlstd{w2}\hlkwb{=}\hlkwd{new.env}\hlstd{()}
+    \hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/SimExample"}\hlstd{,}
+               \hlstd{i}\hlopt{*}\hlnum{2}\hlstd{,}
+               \hlstr{".RData"}\hlstd{,}
+               \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{),}
+         \hlkwc{envir}\hlstd{=w2)}
+    \hlstd{status}\hlkwb{=}\hlkwd{sum}\hlstd{(}\hlopt{!}\hlkwd{is.na}\hlstd{(w2}\hlopt{$}\hlstd{out[,}\hlnum{1}\hlstd{]))}
+    \hlstd{thin}\hlkwb{=}\hlnum{1000} \hlcom{# large thinning value required due to autocorrelation}
+    \hlstd{burn}\hlkwb{=}\hlnum{100000}
+    \hlstd{ind}\hlkwb{=}\hlkwd{seq}\hlstd{(burn}\hlopt{+}\hlnum{1}\hlstd{,status,thin)}
+    \hlkwd{length}\hlstd{(ind)}
+    \hlstd{N.tot1}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{]}
+    \hlstd{N.tot2}\hlkwb{=}\hlstd{w2}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{]}
+    \hlstd{Mean.N[i]}\hlkwb{=}\hlkwd{mean}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{])}
+    \hlstd{LB[i]}\hlkwb{=}\hlkwd{quantile}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{],}\hlnum{0.025}\hlstd{)}
+    \hlstd{UB[i]}\hlkwb{=}\hlkwd{quantile}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{],}\hlnum{0.975}\hlstd{)}
+
+    \hlcom{##}
+    \hlcom{## Gelman Rubin Diagnostic}
+    \hlcom{##}
+
+    \hlstd{chain1}\hlkwb{=}\hlkwd{mcmc}\hlstd{(w1}\hlopt{$}\hlstd{out[}\hlnum{1}\hlopt{:}\hlstd{status,}\hlnum{1}\hlopt{:}\hlnum{4}\hlstd{])}
+    \hlstd{chain2}\hlkwb{=}\hlkwd{mcmc}\hlstd{(w2}\hlopt{$}\hlstd{out[}\hlnum{1}\hlopt{:}\hlstd{status,}\hlnum{1}\hlopt{:}\hlnum{4}\hlstd{])}
+    \hlstd{out.list}\hlkwb{=}\hlkwd{mcmc.list}\hlstd{(chain1,chain2)}
+    \hlstd{GR.Diag[i]}\hlkwb{=}\hlkwd{gelman.diag}\hlstd{(out.list,}\hlkwc{confidence} \hlstd{=} \hlnum{0.95}\hlstd{,}
+                           \hlkwc{transform}\hlstd{=}\hlnum{FALSE}\hlstd{,}\hlkwc{autoburnin}\hlstd{=}\hlnum{TRUE}\hlstd{)[}\hlnum{2}\hlstd{]}
+
+    \hlcom{##}
+    \hlcom{## Effective sample size}
+    \hlcom{##}
+
+    \hlstd{ESS[i]}\hlkwb{=}\hlkwd{min}\hlstd{(}\hlkwd{ess}\hlstd{(chain1))}
+    \hlstd{Status[i]}\hlkwb{=}\hlstd{status}
+
+    \hlcom{##}
+    \hlcom{## Bayesian p-value}
+    \hlcom{##}
+
+    \hlstd{T.mcmc.chi2}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[ind,}\hlnum{6}\hlstd{]}
+    \hlstd{T.data.chi2}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[ind,}\hlnum{7}\hlstd{]}
+    \hlstd{Bayes.p[i]}\hlkwb{=}\hlkwd{sum}\hlstd{(T.mcmc.chi2}\hlopt{>=}\hlstd{T.data.chi2,}\hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}\hlopt{/}\hlkwd{length}\hlstd{(ind)}
+
+\hlstd{\}}
+
+\hlcom{##}
+\hlcom{## Sampled posterior predictive value}
+\hlcom{##}
+
+\hlstd{sppv}\hlkwb{=}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,no.c.vals)}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{no.c.vals)\{}
+    \hlstd{w1}\hlkwb{=}\hlkwd{new.env}\hlstd{()}
+    \hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/SimExample"}\hlstd{,}
+               \hlstd{i}\hlopt{*}\hlnum{2}\hlopt{-}\hlnum{1}\hlstd{,}
+               \hlstr{".RData"}\hlstd{,}
+               \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{),}
+         \hlkwc{envir}\hlstd{=w1)}
+    \hlstd{w2}\hlkwb{=}\hlkwd{new.env}\hlstd{()}
+    \hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/SimExample"}\hlstd{,}
+               \hlstd{i}\hlopt{*}\hlnum{2}\hlstd{,}
+               \hlstr{".RData"}\hlstd{,}
+               \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{),}
+         \hlkwc{envir}\hlstd{=w2)}
+    \hlstd{(status}\hlkwb{=}\hlkwd{sum}\hlstd{(}\hlopt{!}\hlkwd{is.na}\hlstd{(w2}\hlopt{$}\hlstd{out[,}\hlnum{1}\hlstd{])))}
+    \hlstd{thin}\hlkwb{=}\hlnum{100}
+    \hlstd{burn}\hlkwb{=}\hlnum{100000}
+    \hlstd{ind}\hlkwb{=}\hlkwd{seq}\hlstd{(burn}\hlopt{+}\hlnum{1}\hlstd{,status,thin)}
+    \hlkwd{length}\hlstd{(ind)}
+
+    \hlstd{param.vec.id}\hlkwb{=}\hlkwd{sample}\hlstd{(ind,}\hlnum{1}\hlstd{)}
+    \hlstd{param.vec}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[param.vec.id,}\hlnum{1}\hlopt{:}\hlnum{4}\hlstd{]}
+    \hlstd{alpha.sppv}\hlkwb{=}\hlstd{param.vec[}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{]}
+    \hlstd{p.sppv}\hlkwb{=}\hlkwd{exp}\hlstd{(W}\hlopt{%*%}\hlstd{alpha.sppv)}\hlopt{/}\hlstd{(}\hlnum{1}\hlopt{+}\hlkwd{exp}\hlstd{(W}\hlopt{%*%}\hlstd{alpha.sppv))}
+    \hlstd{beta.sppv}\hlkwb{=}\hlstd{param.vec[}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{]}
+    \hlstd{lambda.sppv}\hlkwb{=}\hlkwd{exp}\hlstd{(X}\hlopt{%*%}\hlstd{beta.sppv)}
+    \hlstd{N.sppv}\hlkwb{=}\hlkwd{matrix}\hlstd{(,n,}\hlnum{1}\hlstd{)}
+    \hlstd{reps}\hlkwb{=}\hlnum{1000}
+    \hlstd{T.mcmc.sppv.chi2}\hlkwb{=}\hlkwd{numeric}\hlstd{(reps)}
+    \hlstd{T.data.sppv.chi2}\hlkwb{=}\hlkwd{numeric}\hlstd{(reps)}
+    \hlstd{N.sppv[,}\hlnum{1}\hlstd{]}\hlkwb{=}\hlkwd{rpois}\hlstd{(n,lambda.sppv)}
+    \hlkwa{for}\hlstd{(k} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{reps)\{}
+        \hlstd{N.sppv[,}\hlnum{1}\hlstd{]}\hlkwb{=}\hlkwd{rpois}\hlstd{(n,lambda.sppv)}
+        \hlstd{y.sppv}\hlkwb{=}\hlkwd{matrix}\hlstd{(}\hlkwd{rbinom}\hlstd{(J}\hlopt{*}\hlstd{n,N.sppv,p.sppv),n,J)}
+        \hlstd{T.mcmc.sppv.chi2[k]}\hlkwb{=}\hlkwd{sum}\hlstd{(}\hlkwd{apply}\hlstd{(y.sppv,}\hlnum{1}\hlstd{,var))}
+        \hlstd{T.data.sppv.chi2[k]}\hlkwb{=}\hlkwd{sum}\hlstd{(}\hlkwd{apply}\hlstd{(Y.list[[i]],}\hlnum{1}\hlstd{,var))}
+    \hlstd{\}}
+    \hlstd{sppv[i]}\hlkwb{=}\hlkwd{sum}\hlstd{(T.mcmc.sppv.chi2}\hlopt{>=}\hlstd{T.data.sppv.chi2)}\hlopt{/}\hlstd{reps}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Model checking results table for simulated data}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{##}
+\hlcom{## Create a table of results}
+\hlcom{##}
+
+\hlstd{GR}\hlkwb{=}\hlkwd{unlist}\hlstd{(GR.Diag)}
+\hlstd{p.value}\hlkwb{=}\hlstd{Bayes.p}
+\hlstd{c}\hlkwb{=}\hlkwd{unique}\hlstd{(c.val)}
+\hlstd{xtable.data}\hlkwb{=}\hlkwd{cbind}\hlstd{(c,p.value,sppv,Mean.N,LB,UB,GR,ESS)}
+\hlkwd{print}\hlstd{(}\hlkwd{xtable}\hlstd{(xtable.data),}
+      \hlkwc{include.rownames}\hlstd{=}\hlnum{FALSE}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package Wed Apr 19
+% 15:31:20 2017 latex table generated in R 3.3.2 by xtable 1.8-2
+% package Wed Apr 19 15:34:25 2017
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{cccccccc}
+    \hline \hline
+    $c$ & p-value & sppv & Abundance (truth=50,989) & 95\% CRI & GR & ESS \\
+    \hline
+    0.00 & 0.48 & 0.27 & 51,200 & (49,295, 53,481) & 1.00 & 3,420 \\
+    0.05 & 0.40 & 1.00 & 60,047 & (56,605, 63,868) & 1.00 & 3,260 \\
+    0.10 & 0.00 & 1.00 & 81,299 & (75,223, 89,601) & 1.01 & 3,194 \\
+    0.15 & 0.00 & 1.00 & 97,066 & (89,149, 104,360) & 1.13 & 3,199 \\
+    0.20 & 0.00 & 0.02 & 117,624 & (108,825, 127,007) & 1.03 & 3,184 \\
+    0.25 & 0.00 & 0.01 & 119,397 & (110,477, 125,992) & 1.06 & 3,206 \\
+    0.30 & 0.00 & 0.00 & 133,797 & (124,194, 141,117) & 1.10 & 3,195 \\
+    0.35 & 0.00 & 0.00 & 139,951 & (133,351, 147,086) & 1.00 & 3,213 \\
+    \hline
+  \end{tabular}
+  \caption[Model checking results]{Results of one simulation for
+    examining the effect of
+    the closure assumption on model fit. The notation $c$
+    represents the maximum proportion of the population that could
+    move in or out of a site between $j-1$ and $j$, p-value  is the
+    posterior predictive
+    p-value using a $\chi$-squared goodness-of-fit statistic, sppv
+    is the sampled predictive p-value using the sum of variance
+    test statistic, Abundance is the mean of the marginal
+    posterior distribution for total abundance at the 300 sites,
+    the 95\% CRI are the 95\% credible intervals, GR is the
+    multi-variate Gelman-Rubin convergence diagnostic, and ESS is
+    the effective sample size of 10,000,000 MCMC iterations.}
+  \label{tab:results}
+\end{table}
+
+
+\subsection{Plot MCMC output}
+The script used for plotting MCMC output is provided for one
+simulation ($c=0$), below.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{##}
+\hlcom{## Figures c=0}
+\hlcom{##}
+
+\hlstd{w1}\hlkwb{=}\hlkwd{new.env}\hlstd{()}
+\hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/SimExample"}\hlstd{,}
+           \hlnum{1}\hlstd{,}
+           \hlstr{".RData"}\hlstd{,}\hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{),}
+     \hlkwc{envir}\hlstd{=w1)}
+\hlstd{w2}\hlkwb{=}\hlkwd{new.env}\hlstd{()}
+\hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/SimExample"}\hlstd{,}
+           \hlnum{2}\hlstd{,}
+           \hlstr{".RData"}\hlstd{,}\hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{),}
+     \hlkwc{envir}\hlstd{=w2)}
+
+\hlkwd{par}\hlstd{(}\hlkwc{mfrow}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{5}\hlstd{,}\hlnum{2}\hlstd{),}
+    \hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{3}\hlstd{,}\hlnum{4}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{1}\hlstd{))}
+\hlkwd{plot}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{1}\hlstd{],}\hlkwc{type}\hlstd{=}\hlstr{'l'}\hlstd{,}
+     \hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlkwd{min}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{1}\hlstd{]),}\hlkwd{max}\hlstd{(}\hlnum{1}\hlstd{,}\hlkwd{max}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{1}\hlstd{]))),}
+     \hlkwc{ylab}\hlstd{=}\hlkwd{expression}\hlstd{(alpha[}\hlnum{0}\hlstd{]))}
+\hlkwd{lines}\hlstd{(w2}\hlopt{$}\hlstd{out[ind,}\hlnum{1}\hlstd{],}\hlkwc{col}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{abline}\hlstd{(}\hlkwc{h}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{col}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{density}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{1}\hlstd{]),}
+     \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlkwd{min}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{1}\hlstd{]),}\hlkwd{max}\hlstd{(}\hlnum{1}\hlstd{,}\hlkwd{max}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{1}\hlstd{]))),} \hlkwc{main}\hlstd{=}\hlstr{''}\hlstd{)}
+\hlkwd{abline}\hlstd{(}\hlkwc{v}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{col}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{plot}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{2}\hlstd{],}\hlkwc{type}\hlstd{=}\hlstr{'l'}\hlstd{,}
+     \hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlkwd{min}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,}\hlkwd{min}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{2}\hlstd{])),}\hlkwd{max}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{2}\hlstd{])),}
+     \hlkwc{ylab}\hlstd{=}\hlkwd{expression}\hlstd{(alpha[}\hlnum{1}\hlstd{]))}
+\hlkwd{lines}\hlstd{(w2}\hlopt{$}\hlstd{out[ind,}\hlnum{2}\hlstd{],}\hlkwc{col}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{abline}\hlstd{(}\hlkwc{h}\hlstd{=}\hlopt{-}\hlnum{1}\hlstd{,}\hlkwc{col}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{density}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{2}\hlstd{]),}
+     \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlkwd{min}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,}\hlkwd{min}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{2}\hlstd{])),}\hlkwd{max}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{2}\hlstd{])),} \hlkwc{main}\hlstd{=}\hlstr{''}\hlstd{)}
+\hlkwd{abline}\hlstd{(}\hlkwc{v}\hlstd{=}\hlopt{-}\hlnum{1}\hlstd{,}\hlkwc{col}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{plot}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{],}\hlkwc{type}\hlstd{=}\hlstr{'l'}\hlstd{,}
+\hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlkwd{min}\hlstd{(}\hlkwd{min}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{]),}\hlkwd{sum}\hlstd{(N.true[,}\hlnum{1}\hlstd{])),}\hlkwd{max}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{])),} \hlkwc{ylab}\hlstd{=}\hlstr{'N'}\hlstd{)}
+\hlkwd{lines}\hlstd{(w2}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{],}\hlkwc{col}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{abline}\hlstd{(}\hlkwc{h}\hlstd{=}\hlkwd{sum}\hlstd{(N.true[,}\hlnum{1}\hlstd{]),}\hlkwc{col}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{density}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{]),}\hlkwc{main}\hlstd{=}\hlstr{''}\hlstd{,}
+\hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlkwd{min}\hlstd{(}\hlkwd{min}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{]),}\hlkwd{sum}\hlstd{(N.true[,}\hlnum{1}\hlstd{])),}\hlkwd{max}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{5}\hlstd{])))}
+\hlkwd{abline}\hlstd{(}\hlkwc{v}\hlstd{=}\hlkwd{sum}\hlstd{(N.true[,}\hlnum{1}\hlstd{]),}\hlkwc{col}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{plot}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{3}\hlstd{],}\hlkwc{type}\hlstd{=}\hlstr{'l'}\hlstd{,}
+\hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlkwd{min}\hlstd{(}\hlnum{4.5}\hlstd{,}\hlkwd{min}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{3}\hlstd{])),}\hlkwd{max}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{3}\hlstd{])),}
+\hlkwc{ylab}\hlstd{=}\hlkwd{expression}\hlstd{(beta[}\hlnum{0}\hlstd{]))}
+\hlkwd{lines}\hlstd{(w2}\hlopt{$}\hlstd{out[ind,}\hlnum{3}\hlstd{],}\hlkwc{col}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{abline}\hlstd{(}\hlkwc{h}\hlstd{=}\hlnum{4.5}\hlstd{,}\hlkwc{col}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{density}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{3}\hlstd{]),}\hlkwc{main}\hlstd{=}\hlstr{''}\hlstd{,}
+\hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlkwd{min}\hlstd{(}\hlnum{4.5}\hlstd{,}\hlkwd{min}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{3}\hlstd{])),}\hlkwd{max}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{3}\hlstd{])))}
+\hlkwd{abline}\hlstd{(}\hlkwc{v}\hlstd{=}\hlnum{4.5}\hlstd{,}\hlkwc{col}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{plot}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{4}\hlstd{],}\hlkwc{type}\hlstd{=}\hlstr{'l'}\hlstd{,}
+     \hlkwc{ylab}\hlstd{=}\hlkwd{expression}\hlstd{(beta[}\hlnum{1}\hlstd{]))}
+\hlkwd{lines}\hlstd{(w2}\hlopt{$}\hlstd{out[ind,}\hlnum{4}\hlstd{],}\hlkwc{col}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{abline}\hlstd{(}\hlkwc{h}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{col}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{density}\hlstd{(w1}\hlopt{$}\hlstd{out[ind,}\hlnum{4}\hlstd{]),} \hlkwc{main}\hlstd{=}\hlstr{''}\hlstd{)}
+\hlkwd{abline}\hlstd{(}\hlkwc{v}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{col}\hlstd{=}\hlnum{2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\graphicspath{~/Dropbox/Post-Doc/RFiles/ModelChecking/EcologicalMonographs}
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{ConvergencePlots1.pdf}
+    \caption[Simulated data: $c=0$]{Trace plots and marginal posterior
+      distributions of parameters in $N$-mixture model when $c=0$
+      (i.e., the population was closed). Using a Gelman-Rubin
+      diagnostic, there is no evidence that the model failed to
+      converge (GR=1.00), and posterior distributions recovered true
+      parameter values well. Both the posterior predictive p-value
+      (0.48) and the sampled predictive p-value (0.27) suggested no
+      lack of model fit. 10,000,000 MCMC iterations were conducted and
+      thinned to every 1,000 iteration.}
+  \end{figure}
+\end{center}
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{ConvergencePlots3.pdf}
+    \caption[Simulated data: $c=0.05$]{Trace plots and marginal
+      posterior distributions of parameters in $N$-mixture model when
+      $c=0.05$ (i.e., up to 5\% of $N_{i,j-1}$ was allowed to leave or
+      enter the population at time $j$). Using a Gelman-Rubin
+      diagnostic, there is no evidence that the model failed to
+      converge (GR=1.00), but posterior distributions did not recover
+      true parameter values well. The posterior predictive p-value
+      (0.40) suggested no lack of model fit, but the sampled
+      predictive p-value (1.00) suggested lack of model
+      fit. 10,000,000 MCMC iterations were conducted and thinned to
+      every 1,000 iteration.}
+  \end{figure}
+\end{center}
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{ConvergencePlots5.pdf}
+    \caption[Simulated data: $c=0.10$]{Trace plots and marginal
+      posterior distributions of parameters in $N$-mixture model when
+      $c=0.10$ (i.e., up to 10\% of $N_{i,j-1}$ was allowed to leave
+      or enter the population at time $j$). Using a Gelman-Rubin
+      diagnostic, there is no evidence that the model failed to
+      converge (GR=1.01), but posterior distributions did not recover
+      true parameter values well. Both the posterior predictive
+      p-value (0.00) and the sampled predictive p-value (1.00)
+      suggested lack of model fit. 10,000,000 MCMC iterations were
+      conducted and thinned to every 1,000 iteration, with a 100,000
+      burn-in period.}
+  \end{figure}
+\end{center}
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{ConvergencePlots7.pdf}
+    \caption[Simulated data: $c=0.15$]{Trace plots and marginal
+      posterior distributions of parameters in $N$-mixture model when
+      $c=0.15$ (i.e., up to 15\% of $N_{i,j-1}$ was allowed to leave
+      or enter the population at time $j$). The model did not appear
+      to converge (Gelman-Rubin diagnostic=1.13). Both the posterior
+      predictive p-value (0.00) and the sampled predictive p-value
+      (1.00) suggested lack of model fit. 10,000,000 MCMC iterations
+      were conducted and thinned to every 1,000 iteration, with a
+      100,000 burn-in period.}
+  \end{figure}
+\end{center}
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{ConvergencePlots9.pdf}
+    \caption[Simulated data: $c=0.20$]{Trace plots and marginal
+      posterior distributions of parameters in $N$-mixture model when
+      $c=0.20$ (i.e., up to 20\% of $N_{i,j-1}$ was allowed to leave
+      or enter the population at time $j$). Using a Gelman-Rubin
+      diagnostic, there is no evidence that the model failed to
+      converge (GR=1.03), but posterior distributions did not recover
+      true parameter values well. Both the posterior predictive
+      p-value (0.00) and the sampled predictive p-value (0.02)
+      suggested lack of model fit. 10,000,000 MCMC iterations were
+      conducted and thinned to every 1,000 iteration, with a 100,000
+      burn-in period.}
+  \end{figure}
+\end{center}
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{ConvergencePlots11.pdf}
+    \caption[Simulated data: $c=0.25$]{Trace plots and marginal
+      posterior distributions of parameters in $N$-mixture model when
+      $c=0.25$ (i.e., up to 25\% of $N_{i,j-1}$ was allowed to leave
+      or enter the population at time $j$). Using a Gelman-Rubin
+      diagnostic, there is some evidence that the model failed to
+      converge (GR=1.06). Both the posterior predictive p-value (0.00)
+      and the sampled predictive p-value (0.01) suggested lack of
+      model fit. 10,000,000 MCMC iterations were conducted and thinned
+      to every 1,000 iteration, with a 100,000 burn-in period.}
+  \end{figure}
+\end{center}
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{ConvergencePlots13.pdf}
+    \caption[Simulated data: $c=0.30$]{Trace plots and marginal
+      posterior distributions of parameters in $N$-mixture model when
+      $c=0.30$ (i.e., up to 30\% of $N_{i,j-1}$ was allowed to leave
+      or enter the population at time $j$). The model did not appear
+      to converge (Gelman-Rubin diagnostic=1.10). Both the posterior
+      predictive p-value (0.00) and the sampled predictive p-value
+      (0.00) suggested lack of model fit. 10,000,000 MCMC iterations
+      were conducted and thinned to every 1,000 iteration, with a
+      100,000 burn-in period.}
+  \end{figure}
+\end{center}
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{ConvergencePlots15.pdf}
+    \caption[Simulated data: $c=0.35$]{Trace plots and marginal
+      posterior distributions of parameters in $N$-mixture model when
+      $c=0.35$ (i.e., up to 35\% of $N_{i,j-1}$ was allowed to leave
+      or enter the population at time $j$). Using a Gelman-Rubin
+      diagnostic, there is no evidence that the model failed to
+      converge (GR=1.00), but posterior distributions did not recover
+      true parameter values well. Both the posterior predictive
+      p-value (0.00) and the sampled predictive p-value (0.00)
+      suggested lack of model fit. 10,000,000 MCMC iterations were
+      conducted and thinned to every 1,000 iteration, with a 100,000
+      burn-in period.}
+  \end{figure}
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Sea Otters}
+
+\subsection{Summary}
+This section describes the sea otter study used for assessing the
+closure assumption of N-mixture models in the manuscript \emph{A guide
+  to Bayesian model checking for ecologists}.
+
+\subsection{All data}
+In what follows, we conduct model checking using 21 sites sea otters
+were observed at in Glacier Bay National Park, including one site
+where observers noted a violation of the closure assumption. In the
+next section, we remove the site and conduct model checking.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{rm}\hlstd{(}\hlkwc{list}\hlstd{=}\hlkwd{ls}\hlstd{())}
+
+\hlstd{name.1}\hlkwb{=}\hlstr{"~/MCMCOutputAllDataChain1.RData"}
+\hlstd{name.2}\hlkwb{=}\hlstr{"~/MCMCOutputAllDataChain2.RData"}
+
+\hlcom{## Load Data}
+\hlkwd{data}\hlstd{(SeaOtterData)}
+
+\hlcom{## Use all the data including the 19th row of data where sea otters}
+\hlcom{## were observed violating the closure assumption}
+\hlstd{Y}\hlkwb{=}\hlstd{SeaOtterData}
+
+\hlcom{## Priors}
+\hlstd{q.p}\hlkwb{=}\hlnum{1}
+\hlstd{r.p}\hlkwb{=}\hlnum{1}
+\hlstd{alpha}\hlkwb{=}\hlnum{0.001}
+\hlstd{beta}\hlkwb{=}\hlnum{0.001}
+\hlstd{n.iter}\hlkwb{=}\hlnum{10000000}
+\hlstd{thin}\hlkwb{=}\hlnum{1}
+\hlstd{checkpoint}\hlkwb{=}\hlnum{1000000}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Run MCMC algorithm}
+Fit a simple $N$-mixture model with no covariates.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{## Run algorithm}
+\hlkwd{Nmixmcmc}\hlstd{(}\hlkwc{Y}\hlstd{=Y,q.p,r.p,alpha,beta,n.iter,checkpoint,name.1,thin)}
+\hlkwd{Nmixmcmc}\hlstd{(}\hlkwc{Y}\hlstd{=Y,q.p,r.p,alpha,beta,n.iter,checkpoint,name.2,thin)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Summarize results using all data}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{## ## Load output and calculate results ##}
+
+\hlstd{w1}\hlkwb{=}\hlkwd{new.env}\hlstd{()}
+\hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/MCMCOutputAllDataChain1.RData"}\hlstd{,} \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{),}
+     \hlkwc{envir}\hlstd{=w1)}
+\hlstd{w2}\hlkwb{=}\hlkwd{new.env}\hlstd{()}
+\hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/MCMCOutputAllDataChain2.RData"}\hlstd{,}
+           \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{),} \hlkwc{envir}\hlstd{=w2)}
+\hlstd{(status}\hlkwb{=}\hlkwd{sum}\hlstd{(}\hlopt{!}\hlkwd{is.na}\hlstd{(w2}\hlopt{$}\hlstd{out[[}\hlnum{1}\hlstd{]][,}\hlnum{1}\hlstd{])))}
+\end{alltt}
+\begin{verbatim}
+## [1] 10000000
+\end{verbatim}
+\begin{alltt}
+\hlstd{thin}\hlkwb{=}\hlnum{1000} \hlcom{# large thinning value required due to autocorrelation}
+\hlstd{burn}\hlkwb{=}\hlnum{100000}
+\hlstd{ind}\hlkwb{=}\hlkwd{seq}\hlstd{(burn}\hlopt{+}\hlnum{1}\hlstd{,status,thin)}
+\hlkwd{length}\hlstd{(ind)}
+\end{alltt}
+\begin{verbatim}
+## [1] 9900
+\end{verbatim}
+\begin{alltt}
+\hlstd{N.tot1}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[[}\hlnum{4}\hlstd{]][ind]}
+\hlstd{N.tot2}\hlkwb{=}\hlstd{w2}\hlopt{$}\hlstd{out[[}\hlnum{4}\hlstd{]][ind]}
+\hlstd{Mean.N}\hlkwb{=}\hlkwd{mean}\hlstd{(N.tot1)}
+\hlstd{LB}\hlkwb{=}\hlkwd{quantile}\hlstd{(N.tot1,}\hlnum{0.025}\hlstd{)}
+\hlstd{UB}\hlkwb{=}\hlkwd{quantile}\hlstd{(N.tot1,}\hlnum{0.975}\hlstd{)}
+
+\hlcom{##}
+\hlcom{## Gelman Rubin Diagnostic}
+\hlcom{##}
+
+\hlstd{mcmc1.tmp}\hlkwb{=}\hlkwd{cbind}\hlstd{(w1}\hlopt{$}\hlstd{out[[}\hlnum{1}\hlstd{]][}\hlnum{1}\hlopt{:}\hlstd{status,],w1}\hlopt{$}\hlstd{out[[}\hlnum{3}\hlstd{]][}\hlnum{1}\hlopt{:}\hlstd{status,])}
+\hlstd{mcmc2.tmp}\hlkwb{=}\hlkwd{cbind}\hlstd{(w2}\hlopt{$}\hlstd{out[[}\hlnum{1}\hlstd{]][}\hlnum{1}\hlopt{:}\hlstd{status,],w2}\hlopt{$}\hlstd{out[[}\hlnum{3}\hlstd{]][}\hlnum{1}\hlopt{:}\hlstd{status,])}
+\hlstd{chain1}\hlkwb{=}\hlkwd{mcmc}\hlstd{(mcmc1.tmp)}
+\hlstd{chain2}\hlkwb{=}\hlkwd{mcmc}\hlstd{(mcmc2.tmp)}
+\hlstd{out.list}\hlkwb{=}\hlkwd{mcmc.list}\hlstd{(chain1,chain2)}
+\hlstd{(GR.Diag}\hlkwb{=}\hlkwd{gelman.diag}\hlstd{(out.list,}\hlkwc{confidence} \hlstd{=} \hlnum{0.95}\hlstd{,}
+\hlkwc{transform}\hlstd{=}\hlnum{FALSE}\hlstd{,}\hlkwc{autoburnin}\hlstd{=}\hlnum{TRUE}\hlstd{)[}\hlnum{2}\hlstd{])}
+\end{alltt}
+\begin{verbatim}
+## $mpsrf
+## [1] 1.061397
+\end{verbatim}
+\begin{alltt}
+\hlcom{##}
+\hlcom{## Effective sample size}
+\hlcom{##}
+
+\hlstd{(ESS}\hlkwb{=}\hlkwd{min}\hlstd{(}\hlkwd{ess}\hlstd{(chain1)))}
+\end{alltt}
+\begin{verbatim}
+## [1] 3213.653
+\end{verbatim}
+\begin{alltt}
+\hlcom{##}
+\hlcom{## Bayesian p-value}
+\hlcom{##}
+
+\hlstd{T.mcmc.chi2}\hlkwb{=}\hlstd{w2}\hlopt{$}\hlstd{out[[}\hlnum{5}\hlstd{]][ind]}
+\hlstd{T.data.chi2}\hlkwb{=}\hlstd{w2}\hlopt{$}\hlstd{out[[}\hlnum{6}\hlstd{]][ind]}
+\hlstd{(Bayes.p}\hlkwb{=}\hlkwd{sum}\hlstd{(T.mcmc.chi2}\hlopt{>=}\hlstd{T.data.chi2,}\hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}\hlopt{/}\hlkwd{length}\hlstd{(ind))}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.04868687
+\end{verbatim}
+\begin{alltt}
+\hlcom{##}
+\hlcom{## Sampled posterior predictive value}
+\hlcom{##}
+
+\hlstd{n}\hlkwb{=}\hlkwd{dim}\hlstd{(Y)[}\hlnum{1}\hlstd{]}
+\hlstd{J}\hlkwb{=}\hlkwd{dim}\hlstd{(Y)[}\hlnum{2}\hlstd{]}
+\hlstd{param.vec.id}\hlkwb{=}\hlkwd{sample}\hlstd{(ind,}\hlnum{1}\hlstd{)}
+\hlstd{p.sppv}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[[}\hlnum{1}\hlstd{]][param.vec.id]}
+\hlstd{lambda.sppv}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[[}\hlnum{3}\hlstd{]][param.vec.id,]}
+\hlstd{N.sppv}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[[}\hlnum{2}\hlstd{]][param.vec.id,]}
+\hlstd{Expected.Y}\hlkwb{=}\hlkwd{matrix}\hlstd{(N.sppv}\hlopt{*}\hlstd{p.sppv,}\hlkwd{dim}\hlstd{(Y)[}\hlnum{1}\hlstd{],}\hlkwd{dim}\hlstd{(Y)[}\hlnum{2}\hlstd{])}
+\hlstd{reps}\hlkwb{=}\hlnum{100000}
+\hlstd{T.mcmc.sppv.chi2}\hlkwb{=}\hlkwd{numeric}\hlstd{(reps)}
+\hlstd{T.data.sppv.chi2}\hlkwb{=}\hlkwd{numeric}\hlstd{(reps)}
+\hlkwa{for}\hlstd{(k} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{reps)\{ y.sppv}\hlkwb{=}\hlkwd{matrix}\hlstd{(}\hlkwd{rbinom}\hlstd{(n}\hlopt{*}\hlstd{J,N.sppv,p.sppv),n,J)}
+    \hlstd{y.sppv[}\hlkwd{is.na}\hlstd{(Y)]}\hlkwb{=}\hlnum{NA}
+    \hlcom{## T.mcmc.sppv.chi2[k]=sum(apply(y.sppv,1,var,na.rm=TRUE))}
+    \hlcom{## T.data.sppv.chi2[k]=sum(apply(Y,1,var,na.rm=TRUE))}
+    \hlstd{T.mcmc.sppv.chi2[k]}\hlkwb{=}\hlkwd{sum}\hlstd{(((y.sppv}\hlopt{-}\hlstd{Expected.Y)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{Expected.Y,}\hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+    \hlstd{T.data.sppv.chi2[k]}\hlkwb{=}\hlkwd{sum}\hlstd{(((Y}\hlopt{-}\hlstd{Expected.Y)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{Expected.Y,}\hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\hlstd{\}}
+\hlstd{(sppv}\hlkwb{=}\hlkwd{sum}\hlstd{(T.mcmc.sppv.chi2}\hlopt{>=}\hlstd{T.data.sppv.chi2)}\hlopt{/}\hlstd{reps)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.09605
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Plot MCMC output}
+
+
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{convergencebars.pdf}
+    \caption[Convergence and posterior distributions -- all
+    data]{Convergence diagnostics and posterior distributions of model
+    parameters using all sea otter data.}
+  \end{figure}
+\end{center}
+
+
+
+
+
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{expectedobserved1.pdf}
+    \caption[Observed vs. expected -- all data]{Observed vs. expected
+      counts of sea otters at 21 sites in Glacier Bay, AK, based on
+      model fit of complete data set, including the site that violated
+      the closure assumption. Black line: posterior distribution of
+      expected counts. Red lines: sum of the observed counts across 21
+      sites for two observation periods (i.e., sum of column 1 and column 2 of \texttt{SeaOtterData}).}
+  \end{figure}
+\end{center}
+
+
+\subsection{Removing the site where the closure assumption was
+  violated}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{rm}\hlstd{(}\hlkwc{list}\hlstd{=}\hlkwd{ls}\hlstd{())}
+
+\hlstd{mod.name.1}\hlkwb{=}\hlstr{"~/MCMCOutputModifiedlDataChain1.RData"}
+\hlstd{mod.name.2}\hlkwb{=}\hlstr{"~/MCMCOutputModifiedlDataChain2.RData"}
+
+\hlkwd{data}\hlstd{(SeaOtterData)}
+\hlstd{Y}\hlkwb{=}\hlstd{SeaOtterData}
+
+\hlcom{## Remove the 19th row of data where sea otters}
+\hlcom{## were observed violating the closure assumption}
+\hlstd{Y}\hlkwb{=}\hlstd{Y[}\hlopt{-}\hlnum{19}\hlstd{,]}
+
+\hlcom{## Priors}
+\hlstd{q.p}\hlkwb{=}\hlnum{1}
+\hlstd{r.p}\hlkwb{=}\hlnum{1}
+\hlstd{alpha}\hlkwb{=}\hlnum{0.001}
+\hlstd{beta}\hlkwb{=}\hlnum{0.001}
+\hlstd{n.iter}\hlkwb{=}\hlnum{10000000}
+\hlstd{thin}\hlkwb{=}\hlnum{1}
+\hlstd{checkpoint}\hlkwb{=}\hlnum{1000000}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Run MCMC algorithm}
+Fit a simple $N$-mixture model with no covariates.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{## Run algorithm}
+\hlkwd{Nmixmcmc}\hlstd{(}\hlkwc{Y}\hlstd{=Y,q.p,r.p,alpha,beta,n.iter,checkpoint,mod.name.1,thin)}
+\hlkwd{Nmixmcmc}\hlstd{(}\hlkwc{Y}\hlstd{=Y,q.p,r.p,alpha,beta,n.iter,checkpoint,mod.name.2,thin)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+\subsection{Summarize results using partial data}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{##}
+\hlcom{## Load output and calculate results}
+\hlcom{##}
+
+\hlstd{w1}\hlkwb{=}\hlkwd{new.env}\hlstd{()}
+\hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/MCMCOutputModifiedDataChain1.RData"}\hlstd{,}
+           \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{),} \hlkwc{envir}\hlstd{=w1)}
+
+\hlstd{w2}\hlkwb{=}\hlkwd{new.env}\hlstd{()}
+\hlkwd{load}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"~/MCMCOutputModifiedDataChain2.RData"}\hlstd{,} \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{),}
+     \hlkwc{envir}\hlstd{=w2)}
+\hlstd{(status}\hlkwb{=}\hlkwd{sum}\hlstd{(}\hlopt{!}\hlkwd{is.na}\hlstd{(w2}\hlopt{$}\hlstd{out[[}\hlnum{1}\hlstd{]][,}\hlnum{1}\hlstd{])))}
+\end{alltt}
+\begin{verbatim}
+## [1] 10000000
+\end{verbatim}
+\begin{alltt}
+\hlstd{thin}\hlkwb{=}\hlnum{1000} \hlcom{# large thinning value required due to autocorrelation}
+\hlstd{burn}\hlkwb{=}\hlnum{100000}
+\hlstd{ind}\hlkwb{=}\hlkwd{seq}\hlstd{(burn}\hlopt{+}\hlnum{1}\hlstd{,status,thin)}
+\hlkwd{length}\hlstd{(ind)}
+\end{alltt}
+\begin{verbatim}
+## [1] 9900
+\end{verbatim}
+\begin{alltt}
+\hlstd{N.tot1}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[[}\hlnum{4}\hlstd{]][ind]}
+\hlstd{N.tot2}\hlkwb{=}\hlstd{w2}\hlopt{$}\hlstd{out[[}\hlnum{4}\hlstd{]][ind]}
+\hlstd{Mean.N}\hlkwb{=}\hlkwd{mean}\hlstd{(N.tot1)}
+\hlstd{LB}\hlkwb{=}\hlkwd{quantile}\hlstd{(N.tot1,}\hlnum{0.025}\hlstd{)}
+\hlstd{UB}\hlkwb{=}\hlkwd{quantile}\hlstd{(N.tot1,}\hlnum{0.975}\hlstd{)}
+
+\hlcom{##}
+\hlcom{## Gelman Rubin Diagnostic}
+\hlcom{##}
+
+\hlstd{mcmc1.tmp}\hlkwb{=}\hlkwd{cbind}\hlstd{(w1}\hlopt{$}\hlstd{out[[}\hlnum{1}\hlstd{]][}\hlnum{1}\hlopt{:}\hlstd{status,],w1}\hlopt{$}\hlstd{out[[}\hlnum{3}\hlstd{]][}\hlnum{1}\hlopt{:}\hlstd{status,])}
+\hlstd{mcmc2.tmp}\hlkwb{=}\hlkwd{cbind}\hlstd{(w2}\hlopt{$}\hlstd{out[[}\hlnum{1}\hlstd{]][}\hlnum{1}\hlopt{:}\hlstd{status,],w2}\hlopt{$}\hlstd{out[[}\hlnum{3}\hlstd{]][}\hlnum{1}\hlopt{:}\hlstd{status,])}
+\hlstd{chain1}\hlkwb{=}\hlkwd{mcmc}\hlstd{(mcmc1.tmp)}
+\hlstd{chain2}\hlkwb{=}\hlkwd{mcmc}\hlstd{(mcmc2.tmp)}
+\hlstd{out.list}\hlkwb{=}\hlkwd{mcmc.list}\hlstd{(chain1,chain2)}
+\hlstd{(GR.Diag}\hlkwb{=}\hlkwd{gelman.diag}\hlstd{(out.list,}\hlkwc{confidence} \hlstd{=} \hlnum{0.95}\hlstd{,}
+                     \hlkwc{transform}\hlstd{=}\hlnum{FALSE}\hlstd{,}\hlkwc{autoburnin}\hlstd{=}\hlnum{TRUE}\hlstd{)[}\hlnum{2}\hlstd{])}
+\end{alltt}
+\begin{verbatim}
+## $mpsrf
+## [1] 1.003851
+\end{verbatim}
+\begin{alltt}
+\hlcom{##}
+\hlcom{## Effective sample size}
+\hlcom{##}
+
+\hlstd{(ESS}\hlkwb{=}\hlkwd{min}\hlstd{(}\hlkwd{ess}\hlstd{(chain1)))}
+\end{alltt}
+\begin{verbatim}
+## [1] 3465.526
+\end{verbatim}
+\begin{alltt}
+\hlcom{##}
+\hlcom{## Bayesian p-value}
+\hlcom{##}
+
+\hlstd{T.mcmc.chi2}\hlkwb{=}\hlstd{w2}\hlopt{$}\hlstd{out[[}\hlnum{5}\hlstd{]][ind]}
+\hlstd{T.data.chi2}\hlkwb{=}\hlstd{w2}\hlopt{$}\hlstd{out[[}\hlnum{6}\hlstd{]][ind]}
+\hlstd{(Bayes.p}\hlkwb{=}\hlkwd{sum}\hlstd{(T.mcmc.chi2}\hlopt{>=}\hlstd{T.data.chi2,}
+             \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}\hlopt{/}\hlkwd{length}\hlstd{(ind))}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.5633333
+\end{verbatim}
+\begin{alltt}
+\hlcom{##}
+\hlcom{## Sampled posterior predictive value}
+\hlcom{##}
+
+\hlkwd{set.seed}\hlstd{(}\hlnum{2017}\hlstd{)}
+\hlstd{n}\hlkwb{=}\hlkwd{dim}\hlstd{(Y)[}\hlnum{1}\hlstd{]}
+\hlstd{J}\hlkwb{=}\hlkwd{dim}\hlstd{(Y)[}\hlnum{2}\hlstd{]}
+\hlstd{param.vec.id}\hlkwb{=}\hlkwd{sample}\hlstd{(ind,}\hlnum{1}\hlstd{)}
+\hlstd{p.sppv}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[[}\hlnum{1}\hlstd{]][param.vec.id]}
+\hlstd{lambda.sppv}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[[}\hlnum{3}\hlstd{]][param.vec.id,]}
+\hlstd{N.sppv}\hlkwb{=}\hlstd{w1}\hlopt{$}\hlstd{out[[}\hlnum{2}\hlstd{]][param.vec.id,]}
+\hlstd{Expected.Y}\hlkwb{=}\hlkwd{matrix}\hlstd{(N.sppv}\hlopt{*}\hlstd{p.sppv,}\hlkwd{dim}\hlstd{(Y)[}\hlnum{1}\hlstd{],}\hlkwd{dim}\hlstd{(Y)[}\hlnum{2}\hlstd{])}
+\hlstd{reps}\hlkwb{=}\hlnum{100000}
+\hlstd{T.mcmc.sppv.chi2}\hlkwb{=}\hlkwd{numeric}\hlstd{(reps)}
+\hlstd{T.data.sppv.chi2}\hlkwb{=}\hlkwd{numeric}\hlstd{(reps)}
+\hlkwa{for}\hlstd{(k} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{reps)\{}
+    \hlstd{y.sppv}\hlkwb{=}\hlkwd{matrix}\hlstd{(}\hlkwd{rbinom}\hlstd{(n}\hlopt{*}\hlstd{J,N.sppv,p.sppv),n,J)}
+    \hlstd{y.sppv[}\hlkwd{is.na}\hlstd{(Y)]}\hlkwb{=}\hlnum{NA}
+    \hlcom{## T.mcmc.sppv.chi2[k]=sum(apply(y.sppv,1,var,na.rm=TRUE))}
+    \hlcom{## T.data.sppv.chi2[k]=sum(apply(Y,1,var,na.rm=TRUE))}
+    \hlstd{T.mcmc.sppv.chi2[k]}\hlkwb{=}\hlkwd{sum}\hlstd{(((y.sppv}\hlopt{-}\hlstd{Expected.Y)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{Expected.Y,}\hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+    \hlstd{T.data.sppv.chi2[k]}\hlkwb{=}\hlkwd{sum}\hlstd{(((Y}\hlopt{-}\hlstd{Expected.Y)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{Expected.Y,}\hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\hlstd{\}}
+\hlstd{(sppv}\hlkwb{=}\hlkwd{sum}\hlstd{(T.mcmc.sppv.chi2}\hlopt{>=}\hlstd{T.data.sppv.chi2)}\hlopt{/}\hlstd{reps)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.82266
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+\subsection{Plot MCMC output}
+
+
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{foo.pdf}
+    \caption[Convergence and posterior distributions -- modified
+    data]{Convergence diagnostics and posterior distributions of model
+    parameters using modified sea otter data.}
+  \end{figure}
+\end{center}
+
+
+
+\begin{center}
+  \begin{figure}[H]
+    \includegraphics[width=.9\linewidth,keepaspectratio]{expectedobserved2.pdf}
+    \caption[Observed vs. expected -- modified data]{Observed
+      vs. expected counts of sea otters at 20 sites in Glacier Bay,
+      AK, based on model fit after removing one site that violated the
+      closure assumption. Black line: posterior distribution of
+      expected counts. Red lines: sum of the observed counts for two
+      observation periods (i.e., sum of column 1 and column 2 of \texttt{SeaOtterData[-19,]}).}
+  \end{figure}
+\end{center}
+
+
+
+\end{document}
+
